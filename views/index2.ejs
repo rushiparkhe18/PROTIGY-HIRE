@@ -1,0 +1,2892 @@
+<html lang="en" class="lenis lenis-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description"
+    content="Learn how to build modern websites with animations, explore awwwards-winning or award-winning websites, and courses on website creation. Master web technologies like Node.js, MongoDB, Socket.io, and databases such as DBMS. Dive into programming with Java, C, Python, and explore data analysis, blockchain, CPT, aptitude, HTML, CSS, and JavaScript for a comprehensive learning experience in modern web technologies.">
+  <meta name="keywords"
+    content="modern web technologies, animations, award-winning websites, Node.js, MongoDB, Socket.io, DBMS, Java, C, Python, data analysis, blockchain, CPT, aptitude, HTML, CSS, JavaScript">
+  <meta name="robots" content="index, follow">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>
+    ProdigyHire
+  </title>
+
+  <style>
+    @font-face {
+      src: url("/fonts/Gilroy-Heavy.ttf");
+      font-family: "Gilroy";
+      font-weight: 900;
+    }
+
+    @font-face {
+      src: url("/fonts/Gilroy-Black.ttf");
+      font-family: "Gilroy";
+      font-weight: 800;
+    }
+
+    @font-face {
+      src: url("https://ik.imagekit.io/sheryians/SiteStaticFiles/Gilroy-Extrabold_YC6oQDa3Ix.ttf?updatedAt=1697720439904");
+      font-family: "Gilroy";
+      font-weight: 700;
+    }
+
+    @font-face {
+      src: url("https://ik.imagekit.io/sheryians/SiteStaticFiles/Gilroy-Bold_JK4cTGJOE.ttf?updatedAt=1697720175118");
+      font-family: "Gilroy";
+      font-weight: 600;
+    }
+
+    @font-face {
+      src: url("https://ik.imagekit.io/sheryians/SiteStaticFiles/Gilroy-Semibold_zTZ2PgJOF.ttf?updatedAt=1697720387357");
+      font-family: "Gilroy";
+      font-weight: 500;
+    }
+
+    @font-face {
+      src: url("https://ik.imagekit.io/sheryians/SiteStaticFiles/Gilroy-Medium_eHDK2RllDd.ttf?updatedAt=1697720216741");
+      font-family: "Gilroy";
+      font-weight: 400;
+    }
+
+    @font-face {
+      src: url("/fonts/Gilroy-Regular.ttf");
+      font-family: "Gilroy";
+      font-weight: 300;
+    }
+
+    @font-face {
+      src: url("/fonts/Gilroy-Light.ttf");
+      font-family: "Gilroy";
+      font-weight: 200;
+    }
+
+    @font-face {
+      src: url("/fonts/Gilroy-Ultralight.ttf");
+      font-family: "Gilroy";
+      font-weight: 100;
+    }
+
+    @font-face {
+      font-family: "stretch";
+      src: url('/fonts/STRRETCH\ SANS.ttf');
+    }
+
+    :root {
+      --primary: #10a37f;
+      --secondary: #075c48;
+      --white: #fff;
+      --primaryLight: #F8F8F8;
+      --primaryLightNavStroke: #F8F8F8;
+      --primaryDark: #222222;
+      --primaryDarkNavStroke: #222222;
+      --secondaryLight: #dbdbdb;
+      --secondaryLightActive: #cbcbcb;
+      --secondaryDark: #ececec;
+      --secondaryDarkShadow: rgba(0, 0, 0, 0.16);
+      --textColor: #7BBA81;
+      --special: #d2af7a;
+      --ternary: #c4c9d3;
+      --error: #e74c3c;
+      --maxPageWidth: 110rem;
+      --discord: #7b40ff;
+      --link: rgb(0, 71, 125)
+    }
+
+    * {
+      margin: 0%;
+      padding: 0%;
+      box-sizing: border-box;
+      font-family: "Gilroy";
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      text-rendering: optimizeSpeed;
+    }
+
+    *:focus {
+      outline: none;
+    }
+
+    *::selection {
+      color: var(--primaryLight);
+      background: var(--primaryDark);
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: var(--secondaryDark);
+    }
+
+    html {
+      font-size: clamp(15px, 1vw, 16.5px);
+    }
+
+    body {
+      /* overflow: overlay; */
+      -webkit-font-smoothing: antialiased;
+
+    }
+
+    html ::-webkit-scrollbar,
+    body ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    html ::-webkit-scrollbar-thumb,
+    body ::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.4392156863);
+      border-radius: 3px;
+    }
+
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0%;
+      z-index: 999;
+      padding: 0.3rem 5vw;
+      max-width: 110rem;
+      /* height: 3rem; */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--secondaryDark);
+      /* transition: all 1.3s cubic-bezier(0.23, 1, 0.32, 1); */
+      padding-top: min(1rem, 4vh);
+    }
+
+    #nav .mainPage {
+      display: none;
+    }
+
+    nav::after {
+      content: "";
+      position: absolute;
+      transform: translate(-50%, 0%);
+      left: 50%;
+      bottom: 0;
+      width: 100vw;
+      height: 100%;
+      background-color: var(--secondaryDark);
+      /* background-color: red; */
+      z-index: -1;
+    }
+
+    nav .nav-right {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      position: relative;
+    }
+
+    nav .nav-right .toggleTheme {
+      display: none;
+    }
+
+    nav .nav-item.notificationButton svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+
+    nav .nav-right.notificationActive .notificationOverlay {
+      display: flex;
+      -webkit-backdrop-filter: blur(0.4px);
+      backdrop-filter: blur(0.4px);
+      transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    nav .nav-right.notificationActive .notifications {
+      display: flex;
+    }
+
+    nav .nav-right .notificationOverlay {
+      position: fixed;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      height: 100vh;
+      width: 100vw;
+      z-index: 9998;
+      display: none;
+      -webkit-backdrop-filter: blur(0);
+      backdrop-filter: blur(0);
+    }
+
+    nav .nav-right .notifications {
+      container: notificationPanel/inline-size;
+      position: absolute;
+      right: 50%;
+      top: 140%;
+      max-height: 30rem;
+      width: 28rem;
+      border-radius: 0.7rem;
+      display: none;
+      flex-direction: column;
+      z-index: 9999;
+      overflow: auto;
+      overscroll-behavior: contain;
+      box-shadow: 0 0 20px 0px var(--secondaryDarkShadow);
+      background-color: var(--secondaryDark);
+    }
+
+
+    nav .nav-right .notifications .notificationPanel {
+      position: sticky;
+      top: 0%;
+      padding: 0.4rem 1.3rem;
+      padding-bottom: 0.7rem;
+      background-color: var(--secondaryDark);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.183);
+      z-index: 9;
+    }
+
+    nav .nav-right .notifications .notificationPanel p {
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    nav .nav-right .notifications::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.34);
+    }
+
+    nav .nav-right .notifications:has(.notification:nth-child(3)) .notification:last-child {
+      margin-bottom: 1rem;
+    }
+
+    nav .nav-right .notifications .seen::after {
+      opacity: 0 !important;
+    }
+
+    nav .nav-right .notifications .notification::after {
+      content: " ";
+      width: 5px;
+      height: 5px;
+      background-color: blue;
+      position: absolute;
+      border-radius: 50%;
+      z-index: 2;
+      transform: translateY(-50%);
+      left: 1%;
+      top: 40%;
+    }
+
+    nav .nav-right .notifications .notification {
+      width: 100%;
+      display: flex;
+      position: relative;
+      justify-content: flex-start;
+      gap: 1rem;
+      padding: 1.3rem 1.1rem;
+      background-color: rgba(255, 255, 255, 0);
+    }
+
+    nav .nav-right .notifications .notification:hover {
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      background-color: var(--secondaryLight);
+    }
+
+    nav .nav-right .notifications .notification.replyNotification .like {
+      display: none;
+    }
+
+    nav .nav-right .notifications .notification.likeNotification .reply {
+      display: none;
+    }
+
+    nav .nav-right .notifications .notification .user img {
+      height: 2.75rem;
+      width: 2.75rem;
+      border-radius: 50%;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+
+    nav .nav-right .notifications .notification .data {
+      padding: 0.3rem;
+      padding-top: 0;
+      height: -moz-fit-content;
+      height: fit-content;
+    }
+
+    nav .nav-right .notifications .notification .data p {
+      font-size: 1rem;
+      font-weight: 300;
+      white-space: normal;
+    }
+
+    nav .nav-right .notifications .notification .data p span {
+      text-align: start;
+    }
+
+    nav .nav-right .notifications .notification .data small {
+      margin-top: 0.5rem;
+      opacity: 0.65;
+      font-size: 0.75rem;
+    }
+
+    nav .nav-right .notifications .notification .data .text {
+      display: -webkit-box;
+      max-width: 400px;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+    }
+
+    nav .nav-right .notifications .notification .lecture {
+      margin-left: auto;
+    }
+
+    nav .nav-right .notifications .notification .lecture img {
+      aspect-ratio: 1920/1080;
+      height: 3.2rem;
+      border-radius: 0.25rem;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+
+    nav .nav-right .notifications:not(:has(.notification)) {
+      height: 10rem;
+      /* background-color: red; */
+      /* position: relative; */
+    }
+
+    nav .nav-right .notifications:not(:has(.notification))::after {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: calc(50% + 1rem);
+      content: 'no notification yet !';
+      font-weight: 400;
+      font-size: 1rem;
+      white-space: nowrap;
+      color: var(--ternary)
+    }
+
+    nav .nav-right .nav-item {
+      display: flex;
+      height: -moz-fit-content;
+      height: fit-content;
+      height: intrinsic;
+      cursor: pointer;
+      transition: all 0.83s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    nav .nav-right .nav-item .psudoeElem {
+      display: flex;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      height: 120%;
+      width: 150%;
+      z-index: 255;
+    }
+
+    nav .nav-right .nav-item.notificationButton {
+      position: relative;
+      z-index: 9999;
+    }
+
+    .nav-right:has(.unseen) .nav-item.notificationButton::after {
+      content: " ";
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 90%;
+      top: 0%;
+      height: 0.35rem;
+      width: 0.35rem;
+      border-radius: 50%;
+      background-color: var(--error);
+      z-index: 9999;
+    }
+
+    @media (max-width: 600px) {
+      nav .nav-right .notifications {
+        top: 3.5rem;
+        position: fixed;
+        right: 5vw;
+        max-width: 85vw;
+      }
+
+      nav .nav-right .notifications .notification {
+        gap: 0.5rem;
+        padding: 1rem 0.7rem;
+      }
+
+      nav .nav-right .notifications .notification::after {
+        top: 37%;
+      }
+
+      nav .nav-right .notifications .notification .user img {
+        height: 2.3rem;
+        width: 2.3rem;
+      }
+
+      nav .nav-right .notifications .notification .lecture {
+
+
+        /* display: none !important; */
+      }
+
+      nav .nav-right .notifications .notification .lecture img {
+        aspect-ratio: 1/1;
+      }
+    }
+
+    @media only screen and (min-width: 600px) and (max-width: 768px) {
+
+      body #main #quote {
+        flex-direction: column-reverse;
+        gap: 1.5rem;
+      }
+
+      body #main #quote .right {
+        width: 100%;
+      }
+
+      body #main #quote .right h1 {
+        width: 100%;
+      }
+
+      body #main #footer .bottom {
+        padding-top: 2.5vh;
+        padding-bottom: 2.5vh;
+        flex-wrap: wrap;
+        row-gap: 0.2rem;
+        -moz-column-gap: 2rem;
+        column-gap: 2rem;
+        justify-content: space-between;
+      }
+
+      body #main #footer .bottom .contactUs {
+        text-align: start;
+        width: 100%;
+        margin-top: 2.2rem;
+      }
+    }
+
+
+
+    nav .left,
+    nav #leftWrapper {
+      height: 100%;
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      overflow: hidden;
+      transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    nav #leftWrapper .leftCounter {
+      transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1) 1.2s;
+      display: flex;
+      gap: 7px;
+      position: absolute;
+      transform: translate(-100%);
+      left: 0%;
+      /* padding-left: 10px; */
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    nav #leftWrapper .leftCounter p {
+      font-size: 1.5rem;
+    }
+
+
+
+    nav .left {
+      overflow: initial;
+    }
+
+    /* nav #leftWrapper .left{
+
+    } */
+
+    nav .left p,
+    nav #leftWrapper p {
+      width: 135px;
+    }
+
+    nav .left .hline,
+    nav #leftWrapper .hline {
+      width: 1px;
+      height: 1.7rem;
+      background-color: rgba(53, 53, 53, 0.349);
+    }
+
+    nav #leftWrapper p {
+      font-weight: 600;
+    }
+
+    nav .left img,
+    nav #leftWrapper img {
+      height: 2.5rem;
+      width: 2.5rem;
+      -o-object-fit: contain;
+      object-fit: contain;
+      position: absolute;
+      left: 4.5vw;
+    }
+
+    nav .right {
+      display: flex;
+      position: fixed;
+      top: 0;
+      height: 100vh;
+      height: 100dvh;
+      width: 45rem;
+      right: 0rem;
+      gap: 8rem;
+      transform: translate3d(45rem, 0, 0);
+      padding-left: 3rem;
+      padding-top: 11.5rem;
+      background-color: var(--primaryLight);
+      /* transition: transform 0.55s ease-in-out, padding-left 400ms ease-in-out 258.633ms; */
+      transition: transform 0.55s ease-in-out, padding-left 397.307ms ease-in-out 136.527ms;
+      /* transition: transform 397.307ms ease-in-out 136.527ms, padding-left 0s ease-in-out; */
+      will-change: padding-left, transform;
+    }
+
+    nav .psudoElementRemove {
+      height: 100dvh;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      backdrop-filter: blur(1px);
+      transform: translate3d(100vw, 0, 0);
+    }
+
+    nav .right a {
+      text-decoration: none;
+      color: var(--primaryDark);
+    }
+
+    nav .right a.loggedInUser .text span {
+      max-width: 22rem;
+      flex-shrink: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+
+    nav .right .socials,
+    nav .right .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    nav .right .socials .title,
+    nav .right .menu .title {
+      margin-bottom: 0.75rem;
+      opacity: 0.6;
+      font-size: 0.9em;
+    }
+
+    nav .right .socials a,
+    nav .right .menu a {
+      font-size: 1rem;
+    }
+
+    nav .right .nav-item {
+      transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    nav .right .nav-item:hover span,
+    nav .right .nav-item:has(.psudoeElem:hover) span {
+      transform: translateY(-100%);
+    }
+
+    nav .right .nav-item .text {
+      position: relative;
+      transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      flex-direction: column;
+      height: 1.2rem;
+      overflow: hidden;
+    }
+
+    nav .right .nav-item .text span {
+      transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      height: 1.2rem;
+    }
+
+    nav .right .nav-item .psudoeElem {
+      display: flex;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      height: 220%;
+      width: 150%;
+      z-index: 255;
+    }
+
+    nav .right .socials .nav-item::before {
+      height: 170%;
+    }
+
+    nav .right .menu {
+      gap: 0.65rem;
+    }
+
+    nav .right .menu .nav-item .psudoeElem {
+      height: 100%;
+    }
+
+    nav .right .menu .text {
+      height: 4.08rem;
+    }
+
+    nav .right .menu .text span {
+      height: 4.08rem;
+    }
+
+    nav .right .menu .title {
+      margin-bottom: 1.2rem;
+    }
+
+    nav .right .menu a {
+      font-size: 3.4rem;
+    }
+
+    nav .right button {
+      padding: 7px 13px;
+      background-color: var(--primaryDark);
+      border: none;
+      outline: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--secondaryLight);
+      width: -moz-fit-content;
+      width: fit-content;
+      white-space: nowrap;
+    }
+
+    nav .right .socialMedias {
+      display: none;
+    }
+
+    nav svg {
+      width: 2.5rem;
+      height: 2.5rem;
+      -o-object-fit: contain;
+      object-fit: contain;
+      position: relative;
+      z-index: 5858;
+      cursor: pointer;
+      transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #main {
+      background-color: var(--secondaryDark);
+      width: 100%;
+      /* overflow: hidden; */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    button {
+      padding: 7px 13px;
+      background-color: var(--primaryDark);
+      border: none;
+      outline: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--primaryLight);
+      width: -moz-fit-content;
+      width: fit-content;
+      white-space: nowrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--primaryDark);
+    }
+
+    #main .page {
+      width: 100%;
+      padding: 7vh 6vw;
+      max-width: 110rem;
+    }
+
+    .navCursor {
+      transform-origin: center;
+      height: 3.5rem;
+      width: 3.5rem;
+      background-color: var(--white);
+      background-blend-mode: overlay;
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%) scale(0);
+      top: 0;
+      left: 0;
+      mix-blend-mode: exclusion;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+      z-index: 10895;
+      pointer-events: none;
+    }
+
+
+
+    @media (max-width: 600px) {
+      html {
+        /* font-size: clamp(18px, 1vw, 19px); */
+      }
+
+      #main {
+        position: initial !important;
+      }
+
+      nav {
+        min-height: 3.5rem;
+        padding-bottom: 0.7rem !important;
+        position: fixed;
+        z-index: 99;
+        padding: 0.7rem 5vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav .left {
+        height: 100%;
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        z-index: 101;
+      }
+
+      nav .left p {
+        width: 135px;
+      }
+
+      nav .left .hline {
+        width: 1px;
+        height: 60%;
+        background-color: rgba(0, 0, 0, 0.349);
+      }
+
+      nav .left img {
+        -o-object-fit: contain;
+        object-fit: contain;
+      }
+
+      nav svg {
+        display: flex;
+        cursor: pointer;
+        z-index: 101;
+        height: 1.5rem;
+        width: 1.5rem;
+        position: relative;
+      }
+
+
+
+      nav .right {
+        width: 100vw;
+        padding-left: 0rem;
+        padding-top: 8rem;
+      }
+
+      nav .right .socials {
+        display: none;
+      }
+
+      nav .right p,
+      nav .right button {
+        opacity: 1;
+        font-size: 2rem;
+        line-height: 3.5rem;
+        font-weight: 300;
+        background-color: transparent;
+        color: var(--primaryDark);
+        cursor: pointer;
+      }
+  </style>
+  <style>
+    @media only screen and (min-width: 600px) and (max-width: 768px) {
+      #main #page1 {
+        padding-top: min(17vh, 7rem) !important;
+      }
+
+      body #main .cardCourses .card {
+        min-width: 47vw !important;
+        max-width: initial;
+        width: initial;
+      }
+
+      body #main .coursesSection .courses .courseWrapper .course .courseTitle {
+        width: 170%;
+      }
+
+      body #main .coursesSection .courses .courseWrapper .course .imageWrapper {
+        width: 170%;
+        max-width: 200%;
+      }
+
+      body #main .coursesSection .courses .courseWrapper .course .imageWrapper {
+        height: initial;
+      }
+
+      body #main .coursesSection .courses .courseWrapper:nth-child(2) .course {
+        margin-top: 110vh;
+      }
+
+      body #main .coursesSection .courses .courseWrapper:nth-child(2) .course>* {
+        transform: translate(-12rem, 0) !important;
+      }
+
+      body #main .coursesSection .courses .courseWrapper:nth-child(3) .course>* {
+        transform: translate(-8.5rem, 0) !important;
+      }
+
+
+      body #main .coursesSection .courses .courseWrapper:nth-child(3) .course {
+        margin-top: 60vh;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="/stylesheets/home1.css">
+  <script type="text/javascript">
+    window.hasMobileFirstExtension = true;</script>
+</head>
+
+<body class="vsc-initialized">
+  <div id="main">
+    <nav id="nav" style="transform: translateY(-7.10543e-14px); background-color: black;">
+      <a href="/" class="left normal" style="margin-left: 0px;">
+        <img src="/Sheryians_Logo_wFKd9VClG.png" alt="">
+        <div id="leftWrapper" style="transform: translateX(0px);">
+          <div class="left">
+            <div class="hline"></div>
+            <p>
+              ProdigyHire
+            </p>
+          </div>
+          <div class="leftCounter">
+            <div class="hline"></div>
+            <p>Home</p>
+          </div>
+        </div>
+      </a>
+      <a href="/" class="left mainPage">
+        <div id="leftWrapper">
+          <div class="left">
+            <p>
+              PRODIGY HI<span class="stretched">RE</span> <br>
+            </p>
+          </div>
+
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <div data-lenis-prevent="" class="notifications">
+          <div class="notificationPanel">
+            <p>Notifications</p>
+          </div>
+        </div>
+        <div class="notificationOverlay"></div>
+        <div class="toggleTheme">
+          <input type="checkbox" class="toggle" id="toggleThemeCheckbox" hidden="">
+          <label for="toggleThemeCheckbox" class="toggleTheme-label">
+            <div class="sun"></div>
+            <div class="moon"></div>
+            <span class="ball"></span>
+          </label>
+        </div>
+
+        <svg data-magent-scale="4" class="nav-item" id="menuButton" version="1.1"
+          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50"
+          style="transform: translate3d(0px, 0px, 0px);">
+
+          <style type="text/css">
+            .st0 {
+              fill: #FFFFFF;
+              stroke: var(--primaryDark);
+              stroke-miterlimit: 10;
+              stroke-width: 0.2rem;
+            }
+          </style>
+          <line id="line1" class="st0" x1="3" y1="18.4" x2="47" y2="18.4" style="stroke: var(--primaryLight);"></line>
+          <line id="line2" class="st0" x1="3" y1="31.6" x2="47" y2="31.6" style="stroke: var(--primaryLight);"></line>
+        </svg>
+      </div>
+
+      <div class="psudoElementRemove" style="transform: translate3d(100vw, 0px, 0px);"></div>
+      <div class="right" style="padding-left: 3rem; transform: translate3d(45rem, 0px, 0px);">
+        <div class="socials">
+          <div class="title">Pages</div>
+          <a class="nav-item" href="https://www.youtube.com/channel/UCc7gpqMnnOSbU_F2-5MVVZw" target="_blank"
+            style="transform: translate3d(0px, 0px, 0px);">
+            <div class="psudoeElem"></div>
+            <div class="text">
+              <span>About</span> <span>About us</span>
+            </div>
+          </a>
+          <a class="nav-item" href="https://www.instagram.com/sheryians_coding_school" target="_blank"
+            style="transform: translate3d(0px, 0px, 0px);">
+            <div class="psudoeElem"></div>
+            <div class="text">
+              <span>Contact</span> <span>Contact us</span>
+            </div>
+          </a>
+          <a class="nav-item" href="https://discord.gg/D23JkFqrgz" target="_blank"
+            style="transform: translate3d(0px, 0px, 0px);">
+            <div class="psudoeElem"></div>
+            <div class="text">
+              <span>FAQ</span> <span>FAQ</span>
+            </div>
+          </a>
+          <a class="nav-item" href="https://in.linkedin.com/company/the-sheryians-coding-school" target="_blank">
+            <div class="psudoeElem"></div>
+            <div class="text">
+              <span>Terms</span> <span>Terms & Conditions</span>
+            </div>
+          </a>
+        </div>
+        <div class="menu">
+          <div class="title">Menu</div>
+
+
+
+          <a class="nav-item" href="/" style="transform: translate3d(0px, 0px, 0px);">
+            <div class="psudoeElem"></div>
+            <div class="text"> <span>Home</span> <span>Home</span> </div>
+          </a>
+          <a class="nav-item" href="/joblist" style="transform: translate3d(0px, 0px, 0px);">
+            <div class="psudoeElem"></div>
+            <div class="text"> <span>Jobs</span> <span>Jobs</span> </div>
+          </a>
+          <a href="/SignIn" class="signUp nav-item">
+            <div class="psudoeElem"></div>
+            <div class="text"> <span>Employers</span> <span>Employers</span> </div>
+
+          </a>
+          <a href="/SignIn" class="signUp nav-item">
+            <div class="psudoeElem"></div>
+            <div class="text"> <span>Candidates</span> <span>Candidates</span> </div>
+
+          </a>
+
+        </div>
+
+
+
+      </div>
+
+
+      <div class="right">
+        <a href="/">Home</a>
+        <a href="/joblist">Courses</a>
+      </div>
+
+    </nav>
+    <div class="navCursor" style="transform: translate3d(calc(1699px - 1.75rem), calc(104px - 1.75rem), 0px) scale(0);">
+    </div>
+
+
+
+
+
+    <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+      integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer="" src=" https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"
+      integrity="sha512-Mf/xUqfWvDIr+1B6zfnIDIiG7XHzyP/guXUWgV6PgaQoIFeXkJQR5XWh9fqAiCiRCpemabt3naV4jhDWVnuYDQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer">
+      </script>
+    <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"
+      integrity="sha512-YzMW3OzvgtVpIIPPpjnCy8wVTq5slHRrxnLH1oD5dkVjZf8+8DJYd+GYmmWXZNmroTqKXFFzFS3XZ/LBvaNgZg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer="">
+      ! function (n, e) {
+        "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : n.anime = e()
+      }(this, function () {
+        "use strict";
+        var n = {
+          update: null,
+          begin: null,
+          loopBegin: null,
+          changeBegin: null,
+          change: null,
+          changeComplete: null,
+          loopComplete: null,
+          complete: null,
+          loop: 1,
+          direction: "normal",
+          autoplay: !0,
+          timelineOffset: 0
+        },
+          e = {
+            duration: 1e3,
+            delay: 0,
+            endDelay: 0,
+            easing: "easeOutElastic(1, .5)",
+            round: 0
+          },
+          t = ["translateX", "translateY", "translateZ", "rotate", "rotateX", "rotateY", "rotateZ", "scale", "scaleX", "scaleY", "scaleZ", "skew", "skewX", "skewY", "perspective", "matrix", "matrix3d"],
+          r = {
+            CSS: {},
+            springs: {}
+          };
+
+        function a(n, e, t) {
+          return Math.min(Math.max(n, e), t)
+        }
+
+        function o(n, e) {
+          return n.indexOf(e) > -1
+        }
+
+        function u(n, e) {
+          return n.apply(null, e)
+        }
+        var i = {
+          arr: function (n) {
+            return Array.isArray(n)
+          },
+          obj: function (n) {
+            return o(Object.prototype.toString.call(n), "Object")
+          },
+          pth: function (n) {
+            return i.obj(n) && n.hasOwnProperty("totalLength")
+          },
+          svg: function (n) {
+            return n instanceof SVGElement
+          },
+          inp: function (n) {
+            return n instanceof HTMLInputElement
+          },
+          dom: function (n) {
+            return n.nodeType || i.svg(n)
+          },
+          str: function (n) {
+            return "string" == typeof n
+          },
+          fnc: function (n) {
+            return "function" == typeof n
+          },
+          und: function (n) {
+            return void 0 === n
+          },
+          nil: function (n) {
+            return i.und(n) || null === n
+          },
+          hex: function (n) {
+            return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(n)
+          },
+          rgb: function (n) {
+            return /^rgb/.test(n)
+          },
+          hsl: function (n) {
+            return /^hsl/.test(n)
+          },
+          col: function (n) {
+            return i.hex(n) || i.rgb(n) || i.hsl(n)
+          },
+          key: function (t) {
+            return !n.hasOwnProperty(t) && !e.hasOwnProperty(t) && "targets" !== t && "keyframes" !== t
+          }
+        };
+
+        function c(n) {
+          var e = /\(([^)]+)\)/.exec(n);
+          return e ? e[1].split(",").map(function (n) {
+            return parseFloat(n)
+          }) : []
+        }
+
+        function s(n, e) {
+          var t = c(n),
+            o = a(i.und(t[0]) ? 1 : t[0], .1, 100),
+            u = a(i.und(t[1]) ? 100 : t[1], .1, 100),
+            s = a(i.und(t[2]) ? 10 : t[2], .1, 100),
+            f = a(i.und(t[3]) ? 0 : t[3], .1, 100),
+            l = Math.sqrt(u / o),
+            d = s / (2 * Math.sqrt(u * o)),
+            p = d < 1 ? l * Math.sqrt(1 - d * d) : 0,
+            v = 1,
+            h = d < 1 ? (d * l - f) / p : -f + l;
+
+          function g(n) {
+            var t = e ? e * n / 1e3 : n;
+            return t = d < 1 ? Math.exp(-t * d * l) * (v * Math.cos(p * t) + h * Math.sin(p * t)) : (v + h * t) * Math.exp(-t * l), 0 === n || 1 === n ? n : 1 - t
+          }
+          return e ? g : function () {
+            var e = r.springs[n];
+            if (e) return e;
+            for (var t = 0, a = 0; ;)
+              if (1 === g(t += 1 / 6)) {
+                if (++a >= 16) break
+              } else a = 0;
+            var o = t * (1 / 6) * 1e3;
+            return r.springs[n] = o, o
+          }
+        }
+
+        function f(n) {
+          return void 0 === n && (n = 10),
+            function (e) {
+              return Math.ceil(a(e, 1e-6, 1) * n) * (1 / n)
+            }
+        }
+        var l, d, p = function () {
+          var n = 11,
+            e = 1 / (n - 1);
+
+          function t(n, e) {
+            return 1 - 3 * e + 3 * n
+          }
+
+          function r(n, e) {
+            return 3 * e - 6 * n
+          }
+
+          function a(n) {
+            return 3 * n
+          }
+
+          function o(n, e, o) {
+            return ((t(e, o) * n + r(e, o)) * n + a(e)) * n
+          }
+
+          function u(n, e, o) {
+            return 3 * t(e, o) * n * n + 2 * r(e, o) * n + a(e)
+          }
+          return function (t, r, a, i) {
+            if (0 <= t && t <= 1 && 0 <= a && a <= 1) {
+              var c = new Float32Array(n);
+              if (t !== r || a !== i)
+                for (var s = 0; s < n; ++s) c[s] = o(s * e, t, a);
+              return function (n) {
+                return t === r && a === i ? n : 0 === n || 1 === n ? n : o(f(n), r, i)
+              }
+            }
+
+            function f(r) {
+              for (var i = 0, s = 1, f = n - 1; s !== f && c[s] <= r; ++s) i += e;
+              var l = i + (r - c[--s]) / (c[s + 1] - c[s]) * e,
+                d = u(l, t, a);
+              return d >= .001 ? function (n, e, t, r) {
+                for (var a = 0; a < 4; ++a) {
+                  var i = u(e, t, r);
+                  if (0 === i) return e;
+                  e -= (o(e, t, r) - n) / i
+                }
+                return e
+              }(r, l, t, a) : 0 === d ? l : function (n, e, t, r, a) {
+                for (var u, i, c = 0;
+                  (u = o(i = e + (t - e) / 2, r, a) - n) > 0 ? t = i : e = i, Math.abs(u) > 1e-7 && ++c < 10;);
+                return i
+              }(r, i, i + e, t, a)
+            }
+          }
+        }(),
+          v = (l = {
+            linear: function () {
+              return function (n) {
+                return n
+              }
+            }
+          }, d = {
+            Sine: function () {
+              return function (n) {
+                return 1 - Math.cos(n * Math.PI / 2)
+              }
+            },
+            Circ: function () {
+              return function (n) {
+                return 1 - Math.sqrt(1 - n * n)
+              }
+            },
+            Back: function () {
+              return function (n) {
+                return n * n * (3 * n - 2)
+              }
+            },
+            Bounce: function () {
+              return function (n) {
+                for (var e, t = 4; n < ((e = Math.pow(2, --t)) - 1) / 11;);
+                return 1 / Math.pow(4, 3 - t) - 7.5625 * Math.pow((3 * e - 2) / 22 - n, 2)
+              }
+            },
+            Elastic: function (n, e) {
+              void 0 === n && (n = 1), void 0 === e && (e = .5);
+              var t = a(n, 1, 10),
+                r = a(e, .1, 2);
+              return function (n) {
+                return 0 === n || 1 === n ? n : -t * Math.pow(2, 10 * (n - 1)) * Math.sin((n - 1 - r / (2 * Math.PI) * Math.asin(1 / t)) * (2 * Math.PI) / r)
+              }
+            }
+          }, ["Quad", "Cubic", "Quart", "Quint", "Expo"].forEach(function (n, e) {
+            d[n] = function () {
+              return function (n) {
+                return Math.pow(n, e + 2)
+              }
+            }
+          }), Object.keys(d).forEach(function (n) {
+            var e = d[n];
+            l["easeIn" + n] = e, l["easeOut" + n] = function (n, t) {
+              return function (r) {
+                return 1 - e(n, t)(1 - r)
+              }
+            }, l["easeInOut" + n] = function (n, t) {
+              return function (r) {
+                return r < .5 ? e(n, t)(2 * r) / 2 : 1 - e(n, t)(-2 * r + 2) / 2
+              }
+            }, l["easeOutIn" + n] = function (n, t) {
+              return function (r) {
+                return r < .5 ? (1 - e(n, t)(1 - 2 * r)) / 2 : (e(n, t)(2 * r - 1) + 1) / 2
+              }
+            }
+          }), l);
+
+        function h(n, e) {
+          if (i.fnc(n)) return n;
+          var t = n.split("(")[0],
+            r = v[t],
+            a = c(n);
+          switch (t) {
+            case "spring":
+              return s(n, e);
+            case "cubicBezier":
+              return u(p, a);
+            case "steps":
+              return u(f, a);
+            default:
+              return u(r, a)
+          }
+        }
+
+        function g(n) {
+          try {
+            return document.querySelectorAll(n)
+          } catch (n) {
+            return
+          }
+        }
+
+        function m(n, e) {
+          for (var t = n.length, r = arguments.length >= 2 ? arguments[1] : void 0, a = [], o = 0; o < t; o++)
+            if (o in n) {
+              var u = n[o];
+              e.call(r, u, o, n) && a.push(u)
+            } return a
+        }
+
+        function y(n) {
+          return n.reduce(function (n, e) {
+            return n.concat(i.arr(e) ? y(e) : e)
+          }, [])
+        }
+
+        function b(n) {
+          return i.arr(n) ? n : (i.str(n) && (n = g(n) || n), n instanceof NodeList || n instanceof HTMLCollection ? [].slice.call(n) : [n])
+        }
+
+        function M(n, e) {
+          return n.some(function (n) {
+            return n === e
+          })
+        }
+
+        function x(n) {
+          var e = {};
+          for (var t in n) e[t] = n[t];
+          return e
+        }
+
+        function w(n, e) {
+          var t = x(n);
+          for (var r in n) t[r] = e.hasOwnProperty(r) ? e[r] : n[r];
+          return t
+        }
+
+        function k(n, e) {
+          var t = x(n);
+          for (var r in e) t[r] = i.und(n[r]) ? e[r] : n[r];
+          return t
+        }
+
+        function O(n) {
+          return i.rgb(n) ? (t = /rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(e = n)) ? "rgba(" + t[1] + ",1)" : e : i.hex(n) ? (r = n.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, function (n, e, t, r) {
+            return e + e + t + t + r + r
+          }), a = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(r), "rgba(" + parseInt(a[1], 16) + "," + parseInt(a[2], 16) + "," + parseInt(a[3], 16) + ",1)") : i.hsl(n) ? function (n) {
+            var e, t, r, a = /hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(n) || /hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(n),
+              o = parseInt(a[1], 10) / 360,
+              u = parseInt(a[2], 10) / 100,
+              i = parseInt(a[3], 10) / 100,
+              c = a[4] || 1;
+
+            function s(n, e, t) {
+              return t < 0 && (t += 1), t > 1 && (t -= 1), t < 1 / 6 ? n + 6 * (e - n) * t : t < .5 ? e : t < 2 / 3 ? n + (e - n) * (2 / 3 - t) * 6 : n
+            }
+            if (0 == u) e = t = r = i;
+            else {
+              var f = i < .5 ? i * (1 + u) : i + u - i * u,
+                l = 2 * i - f;
+              e = s(l, f, o + 1 / 3), t = s(l, f, o), r = s(l, f, o - 1 / 3)
+            }
+            return "rgba(" + 255 * e + "," + 255 * t + "," + 255 * r + "," + c + ")"
+          }(n) : void 0;
+          var e, t, r, a
+        }
+
+        function C(n) {
+          var e = /[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(n);
+          if (e) return e[1]
+        }
+
+        function P(n, e) {
+          return i.fnc(n) ? n(e.target, e.id, e.total) : n
+        }
+
+        function I(n, e) {
+          return n.getAttribute(e)
+        }
+
+        function D(n, e, t) {
+          if (M([t, "deg", "rad", "turn"], C(e))) return e;
+          var a = r.CSS[e + t];
+          if (!i.und(a)) return a;
+          var o = document.createElement(n.tagName),
+            u = n.parentNode && n.parentNode !== document ? n.parentNode : document.body;
+          u.appendChild(o), o.style.position = "absolute", o.style.width = 100 + t;
+          var c = 100 / o.offsetWidth;
+          u.removeChild(o);
+          var s = c * parseFloat(e);
+          return r.CSS[e + t] = s, s
+        }
+
+        function B(n, e, t) {
+          if (e in n.style) {
+            var r = e.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase(),
+              a = n.style[e] || getComputedStyle(n).getPropertyValue(r) || "0";
+            return t ? D(n, a, t) : a
+          }
+        }
+
+        function T(n, e) {
+          return i.dom(n) && !i.inp(n) && (!i.nil(I(n, e)) || i.svg(n) && n[e]) ? "attribute" : i.dom(n) && M(t, e) ? "transform" : i.dom(n) && "transform" !== e && B(n, e) ? "css" : null != n[e] ? "object" : void 0
+        }
+
+        function E(n) {
+          if (i.dom(n)) {
+            for (var e, t = n.style.transform || "", r = /(\w+)\(([^)]*)\)/g, a = new Map; e = r.exec(t);) a.set(e[1], e[2]);
+            return a
+          }
+        }
+
+        function F(n, e, t, r) {
+          var a, u = o(e, "scale") ? 1 : 0 + (o(a = e, "translate") || "perspective" === a ? "px" : o(a, "rotate") || o(a, "skew") ? "deg" : void 0),
+            i = E(n).get(e) || u;
+          return t && (t.transforms.list.set(e, i), t.transforms.last = e), r ? D(n, i, r) : i
+        }
+
+        function A(n, e, t, r) {
+          switch (T(n, e)) {
+            case "transform":
+              return F(n, e, r, t);
+            case "css":
+              return B(n, e, t);
+            case "attribute":
+              return I(n, e);
+            default:
+              return n[e] || 0
+          }
+        }
+
+        function N(n, e) {
+          var t = /^(\*=|\+=|-=)/.exec(n);
+          if (!t) return n;
+          var r = C(n) || 0,
+            a = parseFloat(e),
+            o = parseFloat(n.replace(t[0], ""));
+          switch (t[0][0]) {
+            case "+":
+              return a + o + r;
+            case "-":
+              return a - o + r;
+            case "*":
+              return a * o + r
+          }
+        }
+
+        function S(n, e) {
+          if (i.col(n)) return O(n);
+          if (/\s/g.test(n)) return n;
+          var t = C(n),
+            r = t ? n.substr(0, n.length - t.length) : n;
+          return e ? r + e : r
+        }
+
+        function L(n, e) {
+          return Math.sqrt(Math.pow(e.x - n.x, 2) + Math.pow(e.y - n.y, 2))
+        }
+
+        function j(n) {
+          for (var e, t = n.points, r = 0, a = 0; a < t.numberOfItems; a++) {
+            var o = t.getItem(a);
+            a > 0 && (r += L(e, o)), e = o
+          }
+          return r
+        }
+
+        function q(n) {
+          if (n.getTotalLength) return n.getTotalLength();
+          switch (n.tagName.toLowerCase()) {
+            case "circle":
+              return o = n, 2 * Math.PI * I(o, "r");
+            case "rect":
+              return 2 * I(a = n, "width") + 2 * I(a, "height");
+            case "line":
+              return L({
+                x: I(r = n, "x1"),
+                y: I(r, "y1")
+              }, {
+                x: I(r, "x2"),
+                y: I(r, "y2")
+              });
+            case "polyline":
+              return j(n);
+            case "polygon":
+              return t = (e = n).points, j(e) + L(t.getItem(t.numberOfItems - 1), t.getItem(0))
+          }
+          var e, t, r, a, o
+        }
+
+        function H(n, e) {
+          var t = e || {},
+            r = t.el || function (n) {
+              for (var e = n.parentNode; i.svg(e) && i.svg(e.parentNode);) e = e.parentNode;
+              return e
+            }(n),
+            a = r.getBoundingClientRect(),
+            o = I(r, "viewBox"),
+            u = a.width,
+            c = a.height,
+            s = t.viewBox || (o ? o.split(" ") : [0, 0, u, c]);
+          return {
+            el: r,
+            viewBox: s,
+            x: s[0] / 1,
+            y: s[1] / 1,
+            w: u,
+            h: c,
+            vW: s[2],
+            vH: s[3]
+          }
+        }
+
+        function V(n, e, t) {
+          function r(t) {
+            void 0 === t && (t = 0);
+            var r = e + t >= 1 ? e + t : 0;
+            return n.el.getPointAtLength(r)
+          }
+          var a = H(n.el, n.svg),
+            o = r(),
+            u = r(-1),
+            i = r(1),
+            c = t ? 1 : a.w / a.vW,
+            s = t ? 1 : a.h / a.vH;
+          switch (n.property) {
+            case "x":
+              return (o.x - a.x) * c;
+            case "y":
+              return (o.y - a.y) * s;
+            case "angle":
+              return 180 * Math.atan2(i.y - u.y, i.x - u.x) / Math.PI
+          }
+        }
+
+        function $(n, e) {
+          var t = /[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g,
+            r = S(i.pth(n) ? n.totalLength : n, e) + "";
+          return {
+            original: r,
+            numbers: r.match(t) ? r.match(t).map(Number) : [0],
+            strings: i.str(n) || e ? r.split(t) : []
+          }
+        }
+
+        function W(n) {
+          return m(n ? y(i.arr(n) ? n.map(b) : b(n)) : [], function (n, e, t) {
+            return t.indexOf(n) === e
+          })
+        }
+
+        function X(n) {
+          var e = W(n);
+          return e.map(function (n, t) {
+            return {
+              target: n,
+              id: t,
+              total: e.length,
+              transforms: {
+                list: E(n)
+              }
+            }
+          })
+        }
+
+        function Y(n, e) {
+          var t = x(e);
+          if (/^spring/.test(t.easing) && (t.duration = s(t.easing)), i.arr(n)) {
+            var r = n.length;
+            2 === r && !i.obj(n[0]) ? n = {
+              value: n
+            } : i.fnc(e.duration) || (t.duration = e.duration / r)
+          }
+          var a = i.arr(n) ? n : [n];
+          return a.map(function (n, t) {
+            var r = i.obj(n) && !i.pth(n) ? n : {
+              value: n
+            };
+            return i.und(r.delay) && (r.delay = t ? 0 : e.delay), i.und(r.endDelay) && (r.endDelay = t === a.length - 1 ? e.endDelay : 0), r
+          }).map(function (n) {
+            return k(n, t)
+          })
+        }
+
+        function Z(n, e) {
+          var t = [],
+            r = e.keyframes;
+          for (var a in r && (e = k(function (n) {
+            for (var e = m(y(n.map(function (n) {
+              return Object.keys(n)
+            })), function (n) {
+              return i.key(n)
+            }).reduce(function (n, e) {
+              return n.indexOf(e) < 0 && n.push(e), n
+            }, []), t = {}, r = function (r) {
+              var a = e[r];
+              t[a] = n.map(function (n) {
+                var e = {};
+                for (var t in n) i.key(t) ? t == a && (e.value = n[t]) : e[t] = n[t];
+                return e
+              })
+            }, a = 0; a < e.length; a++) r(a);
+            return t
+          }(r), e)), e) i.key(a) && t.push({
+            name: a,
+            tweens: Y(e[a], n)
+          });
+          return t
+        }
+
+        function G(n, e) {
+          var t;
+          return n.tweens.map(function (r) {
+            var a = function (n, e) {
+              var t = {};
+              for (var r in n) {
+                var a = P(n[r], e);
+                i.arr(a) && 1 === (a = a.map(function (n) {
+                  return P(n, e)
+                })).length && (a = a[0]), t[r] = a
+              }
+              return t.duration = parseFloat(t.duration), t.delay = parseFloat(t.delay), t
+            }(r, e),
+              o = a.value,
+              u = i.arr(o) ? o[1] : o,
+              c = C(u),
+              s = A(e.target, n.name, c, e),
+              f = t ? t.to.original : s,
+              l = i.arr(o) ? o[0] : f,
+              d = C(l) || C(s),
+              p = c || d;
+            return i.und(u) && (u = f), a.from = $(l, p), a.to = $(N(u, l), p), a.start = t ? t.end : 0, a.end = a.start + a.delay + a.duration + a.endDelay, a.easing = h(a.easing, a.duration), a.isPath = i.pth(o), a.isPathTargetInsideSVG = a.isPath && i.svg(e.target), a.isColor = i.col(a.from.original), a.isColor && (a.round = 1), t = a, a
+          })
+        }
+        var Q = {
+          css: function (n, e, t) {
+            return n.style[e] = t
+          },
+          attribute: function (n, e, t) {
+            return n.setAttribute(e, t)
+          },
+          object: function (n, e, t) {
+            return n[e] = t
+          },
+          transform: function (n, e, t, r, a) {
+            if (r.list.set(e, t), e === r.last || a) {
+              var o = "";
+              r.list.forEach(function (n, e) {
+                o += e + "(" + n + ") "
+              }), n.style.transform = o
+            }
+          }
+        };
+
+        function z(n, e) {
+          X(n).forEach(function (n) {
+            for (var t in e) {
+              var r = P(e[t], n),
+                a = n.target,
+                o = C(r),
+                u = A(a, t, o, n),
+                i = N(S(r, o || C(u)), u),
+                c = T(a, t);
+              Q[c](a, t, i, n.transforms, !0)
+            }
+          })
+        }
+
+        function _(n, e) {
+          return m(y(n.map(function (n) {
+            return e.map(function (e) {
+              return function (n, e) {
+                var t = T(n.target, e.name);
+                if (t) {
+                  var r = G(e, n),
+                    a = r[r.length - 1];
+                  return {
+                    type: t,
+                    property: e.name,
+                    animatable: n,
+                    tweens: r,
+                    duration: a.end,
+                    delay: r[0].delay,
+                    endDelay: a.endDelay
+                  }
+                }
+              }(n, e)
+            })
+          })), function (n) {
+            return !i.und(n)
+          })
+        }
+
+        function R(n, e) {
+          var t = n.length,
+            r = function (n) {
+              return n.timelineOffset ? n.timelineOffset : 0
+            },
+            a = {};
+          return a.duration = t ? Math.max.apply(Math, n.map(function (n) {
+            return r(n) + n.duration
+          })) : e.duration, a.delay = t ? Math.min.apply(Math, n.map(function (n) {
+            return r(n) + n.delay
+          })) : e.delay, a.endDelay = t ? a.duration - Math.max.apply(Math, n.map(function (n) {
+            return r(n) + n.duration - n.endDelay
+          })) : e.endDelay, a
+        }
+        var J = 0;
+        var K = [],
+          U = function () {
+            var n;
+
+            function e(t) {
+              for (var r = K.length, a = 0; a < r;) {
+                var o = K[a];
+                o.paused ? (K.splice(a, 1), r--) : (o.tick(t), a++)
+              }
+              n = a > 0 ? requestAnimationFrame(e) : void 0
+            }
+            return "undefined" != typeof document && document.addEventListener("visibilitychange", function () {
+              en.suspendWhenDocumentHidden && (nn() ? n = cancelAnimationFrame(n) : (K.forEach(function (n) {
+                return n._onDocumentVisibility()
+              }), U()))
+            }),
+              function () {
+                n || nn() && en.suspendWhenDocumentHidden || !(K.length > 0) || (n = requestAnimationFrame(e))
+              }
+          }();
+
+        function nn() {
+          return !!document && document.hidden
+        }
+
+        function en(t) {
+          void 0 === t && (t = {});
+          var r, o = 0,
+            u = 0,
+            i = 0,
+            c = 0,
+            s = null;
+
+          function f(n) {
+            var e = window.Promise && new Promise(function (n) {
+              return s = n
+            });
+            return n.finished = e, e
+          }
+          var l, d, p, v, h, g, y, b, M = (d = w(n, l = t), p = w(e, l), v = Z(p, l), h = X(l.targets), g = _(h, v), y = R(g, p), b = J, J++, k(d, {
+            id: b,
+            children: [],
+            animatables: h,
+            animations: g,
+            duration: y.duration,
+            delay: y.delay,
+            endDelay: y.endDelay
+          }));
+          f(M);
+
+          function x() {
+            var n = M.direction;
+            "alternate" !== n && (M.direction = "normal" !== n ? "normal" : "reverse"), M.reversed = !M.reversed, r.forEach(function (n) {
+              return n.reversed = M.reversed
+            })
+          }
+
+          function O(n) {
+            return M.reversed ? M.duration - n : n
+          }
+
+          function C() {
+            o = 0, u = O(M.currentTime) * (1 / en.speed)
+          }
+
+          function P(n, e) {
+            e && e.seek(n - e.timelineOffset)
+          }
+
+          function I(n) {
+            for (var e = 0, t = M.animations, r = t.length; e < r;) {
+              var o = t[e],
+                u = o.animatable,
+                i = o.tweens,
+                c = i.length - 1,
+                s = i[c];
+              c && (s = m(i, function (e) {
+                return n < e.end
+              })[0] || s);
+              for (var f = a(n - s.start - s.delay, 0, s.duration) / s.duration, l = isNaN(f) ? 1 : s.easing(f), d = s.to.strings, p = s.round, v = [], h = s.to.numbers.length, g = void 0, y = 0; y < h; y++) {
+                var b = void 0,
+                  x = s.to.numbers[y],
+                  w = s.from.numbers[y] || 0;
+                b = s.isPath ? V(s.value, l * x, s.isPathTargetInsideSVG) : w + l * (x - w), p && (s.isColor && y > 2 || (b = Math.round(b * p) / p)), v.push(b)
+              }
+              var k = d.length;
+              if (k) {
+                g = d[0];
+                for (var O = 0; O < k; O++) {
+                  d[O];
+                  var C = d[O + 1],
+                    P = v[O];
+                  isNaN(P) || (g += C ? P + C : P + " ")
+                }
+              } else g = v[0];
+              Q[o.type](u.target, o.property, g, u.transforms), o.currentValue = g, e++
+            }
+          }
+
+          function D(n) {
+            M[n] && !M.passThrough && M[n](M)
+          }
+
+          function B(n) {
+            var e = M.duration,
+              t = M.delay,
+              l = e - M.endDelay,
+              d = O(n);
+            M.progress = a(d / e * 100, 0, 100), M.reversePlayback = d < M.currentTime, r && function (n) {
+              if (M.reversePlayback)
+                for (var e = c; e--;) P(n, r[e]);
+              else
+                for (var t = 0; t < c; t++) P(n, r[t])
+            }(d), !M.began && M.currentTime > 0 && (M.began = !0, D("begin")), !M.loopBegan && M.currentTime > 0 && (M.loopBegan = !0, D("loopBegin")), d <= t && 0 !== M.currentTime && I(0), (d >= l && M.currentTime !== e || !e) && I(e), d > t && d < l ? (M.changeBegan || (M.changeBegan = !0, M.changeCompleted = !1, D("changeBegin")), D("change"), I(d)) : M.changeBegan && (M.changeCompleted = !0, M.changeBegan = !1, D("changeComplete")), M.currentTime = a(d, 0, e), M.began && D("update"), n >= e && (u = 0, M.remaining && !0 !== M.remaining && M.remaining--, M.remaining ? (o = i, D("loopComplete"), M.loopBegan = !1, "alternate" === M.direction && x()) : (M.paused = !0, M.completed || (M.completed = !0, D("loopComplete"), D("complete"), !M.passThrough && "Promise" in window && (s(), f(M)))))
+          }
+          return M.reset = function () {
+            var n = M.direction;
+            M.passThrough = !1, M.currentTime = 0, M.progress = 0, M.paused = !0, M.began = !1, M.loopBegan = !1, M.changeBegan = !1, M.completed = !1, M.changeCompleted = !1, M.reversePlayback = !1, M.reversed = "reverse" === n, M.remaining = M.loop, r = M.children;
+            for (var e = c = r.length; e--;) M.children[e].reset();
+            (M.reversed && !0 !== M.loop || "alternate" === n && 1 === M.loop) && M.remaining++, I(M.reversed ? M.duration : 0)
+          }, M._onDocumentVisibility = C, M.set = function (n, e) {
+            return z(n, e), M
+          }, M.tick = function (n) {
+            i = n, o || (o = i), B((i + (u - o)) * en.speed)
+          }, M.seek = function (n) {
+            B(O(n))
+          }, M.pause = function () {
+            M.paused = !0, C()
+          }, M.play = function () {
+            M.paused && (M.completed && M.reset(), M.paused = !1, K.push(M), C(), U())
+          }, M.reverse = function () {
+            x(), M.completed = !M.reversed, C()
+          }, M.restart = function () {
+            M.reset(), M.play()
+          }, M.remove = function (n) {
+            rn(W(n), M)
+          }, M.reset(), M.autoplay && M.play(), M
+        }
+
+        function tn(n, e) {
+          for (var t = e.length; t--;) M(n, e[t].animatable.target) && e.splice(t, 1)
+        }
+
+        function rn(n, e) {
+          var t = e.animations,
+            r = e.children;
+          tn(n, t);
+          for (var a = r.length; a--;) {
+            var o = r[a],
+              u = o.animations;
+            tn(n, u), u.length || o.children.length || r.splice(a, 1)
+          }
+          t.length || r.length || e.pause()
+        }
+        return en.version = "3.2.1", en.speed = 1, en.suspendWhenDocumentHidden = !0, en.running = K, en.remove = function (n) {
+          for (var e = W(n), t = K.length; t--;) rn(e, K[t])
+        }, en.get = A, en.set = z, en.convertPx = D, en.path = function (n, e) {
+          var t = i.str(n) ? g(n)[0] : n,
+            r = e || 100;
+          return function (n) {
+            return {
+              property: n,
+              el: t,
+              svg: H(t),
+              totalLength: q(t) * (r / 100)
+            }
+          }
+        }, en.setDashoffset = function (n) {
+          var e = q(n);
+          return n.setAttribute("stroke-dasharray", e), e
+        }, en.stagger = function (n, e) {
+          void 0 === e && (e = {});
+          var t = e.direction || "normal",
+            r = e.easing ? h(e.easing) : null,
+            a = e.grid,
+            o = e.axis,
+            u = e.from || 0,
+            c = "first" === u,
+            s = "center" === u,
+            f = "last" === u,
+            l = i.arr(n),
+            d = l ? parseFloat(n[0]) : parseFloat(n),
+            p = l ? parseFloat(n[1]) : 0,
+            v = C(l ? n[1] : n) || 0,
+            g = e.start || 0 + (l ? d : 0),
+            m = [],
+            y = 0;
+          return function (n, e, i) {
+            if (c && (u = 0), s && (u = (i - 1) / 2), f && (u = i - 1), !m.length) {
+              for (var h = 0; h < i; h++) {
+                if (a) {
+                  var b = s ? (a[0] - 1) / 2 : u % a[0],
+                    M = s ? (a[1] - 1) / 2 : Math.floor(u / a[0]),
+                    x = b - h % a[0],
+                    w = M - Math.floor(h / a[0]),
+                    k = Math.sqrt(x * x + w * w);
+                  "x" === o && (k = -x), "y" === o && (k = -w), m.push(k)
+                } else m.push(Math.abs(u - h));
+                y = Math.max.apply(Math, m)
+              }
+              r && (m = m.map(function (n) {
+                return r(n / y) * y
+              })), "reverse" === t && (m = m.map(function (n) {
+                return o ? n < 0 ? -1 * n : -n : Math.abs(y - n)
+              }))
+            }
+            return g + (l ? (p - d) / y : d) * (Math.round(100 * m[e]) / 100) + v
+          }
+        }, en.timeline = function (n) {
+          void 0 === n && (n = {});
+          var t = en(n);
+          return t.duration = 0, t.add = function (r, a) {
+            var o = K.indexOf(t),
+              u = t.children;
+
+            function c(n) {
+              n.passThrough = !0
+            }
+            o > -1 && K.splice(o, 1);
+            for (var s = 0; s < u.length; s++) c(u[s]);
+            var f = k(r, w(e, n));
+            f.targets = f.targets || n.targets;
+            var l = t.duration;
+            f.autoplay = !1, f.direction = t.direction, f.timelineOffset = i.und(a) ? l : N(a, l), c(t), t.seek(f.timelineOffset);
+            var d = en(f);
+            c(d), u.push(d);
+            var p = R(u, n);
+            return t.delay = p.delay, t.endDelay = p.endDelay, t.duration = p.duration, t.seek(0), t.reset(), t.autoplay && t.play(), t
+          }, t
+        }, en.easing = h, en.penner = v, en.random = function (n, e) {
+          return Math.floor(Math.random() * (e - n + 1)) + n
+        }, en
+      });
+    </script>
+    <script defer="">
+      let mobile = false;
+      let notMobile = false
+      let tablet = false;
+
+      function isTablet() {
+        if (tablet) {
+          return true;
+        }
+        if (/iPad|Android/.test(navigator.userAgent) && !window.MSStream) {
+          tablet = true;
+        }
+        return tablet;
+      }
+      // Check if the current device is a mobile phone
+
+      function isMobile() {
+        if (mobile) {
+          return true;
+        }
+        if (notMobile) {
+          return false
+        }
+        if (
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          ) && window.innerWidth < 600
+        ) {
+          mobile = true;
+          return true;
+        } else {
+          notMobile = false
+          return false
+        }
+      }
+
+      // function smoothScroll() {
+      //   if (!isMobile()) {
+      //     window.requestAnimationFrame(smoothScroll)
+      //     const scrollY = (document.scrollingElement !== undefined) ?
+      //       document.scrollingElement.scrollTop :
+      //       (document.documentElement.scrollTop || window.scrollY || 0.0);
+      //     wrapperOffset += (scrollY - wrapperOffset) * 0.06;
+      //     document.querySelector('#main').style.transform = `translate3d(0,${-wrapperOffset.toFixed(2)}px,0)`;
+      //     document.querySelector('body').style.height = document.querySelector('#main').offsetHeight + 'px'
+      //   }
+      // }
+
+      // Check if the current device is a desktop
+      function isDesktop() {
+        return !isTablet() && !isMobile();
+      }
+      window.addEventListener('load', (event) => {
+        document.querySelector("#nav .left").style.marginLeft = document.querySelector("#nav .left img").getBoundingClientRect().width + "px"
+        gsap.to("#leftWrapper", {
+          scrollTrigger: {
+            trigger: "#leftWrapper",
+            start: `top 0%`,
+            end: "top -1%",
+            scrub: true,
+            // markers: true,
+          },
+          onComplete: () => {
+            requestAnimationFrame(() => {
+              document.querySelector('#leftWrapper .left').style.transform = `translateX(-${document.querySelector("#leftWrapper .left ").getBoundingClientRect().width + 20}px)`;
+              document.querySelector('#leftWrapper .left').style.transition = `transform 1.5s cubic-bezier(0.23, 1, 0.32, 1)`;
+              document.querySelector('#leftWrapper .leftCounter').style.transition = `transform 1.5s cubic-bezier(0.23, 1, 0.32, 1) 0.7s`;
+              document.querySelector('#leftWrapper .leftCounter').style.transform = `translateX(0px)`;
+              if (isMobile())
+                document.querySelector('#nav').style.paddingTop = `0.7rem`;
+              else
+                document.querySelector('#nav').style.paddingTop = `0.3rem`;
+            })
+
+          },
+          onReverseComplete: () => {
+            requestAnimationFrame(() => {
+              document.querySelector('#leftWrapper .left').style.transform = `translateX(0px)`;
+              document.querySelector('#leftWrapper .leftCounter').style.transform = `translateX(-100%)`;
+              document.querySelector('#leftWrapper .left').style.transition = `transform 1.5s cubic-bezier(0.23, 1, 0.32, 1) 0.7s`;
+              document.querySelector('#leftWrapper .leftCounter').style.transition = `transform 1.5s cubic-bezier(0.23, 1, 0.32, 1)`;
+              if (isMobile())
+                document.querySelector('#nav').style.paddingTop = `0.5rem`;
+              else
+                document.querySelector('#nav').style.paddingTop = `min(1rem,4vh)`;
+            })
+
+          }
+        })
+        requestAnimationFrame(() => {
+          document.querySelector('#leftWrapper').style.transform = `translateX(0px)`;
+        })
+        var menuButton = document.querySelector("#menuButton");
+        var menuLine1 = document.querySelector("#line1");
+        var menuLine2 = document.querySelector("#line2");
+
+        var animeTimeline1 = anime.timeline({
+          targets: "#line1"
+        });
+        var animeTimeline2 = anime.timeline({
+          targets: "#line2"
+        });
+        var animeTimeLine1reverse = anime.timeline({
+          targets: "#line1"
+        });
+        var animeTimeLine2reverse = anime.timeline({
+          targets: "#line2"
+        });
+        var flag = true;
+        var flagsetTimeLine = true;
+        var flagsetTimeLinereverse = true;
+        var svgCoordinates = {
+          x: 0,
+          y: 0
+        };
+        var svg = document.querySelector("nav svg");
+        svgCoordinates.x = svg.getBoundingClientRect().right - svg.getBoundingClientRect().width / 2;
+        svgCoordinates.y = svg.getBoundingClientRect().top + svg.getBoundingClientRect().height / 2;
+
+        document.querySelector('.psudoElementRemove').addEventListener('click', (event) => {
+          if (flagsetTimeLinereverse) {
+            flagsetTimeLinereverse = false;
+            animeTimeLine2reverse
+              .add({
+                targets: "#line2",
+                x1: 9.4,
+                y1: 9.4,
+                x2: 40.6,
+                y2: 40.6,
+                duration: 1,
+              })
+              .add({
+                targets: "#line2",
+                x1: 3,
+                y1: 25,
+                x2: 47,
+                y2: 25,
+                easing: "easeOutQuad",
+                duration: 400,
+              })
+              .add({
+                targets: "#line2",
+                x1: 3,
+                y1: 31.6,
+                x2: 47,
+                y2: 31.6,
+                easing: "easeOutQuad",
+                duration: 400,
+              });
+            animeTimeLine1reverse
+              .add({
+                targets: "#line1",
+                x1: 9.4,
+                y1: 40.6,
+                x2: 40.6,
+                y2: 9.4,
+                duration: 1,
+              })
+              .add({
+                targets: "#line1",
+                x1: 3,
+                y1: 25,
+                x2: 47,
+                y2: 25,
+                easing: "easeOutQuad",
+                duration: 400,
+              })
+              .add({
+                targets: "#line1",
+                x1: 3,
+                y1: 18.4,
+                x2: 47,
+                y2: 18.4,
+                easing: "easeOutQuad",
+                duration: 400,
+              });
+          }
+          window.requestAnimationFrame(() => {
+            // document.querySelector(
+            //     "nav .right"
+            // ).style.clipPath = `circle(0% at ${svgCoordinates.x}px ${svgCoordinates.y}px)`;
+            document.querySelector("nav .psudoElementRemove").style.transform = ` translate3d(100vw,0,0) `
+            document.querySelector("nav .right").style.transform = `translate3d(45rem,0,0)`;
+            document.querySelector("nav .right").style.paddingLeft = !isMobile() ? '3rem' : '0rem'
+
+          });
+          animeTimeLine1reverse.play();
+          animeTimeLine2reverse.play();
+          flag = !flag;
+        })
+
+        function toggleNavBar() {
+          // window.addEventListener('click', toggleNavBar)
+          if (flag) {
+            if (isHomepage) {
+              menuButtonAnimation = false
+              gsap.to('.st0', {
+                stroke: 'var(--primaryDarkNavStroke)',
+                duration: 0.2
+              })
+              gsap.to('.ol1', {
+                fill: 'var(--primaryDarkNavStroke)',
+                duration: 0.6
+              })
+            }
+            if (flagsetTimeLine) {
+              flagsetTimeLine = false;
+              animeTimeline1
+                .add({
+                  targets: "#line1",
+                  x1: 47,
+                  y1: 31.6,
+                  x2: 47,
+                  y2: 31.6,
+                  easing: "easeOutQuad",
+                  duration: 100,
+                })
+                .add({
+                  targets: "#line1",
+                  x1: 40.5,
+                  y1: 9.5,
+                  x2: 40.6,
+                  y2: 9.4,
+                  easing: "easeOutQuad",
+                  duration: 100,
+                })
+                .add({
+                  targets: "#line1",
+                  x1: 40.5,
+                  y1: 9.5,
+                  x2: 40.6,
+                  y2: 9.4,
+                  easing: "easeOutQuad",
+                  duration: 100,
+                })
+                .add({
+                  targets: "#line1",
+                  x1: 9.4,
+                  y1: 40.6,
+                  x2: 40.6,
+                  y2: 9.4,
+                  easing: "easeOutQuad",
+                  duration: 100,
+                });
+              animeTimeline2
+                .add({
+                  targets: "#line2",
+                  x1: 3,
+                  y1: 18.6,
+                  x2: 3,
+                  y2: 18.6,
+                  easing: "easeOutQuad",
+                  duration: 100,
+                })
+                .add({
+                  targets: "#line2",
+                  x1: 9.4,
+                  y1: 9.4,
+                  x2: 9.5,
+                  y2: 9.5,
+                  easing: "easeOutQuad",
+                  duration: 100,
+                })
+                .add({
+                  targets: "#line2",
+                  x1: 9.4,
+                  y1: 9.4,
+                  x2: 40.6,
+                  y2: 40.6,
+                  easing: "easeOutQuad",
+                  duration: 100,
+                })
+                .add({
+                  targets: "#line2",
+                  x1: 9.4,
+                  y1: 9.4,
+                  x2: 40.6,
+                  y2: 40.6,
+                  easing: "easeOutQuad",
+                  duration: 100,
+                });
+            }
+            window.requestAnimationFrame(() => {
+              // document.querySelector(
+              //     "nav .right"
+              // ).style.clipPath = `circle(110vh at ${svgCoordinates.x}px ${svgCoordinates.y}px)`;
+              document.querySelector("nav .psudoElementRemove").style.transform = ` translate3d(0,0,0) `
+              document.querySelector("nav .right").style.paddingLeft = !isMobile() ? '8rem' : '3rem'
+              document.querySelector("nav .right").style.transform = `translate3d(0,0,0)`;
+            });
+            animeTimeline1.play();
+            animeTimeline2.play();
+          } else {
+            if (isHomepage) {
+              menuButtonAnimation = true
+              document.querySelectorAll('.st0').forEach(st0 => {
+                st0.style.stroke = 'var(--primaryLight)'
+              })
+              gsap.to('.ol1', {
+                fill: 'white',
+                duration: 1
+              })
+            }
+            if (flagsetTimeLinereverse) {
+              flagsetTimeLinereverse = false;
+              animeTimeLine2reverse
+                .add({
+                  targets: "#line2",
+                  x1: 9.4,
+                  y1: 9.4,
+                  x2: 40.6,
+                  y2: 40.6,
+                  duration: 1,
+                })
+                .add({
+                  targets: "#line2",
+                  x1: 3,
+                  y1: 25,
+                  x2: 47,
+                  y2: 25,
+                  easing: "easeOutQuad",
+                  duration: 400,
+                })
+                .add({
+                  targets: "#line2",
+                  x1: 3,
+                  y1: 31.6,
+                  x2: 47,
+                  y2: 31.6,
+                  easing: "easeOutQuad",
+                  duration: 400,
+                });
+              animeTimeLine1reverse
+                .add({
+                  targets: "#line1",
+                  x1: 9.4,
+                  y1: 40.6,
+                  x2: 40.6,
+                  y2: 9.4,
+                  duration: 1,
+                })
+                .add({
+                  targets: "#line1",
+                  x1: 3,
+                  y1: 25,
+                  x2: 47,
+                  y2: 25,
+                  easing: "easeOutQuad",
+                  duration: 400,
+                })
+                .add({
+                  targets: "#line1",
+                  x1: 3,
+                  y1: 18.4,
+                  x2: 47,
+                  y2: 18.4,
+                  easing: "easeOutQuad",
+                  duration: 400,
+                });
+            }
+            window.requestAnimationFrame(() => {
+              // document.querySelector(
+              //     "nav .right"
+              // ).style.clipPath = `circle(0% at ${svgCoordinates.x}px ${svgCoordinates.y}px)`;
+              document.querySelector("nav .psudoElementRemove").style.transform = ` translate3d(100vw,0,0) `
+              document.querySelector("nav .right").style.transform = `translate3d(45rem,0,0)`;
+              document.querySelector("nav .right").style.paddingLeft = !isMobile() ? '3rem' : '0rem'
+
+            });
+            animeTimeLine1reverse.play();
+            animeTimeLine2reverse.play();
+          }
+          flag = !flag;
+        }
+        if (menuButton) {
+          menuButton.addEventListener("click", (event) => {
+            toggleNavBar()
+          });
+        }
+      })
+
+      function mapRange(value, inMin, inMax, outMin, outMax) {
+        return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
+    </script>
+    <script defer="">
+      var navNotificationButton = document.querySelector('nav .notificationButton')
+      if (isDesktop()) {
+
+        var nav_items = Array.from(document.querySelectorAll('.nav-item'))
+
+        nav_items.forEach(nav_item => {
+          nav_item.addEventListener('mousemove', (event) => {
+            var nav_item_rect = nav_item.getBoundingClientRect()
+            requestAnimationFrame(() => {
+              navBarCursorScale = 1
+              nav_item.style.transform = `translate3d(${((event.clientX - nav_item_rect.left) - nav_item_rect.width / 2) / 8}px,${((event.clientY - nav_item_rect.top) - nav_item_rect.height / 2) / 2}px,0)`
+            })
+          })
+          nav_item.addEventListener('mouseleave', (event) => {
+            navBarCursorScale = 0
+            requestAnimationFrame(() => {
+              nav_item.style.transform = `translate3d(0,0,0)`
+            })
+          })
+        })
+        var navMenuButton = document.querySelector('#menuButton')
+        var navRight = document.querySelector('nav .right')
+        var navCursor = document.querySelector('.navCursor')
+        var currentNavX = 0
+        var currentNavY = 0
+        var navBarCursorScale = 0
+        var navMenuButtonRect = navMenuButton.getBoundingClientRect()
+        var navMenuButtonPosition = {
+          x: navMenuButtonRect.left + navMenuButtonRect.width / 2,
+          y: navMenuButtonRect.top + navMenuButtonRect.height / 2,
+        }
+        if (navNotificationButton) {
+          var navNotificationButtonRect = navNotificationButton.getBoundingClientRect()
+          var navNotificationButtonPosition = {
+            x: navNotificationButtonRect.left + navNotificationButtonRect.width / 2,
+            y: navNotificationButtonRect.top + navNotificationButtonRect.height / 2,
+            width: navNotificationButtonRect.width,
+          }
+        }
+        requestAnimationFrame(() => {
+          navBarCursorScale = 0
+          navCursor.style.transform = `translate3d(calc(${navMenuButtonPosition.x}px - 1.75rem),calc(${navMenuButtonPosition.y}px - 1.75rem),0) scale(${navBarCursorScale})`
+        })
+
+        function moveNavBarCursor(event) {
+          currentNavX = event.clientX
+          currentNavY = event.clientY
+          navBarCursorScale = 0.2
+          var absoluteOfX
+          var absoluteOfY
+          if (navNotificationButton && Math.abs(event.clientX - navMenuButtonPosition.x) > Math.abs(event.clientX - navNotificationButtonPosition.x)) {
+            absoluteOfX = (event.clientX - navNotificationButtonPosition.x)
+            absoluteOfY = (event.clientY - navNotificationButtonPosition.y)
+          } else {
+            absoluteOfX = (event.clientX - navMenuButtonPosition.x)
+            absoluteOfY = (event.clientY - navMenuButtonPosition.y)
+
+          }
+          if (Math.abs(absoluteOfX) > 30 || Math.abs(absoluteOfY) > 30)
+            requestAnimationFrame(() => {
+              navCursor.style.transform = `translate3d(calc(${currentNavX}px - 1.75rem),calc(${currentNavY}px - 1.75rem),0) scale(${navBarCursorScale})`
+            })
+          else {
+            navMenuButtonRect = navMenuButton.getBoundingClientRect()
+            navMenuButtonPosition = {
+              x: navMenuButtonRect.left + navMenuButtonRect.width / 2,
+              y: navMenuButtonRect.top + navMenuButtonRect.height / 2,
+            }
+            if (navNotificationButton) {
+              navNotificationButtonRect = navNotificationButton.getBoundingClientRect()
+              navNotificationButtonPosition.x = navNotificationButtonRect.left + navNotificationButtonRect.width / 2;
+              navNotificationButtonPosition.y = navNotificationButtonRect.top + navNotificationButtonRect.height / 2;
+            }
+            requestAnimationFrame(() => {
+              if (navNotificationButton) {
+                if (Math.abs(event.clientX - navMenuButtonPosition.x) > Math.abs(event.clientX - navNotificationButtonPosition.x)) {
+                  navCursor.style.transform = `translate3d(calc(${navNotificationButtonPosition.x + absoluteOfX / 4}px - 1.75rem),calc(${navNotificationButtonPosition.y + absoluteOfY / 4}px - 1.75rem),0) scale(1)`
+                } else {
+                  navCursor.style.transform = `translate3d(calc(${navMenuButtonPosition.x + absoluteOfX / 4}px -  1.75rem),calc(${navMenuButtonPosition.y + absoluteOfY / 4}px - 1.75rem),0) scale(1)`
+                }
+              } else {
+                console.log('dfsjlikfsdlk')
+                navCursor.style.transform = `translate3d(calc(${navMenuButtonPosition.x + absoluteOfX / 4}px -  1.75rem),calc(${navMenuButtonPosition.y + absoluteOfY / 4}px - 1.75rem),0) scale(1)`
+              }
+            })
+
+          }
+        }
+
+        function scaleToZeroNavBarCursor(event) {
+          requestAnimationFrame(() => {
+            navBarCursorScale = 0
+            navCursor.style.transform = `translate3d(calc(${currentNavX}px - 1.75rem),calc(${currentNavY}px - 1.75rem),0) scale(${navBarCursorScale})`
+          })
+        }
+        navRight.addEventListener('mousemove', moveNavBarCursor)
+        navMenuButton.addEventListener('mousemove', moveNavBarCursor)
+        if (navNotificationButton)
+          navNotificationButton.addEventListener('mousemove', moveNavBarCursor)
+        navRight.addEventListener('mouseleave', scaleToZeroNavBarCursor)
+        navMenuButton.addEventListener('mouseleave', scaleToZeroNavBarCursor)
+        if (navNotificationButton)
+          navNotificationButton.addEventListener('mouseleave', scaleToZeroNavBarCursor)
+      }
+
+      function closePopup() {
+        document.querySelectorAll('.popup').forEach(pop => {
+          pop.classList.remove('active')
+          pop.style.display = 'none'
+          pop.style.opacity = '0'
+        })
+
+        try {
+          if (lenis)
+            lenis.start()
+        } catch (er) {
+
+        }
+      }
+
+      function closeRotatePopup() {
+        document.querySelector('.rotatePopup').classList.remove('active')
+        document.querySelector('.rotatePopup').style.display = 'none'
+        document.querySelector('.rotatePopup').style.opacity = '0'
+      }
+
+      function openRotatePopup() {
+        document.querySelector('.rotatePopup').style.display = 'flex'
+        document.querySelector('.rotatePopup').classList.add('active')
+        document.querySelector('.rotatePopup').style.opacity = '1'
+      }
+
+      function openDiscordPopup() {
+        document.querySelector('.discordJoinPopup').style.display = 'flex'
+        document.querySelector('.discordJoinPopup').classList.add('active')
+        document.querySelector('.discordJoinPopup').style.opacity = '1'
+        try {
+          if (lenis)
+            lenis.stop()
+        } catch (err) {
+
+        }
+      }
+
+      function closeDiscordPopup() {
+        document.querySelector('.discordJoinPopup').classList.remove('active')
+        document.querySelector('.discordJoinPopup').style.display = 'none'
+        document.querySelector('.discordJoinPopup').style.opacity = '0'
+
+        try {
+          if (lenis)
+            lenis.start()
+        } catch (err) {
+
+        }
+      }
+
+      function onOrientationChange(callbacks) {
+        if (!isMobileDevice()) {
+          return
+        }
+        if (typeof callbacks.landscape !== 'function' || typeof callbacks.portrait !== 'function') {
+          console.log('Invalid input. Please provide an object with landscape and portrait callback functions.');
+          return;
+        }
+
+        function handleOrientationChange() {
+          const orientation = window.orientation;
+          console.log(orientation)
+          if (orientation === 0 || orientation === 180) {
+            // Portrait orientation
+            callbacks.portrait();
+          } else {
+            // Landscape orientation
+            callbacks.landscape();
+          }
+        }
+
+        // window.addEventListener('resize', handleOrientationChange);
+
+        // Initial callback with current orientation
+        handleOrientationChange();
+
+        // Cleanup event listener when the function is no longer needed
+        return function cleanup() {
+          window.removeEventListener('resize', handleOrientationChange);
+        };
+      }
+
+      function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      }
+
+      async function joinDiscord(channel_id, role_id, user_id) {
+        let response = await axios.post(`/classroom/is_user_in_guild/${user_id}`)
+        const isUserInGuild = response.data.is_user_in_guild
+
+        if (!isUserInGuild) {
+          openDiscordPopup()
+          return
+        }
+
+        window.open(`/classroom/joinChannel/${channel_id}/${role_id}`)
+      }
+
+      // Example usage:
+      const orientationCallbacks = {
+        landscape: openRotatePopup,
+        portrait: closeRotatePopup,
+      };
+
+      const cleanupCallback = onOrientationChange(orientationCallbacks);
+
+
+      var isNotificationVisible = false
+      const notificationOverlay = document.querySelector('.notificationOverlay')
+      const popup = document.querySelector('.notifications');
+      const navMainRight = document.querySelector('.nav-right')
+      if (navNotificationButton) {
+        navNotificationButton.addEventListener('click', function (event) {
+          if (navMainRight.classList.contains('notificationActive')) {
+            navMainRight.classList.remove('notificationActive')
+          } else {
+            navMainRight.classList.add('notificationActive')
+          }
+        });
+        window.addEventListener('scroll', (eve) => {
+          navMainRight.classList.remove('notificationActive')
+        })
+      }
+      notificationOverlay.addEventListener('click', (event) => {
+        navMainRight.classList.remove('notificationActive')
+      })
+
+      function insertAfter(referenceNode, newNode) {
+        referenceNode.parentElement.insertBefore(newNode, referenceNode.nextSibling);
+      }
+
+      function defaultDp(event) {
+        event.setAttribute("src", "/images/Sheryians Logo.png")
+      }
+
+      function setTimeDifference(current, previous, elem) {
+        elem.textContent = timeDifference(current, previous)
+      }
+
+      function timeDifference(current, previous) {
+        const milliSecondsPerMinute = 60 * 1000;
+        const milliSecondsPerHour = milliSecondsPerMinute * 60;
+        const milliSecondsPerDay = milliSecondsPerHour * 24;
+        const milliSecondsPerMonth = milliSecondsPerDay * 30;
+        const milliSecondsPerYear = milliSecondsPerDay * 365;
+
+        const elapsed = current - previous;
+
+        if (elapsed < milliSecondsPerMinute) {
+          return Math.round(elapsed / 1000) + ' seconds ago';
+        } else if (elapsed < milliSecondsPerHour) {
+          return Math.round(elapsed / milliSecondsPerMinute) + ' minutes ago';
+        } else if (elapsed < milliSecondsPerDay) {
+          return Math.round(elapsed / milliSecondsPerHour) + ' hours ago';
+        } else if (elapsed < milliSecondsPerMonth) {
+          return Math.round(elapsed / milliSecondsPerDay) + ' days ago';
+        } else if (elapsed < milliSecondsPerYear) {
+          return Math.round(elapsed / milliSecondsPerMonth) + ' months ago';
+        } else {
+          return Math.round(elapsed / milliSecondsPerYear) + ' years ago';
+        }
+      }
+
+      async function openNotification(link, id) {
+
+        try {
+          axios.post("/classroom/notifications/update", {
+            notificationId: id
+          })
+          window.location.href = link
+        } catch (err) {
+          console.log(err)
+        }
+
+      }
+
+
+      function createNotification(seen, id, type, href, someone, text, userProfile, lectureThumbnail, createdAt) {
+        const aElement = document.createElement('div');
+        // aElement.setAttribute('href', href);
+        aElement.setAttribute("onclick", `openNotification("${href}","${id}")`)
+        aElement.classList.add('notification', type);
+        if (seen) aElement.classList.add("seen");
+        if (!seen) aElement.classList.add("unseen");
+
+
+        const userDiv = document.createElement('div');
+        userDiv.classList.add('user');
+        const userImg = document.createElement('img');
+        userImg.setAttribute('src', userProfile);
+        userImg.setAttribute('alt', '');
+        userDiv.appendChild(userImg);
+
+        const dataDiv = document.createElement('div');
+        dataDiv.classList.add('data');
+        if (type == 'like') {
+          const likeP = document.createElement('p');
+          likeP.classList.add('like');
+          likeP.innerHTML = `👍 <span class="fromUser">${someone}</span> liked : `;
+          dataDiv.appendChild(likeP);
+        } else if (type == 'reply') {
+          const replyP = document.createElement('p');
+          replyP.classList.add('reply');
+          replyP.innerHTML = `<span class="fromUser"> ${someone}</span> replied: `;
+          dataDiv.appendChild(replyP);
+        }
+        const textP = document.createElement('p');
+        textP.classList.add('text');
+        textP.innerHTML = `<span>"</span><span>${text}</span><span>"</span>`;
+        const small = document.createElement('small');
+        small.innerText = timeDifference(Date.now(), new Date(createdAt));
+        dataDiv.appendChild(textP);
+        dataDiv.appendChild(small);
+
+        const lectureDiv = document.createElement('div');
+        lectureDiv.classList.add('lecture');
+        const lectureImg = document.createElement('img');
+        lectureImg.setAttribute('src', lectureThumbnail);
+        lectureImg.setAttribute('alt', '');
+        lectureDiv.appendChild(lectureImg);
+
+        aElement.appendChild(userDiv);
+        aElement.appendChild(dataDiv);
+        aElement.appendChild(lectureDiv);
+
+        return aElement;
+      }
+
+      function createNotificationUpdate(seen, id, type, href, text, lectureThumbnail, createdAt) {
+        const aElement = document.createElement('div');
+        // aElement.setAttribute('href', href);
+        aElement.setAttribute("onclick", `openNotification("${href}","${id}")`)
+        aElement.classList.add('notification', type);
+        if (seen) aElement.classList.add("seen");
+        if (!seen) aElement.classList.add("unseen");
+
+
+
+        const dataDiv = document.createElement('div');
+        dataDiv.classList.add('data');
+
+        const textP = document.createElement('p');
+        textP.classList.add('text');
+        textP.innerHTML = `<span>"</span><span>${text}</span><span>"</span>`;
+        const small = document.createElement('small');
+        small.innerText = timeDifference(Date.now(), new Date(createdAt));
+        dataDiv.appendChild(textP);
+        dataDiv.appendChild(small);
+
+        const lectureDiv = document.createElement('div');
+        lectureDiv.classList.add('lecture');
+        const lectureImg = document.createElement('img');
+        lectureImg.setAttribute('src', lectureThumbnail);
+        lectureImg.setAttribute('alt', '');
+        lectureDiv.appendChild(lectureImg);
+
+        aElement.appendChild(dataDiv);
+        aElement.appendChild(lectureDiv);
+
+        return aElement;
+      }
+
+
+      /* 
+      
+      use replyNotification use as first argument to use as reply comment notification
+      and likeNotification for like comment notification
+      
+      */
+
+      let page = 1; // Initialize the page number for pagination
+
+      const SCROLL_THRESHOLD = 5;
+      const notificationBtn = document.querySelector('.notificationButton');
+      const notificationsContainer = document.querySelector('.notifications');
+      const notificationPanel = document.querySelector(".notifications")
+
+      async function loadMoreNotification(event) {
+        const {
+          scrollTop,
+          clientHeight,
+          scrollHeight
+        } = event.target;
+        const isNearBottom = scrollTop + clientHeight >= scrollHeight - SCROLL_THRESHOLD;
+
+        if (isNearBottom) {
+          notificationPanel.removeEventListener("scroll", loadMoreNotification);
+          page++;
+
+          try {
+            const notifications = await fetchNotifications(page);
+
+            if (notifications.more) {
+              notificationPanel.addEventListener("scroll", loadMoreNotification);
+            }
+
+            displayNotifications(notifications.notifications);
+          } catch (err) {
+            console.error("Error loading more notifications:", err);
+          }
+        }
+      }
+      if (navNotificationButton) {
+        const notifications = fetchNotifications(page).then((data) => {
+          displayNotifications(data.notifications);
+        });
+      }
+      notificationPanel.addEventListener("scroll", loadMoreNotification)
+      // Function to fetch notifications from the API
+      async function fetchNotifications(page) {
+        console.log(page)
+        const response = await fetch(`/classroom/notifications/${page}`);
+        const data = await response.json();
+        return data;
+      }
+
+      function displayNotifications(notifications) {
+        notifications.forEach((notification) => {
+          console.log(notification.type)
+          if (notification.type == "update") {
+            var notificationElement = createNotificationUpdate(
+              notification.seen,
+              notification._id,
+              notification.type,
+              notification.link,
+              notification.message,
+              notification.thumbnail_url,
+              notification.createdAt
+            );
+          } else {
+            var notificationElement = createNotification(
+              notification.seen,
+              notification._id,
+              notification.type,
+              notification.link,
+              notification.sender.name,
+              notification.message,
+              notification.sender_dp,
+              notification.thumbnail_url,
+              notification.createdAt
+            );
+          }
+          notificationsContainer.appendChild(notificationElement);
+        });
+      }
+
+  // Function to implement "load more" on scroll
+
+  // document.querySelector('.notifications').appendChild(createNotification(
+  //   'replyNotification',
+  //   '/courses',
+  //   'Ankur',
+  //   'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas et officia nobis, impedit accusantium deleniti eveniet ab eum aliquam commodi mollitia quo adipisci perspiciatis ipsa, sequi, voluptatibus sapiente quaerat fugiat?',
+  //   'https://media.istockphoto.com/id/1345121223/photo/young-beautiful-woman-stock-photo.webp?b=1&s=170667a&w=0&k=20&c=H7SuMjLiOzm78vNDb_cGGke5Qsp_94pFugV2Adzs9Eo=',
+  //   'https://ik.imagekit.io/sheryians/courses_gif/Mastering_the_Art_of_Resume-RESUMECOURSEPOSTER_NK6hP8IP8.jpg',
+  // ))
+
+
+
+
+  // To stop listening to orientation changes, call the cleanup function:
+  // cleanupCallback();
+    </script>
+
+    <script defer="">
+      function changeRootVariables(newValues) {
+        // Get the document root
+        const root = document.documentElement;
+
+        // Loop through the new values object
+        for (const [variable, value] of Object.entries(newValues)) {
+          // Set the CSS variable with the new value
+          root.style.setProperty(`--${variable}`, value);
+        }
+      }
+
+
+
+      var theme = true
+
+      function initiateTheme() {
+        if (localStorage.getItem('theme')) {
+          theme = !theme
+          document.querySelector("#toggleThemeCheckbox").click()
+          changeRootVariables({
+            primary: "#10a37f",
+            secondary: "#075c48",
+            white: "#fff",
+            primaryLight: "#3d3d3d",
+            primaryDark: "#f8f8f8",
+            secondaryLight: "#373737",
+            secondaryLightActive: "#595959",
+            secondaryDark: "#202020",
+            secondaryDarkShadow: "rgba(81, 81, 81, 0.404)",
+            textColor: "#7BBA81",
+            special: "#d2af7a",
+            ternary: "#c4c9d3",
+            error: "#e74c3c",
+            maxPageWidth: "110rem",
+            discord: "#7b40ff",
+            link: 'rgb(112, 173, 220)'
+          })
+        }
+
+        document.querySelector("#toggleThemeCheckbox").addEventListener('change', (event) => {
+
+          theme ? changeRootVariables({
+            primary: "#10a37f",
+            secondary: "#075c48",
+            white: "#fff",
+            primaryLight: "#3d3d3d",
+            primaryDark: "#f8f8f8",
+            secondaryLight: "#373737",
+            secondaryLightActive: "#595959",
+            secondaryDark: "#202020",
+            secondaryDarkShadow: "rgba(81, 81, 81, 0.404)",
+            textColor: "#7BBA81",
+            special: "#d2af7a",
+            ternary: "#c4c9d3",
+            error: "#e74c3c",
+            maxPageWidth: "110rem",
+            discord: "#7b40ff",
+            link: "rgb(112, 173, 220)"
+          }) :
+            changeRootVariables({
+              primary: "#10a37f",
+              secondary: "#075c48",
+              white: "#fff",
+              primaryLight: "#F8F8F8",
+              primaryDark: "#222222",
+              secondaryLight: "#dbdbdb",
+              secondaryLightActive: "#cbcbcb",
+              secondaryDark: "#ececec",
+              secondaryDarkShadow: "rgba(0, 0, 0, 0.16)",
+              textColor: "#7BBA81",
+              special: "#d2af7a",
+              ternary: "#c4c9d3",
+              error: "#e74c3c",
+              maxPageWidth: "110rem",
+              discord: "#7b40ff",
+              link: 'rgb(0, 71, 125)'
+            })
+          localStorage.setItem('theme', theme ? "true" : '')
+          theme = !theme
+
+        })
+
+      }
+    </script>
+    <script>
+      isHomepage = true
+    </script>
+
+
+
+
+
+
+    <script defer="" src="/javascripts/home1.js"></script>
+
+
+
+</body>
+
+</html>
