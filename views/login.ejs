@@ -6,7 +6,12 @@
         <div class="form-inner">
           <h3>Login to ProdigyHire</h3>
           <!--Login Form-->
-          <form method="post" action="https://creativelayers.net/themes/superio/add-parcel.html">
+          <% if (error.length > 0) { %>
+            <div class="alert alert-danger">
+              <%= error %>
+            </div>
+          <% } %>
+          <form method="post" action="/login">
             <div class="form-group">
               <label>Username</label>
               <input type="text" name="username" placeholder="Username" required>
@@ -25,7 +30,7 @@
           </form>
   
           <div class="bottom-box">
-            <div class="text">Don't have an account? <a href="/register-popup" class="call-modal signup">Signup</a></div>
+            <div class="text">Don't have an account? <a href="/register" class="call-modal signup">Signup</a></div>
             <div class="divider"><span>or</span></div>
             <div class="btn-box row">
               <div class="col-lg-6 col-md-12">

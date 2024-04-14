@@ -7,18 +7,27 @@
           <h3>Create a Free ProdigyHire Account</h3>
   
           <!--Login Form-->
-          <form method="post" action="https://creativelayers.net/themes/superio/add-parcel.html">
+          <% if (message.length > 0) { %>
+            <div class="alert alert-danger">
+              <%= message %>
+            </div>
+          <% } %>
+          <form method="post" action="/register">
             <div class="form-group">
               <div class="btn-box row">
                 <div class="col-lg-6 col-md-12">
-                  <a href="#" class="theme-btn btn-style-seven"><i class="la la-user"></i> Candidate </a>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                  <a href="#" class="theme-btn btn-style-four"><i class="la la-briefcase"></i> Employer </a>
-                </div>
+                  <label><input type="radio" value="candidate" name="role" required> Candidate </label>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                  <label><input type="radio" value="employer" name="role" required> Employer </label>
+              </div>
               </div>
             </div>
   
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" minlength="4" name="username" placeholder="Username" required>
+            </div>
             <div class="form-group">
               <label>Email Address</label>
               <input type="email" name="email" placeholder="Email" required>
@@ -26,7 +35,7 @@
   
             <div class="form-group">
               <label>Password</label>
-              <input id="password-field" type="password" name="password" value="" placeholder="Password">
+              <input id="password-field" minlength="6" type="password" name="password" value="" placeholder="Password">
             </div>
   
             <div class="form-group">
@@ -50,4 +59,5 @@
       <!--End Login Form -->
     </div>
     <!-- End Login Module -->
+
   </div>
