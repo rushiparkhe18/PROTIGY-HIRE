@@ -19,11 +19,133 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
   <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
 </head>
 
 <body>
 
   <div class="page-wrapper">
+    <div class="notification-box flex flex-col items-center justify-center fixed w-full z-50 p-3">
+      <!-- Notification container -->
+    </div>
+
+    <% if (successMessage) { %>
+      <script>
+        sendNotification("success", "<%= successMessage %>"); // Show notification
+
+        // Function to show notification
+        function sendNotification(type, text) {
+          let notificationBox = document.querySelector(".notification-box");
+          const alerts = {
+            info: {
+              icon: `<svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>`,
+              color: "blue-500"
+            },
+            error: {
+              icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>`,
+              color: "red-500"
+            },
+            warning: {
+              icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+</svg>`,
+              color: "yellow-500"
+            },
+            success: {
+              icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>`,
+              color: "green-500"
+            }
+          };
+          let component = document.createElement("div");
+          component.className = `relative flex items-center bg-${alerts[type].color} text-white text-sm font-bold px-4 py-3 rounded-md opacity-0 transform transition-all duration-500 mb-1`;
+          component.innerHTML = `${alerts[type].icon}<p class="text-white">${text}</p>`; // Set text color to white here
+          notificationBox.appendChild(component);
+          setTimeout(() => {
+            component.classList.remove("opacity-0");
+            component.classList.add("opacity-1");
+          }, 1); //1ms For fixing opacity on new element
+          setTimeout(() => {
+            component.classList.remove("opacity-1");
+            component.classList.add("opacity-0");
+            //component.classList.add("-translate-y-80"); //it's a little bit buggy when send multiple alerts
+            component.style.margin = 0;
+            component.style.padding = 0;
+          }, 1500); // Change to 3000ms for 3 seconds
+          setTimeout(() => {
+            component.style.setProperty("height", "0", "important");
+          }, 1600); // Change to 3100ms
+          setTimeout(() => {
+            notificationBox.removeChild(component);
+          }, 2200); // Change to 3700ms
+          //If you can do something more elegant than timeouts, please do, but i can't
+        }
+      </script>
+    <% } else if (errorMessage) { %>
+      <script>
+        sendNotification("error", "<%= errorMessage %>"); // Show notification
+
+        // Function to show notification
+        function sendNotification(type, text) {
+          let notificationBox = document.querySelector(".notification-box");
+          const alerts = {
+            info: {
+              icon: `<svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>`,
+              color: "blue-500"
+            },
+            error: {
+              icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>`,
+              color: "red-500"
+            },
+            warning: {
+              icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+</svg>`,
+              color: "yellow-500"
+            },
+            success: {
+              icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>`,
+              color: "green-500"
+            }
+          };
+          let component = document.createElement("div");
+          component.className = `relative flex items-center bg-${alerts[type].color} text-white text-sm font-bold px-4 py-3 rounded-md opacity-0 transform transition-all duration-500 mb-1`;
+          component.innerHTML = `${alerts[type].icon}<p class="text-white">${text}</p>`; // Set text color to white here
+          notificationBox.appendChild(component);
+          setTimeout(() => {
+            component.classList.remove("opacity-0");
+            component.classList.add("opacity-1");
+          }, 1); //1ms For fixing opacity on new element
+          setTimeout(() => {
+            component.classList.remove("opacity-1");
+            component.classList.add("opacity-0");
+            //component.classList.add("-translate-y-80"); //it's a little bit buggy when send multiple alerts
+            component.style.margin = 0;
+            component.style.padding = 0;
+          }, 1500); // Change to 3000ms for 3 seconds
+          setTimeout(() => {
+            component.style.setProperty("height", "0", "important");
+          }, 1600); // Change to 3100ms
+          setTimeout(() => {
+            notificationBox.removeChild(component);
+          }, 2200); // Change to 3700ms
+          //If you can do something more elegant than timeouts, please do, but i can't
+        }
+      </script>
+    <% } %>
 
     <!-- Preloader -->
     <div class="preloader"></div>
@@ -34,378 +156,463 @@
     <!-- Main Header-->
     <%- include("./components/Header.ejs") -%>
 
-    <!--End Main Header -->
+      <!--End Main Header -->
 
-    <!-- Job Detail Section -->
-    <section class="job-detail-section">
-      <!-- Upper Box -->
-      <div class="upper-box">
-        <div class="auto-container">
-          <!-- Job Block -->
-          <div class="job-block-seven">
-            <div class="inner-box">
-              <div class="content">
-                <span class="company-logo"><img src="images/resource/company-logo/5-1.png" alt=""></span>
-                <h4><a href="#">Product Designer / UI Designer</a></h4>
-                <ul class="job-info">
-                  <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                  <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                  <li><span class="icon flaticon-money"></span> $35k - $45k</li>
-                </ul>
-                <ul class="job-other-info">
-                  <li class="time">Full Time</li>
-                  <li class="privacy">Private</li>
-                  <li class="required">Urgent</li>
-                </ul>
-              </div>
+      <!-- Job Detail Section -->
+      <section class="job-detail-section">
+        <!-- Upper Box -->
+        <div class="upper-box">
+          <div class="auto-container">
+            <!-- Job Block -->
+            <div class="job-block-seven">
+              <div class="inner-box">
+                <div class="content">
+                  <% if (job.companyProfile[0] && job.companyProfile[0] && job.companyProfile[0].logo) { %>
+                    <span class="company-logo"><img src="/images/uploads/<%= job.companyProfile[0].logo %>"
+                        alt="<%= job.companyProfile[0].companyName %> Logo"></span>
+                    <% } else { %>
+                      <span class="company-logo">Company Logo Not Available</span>
+                      <% } %>
 
-              <div class="btn-box">
-                <a href="#" class="theme-btn btn-style-one">Apply For Job</a>
-                <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
+                        <h4><a href="/job-single/<%= job._id %>">
+                            <%= job.jobTitle %>
+                          </a></h4>
+                        <ul class="job-info">
+                          <li><span class="icon flaticon-map-locator"></span>
+                            <%= job.city %>, <%= job.country %>
+                          </li>
+                          <li><span class="icon flaticon-clock-3"></span>
+                            <%= job.hours %>
+                          </li>
+                          <li><span class="icon flaticon-money"></span>
+                            <%= job.salary %>
+                          </li>
+                        </ul>
+                        <ul class="job-other-info">
+                          <% job.tags.forEach(tag=> { %>
+                            <% if (!['FullTime', 'PartTime' , 'Private' , 'Urgent' ].includes(tag)) { %>
+                              <li class="<%= tag.toLowerCase() %>">
+                                <%= tag %>
+                              </li>
+                              <% } %>
+                                <% }); %>
+                                  <% if (job.tags.includes('FullTime') || job.tags.includes('PartTime')) { %>
+                                    <li class="time">
+                                      <%= job.tags.includes('FullTime') ? 'Full Time' : 'Part Time' %>
+                                    </li>
+                                    <% } %>
+                                      <% if (job.tags.includes('Private')) { %>
+                                        <li class="privacy">Private</li>
+                                        <% } %>
+                                          <% if (job.tags.includes('Urgent')) { %>
+                                            <li class="required">Urgent</li>
+                                            <% } %>
+                        </ul>
+                </div>
+                <div class="btn-box">
+                  <!-- Check if user is candidate -->
+                  <% if (user && user.role==='candidate' && job.status === 'Active' ) { %>
+                    <!-- Apply for Job Button -->
+                    <button type="button" class="theme-btn btn-style-one apply-job-btn" onclick="openModal()">Apply For Job</button>
+                <% } else if(!user || user.role!=='candidate'){ %>
+                    <!-- Display message for non-candidate users -->
+                    <button class="theme-btn btn-style-one nologin">Apply For Job</button>
+                <% } else if(job.status === 'Inactive') { %>
+                    <!-- Display message for non-candidate users -->
+                    <button class="theme-btn btn-style-one" onclick="inactivef()">Apply For Job</button>
+                <% } else  { %>
+                    <!-- Display message for non-candidate users -->
+                    <button class="theme-btn btn-style-one nologin">Apply For Job</button>
+                <% } %>
+                
+                <!-- Tailwind Modal -->
+                  <div id="modal" class="fixed z-10 inset-0 overflow-y-auto hidden  place-content-center">
+                      <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                          <!-- Background Overlay -->
+                          <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                              <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                          </div>
+                  
+                          <!-- Modal Panel -->
+                          <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                          
+                          <!-- Modal Content -->
+                          <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" style="margin-bottom: 100%;">
+                              <!-- Modal Header -->
+                              <div class="bg-gray-200 px-4 py-2">
+                                  <h5 class="modal-title">Upload Your Resume</h5>
+                              </div>
+                  
+                              <!-- Modal Body -->
+                              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                  <form action="/apply/<%= job._id %>" method="post" enctype="multipart/form-data">
+                                      <div class="mb-4">
+                                          <label for="resume" class="block text-gray-700 text-sm font-bold mb-2">Choose your resume:</label>
+                                          <input type="file" id="resume" name="resume" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                                      </div>
+                                      <!-- Modal Footer -->
+                                      <div class="text-center">
+                                          <button type="submit" class="theme-btn btn-style-one">Upload Resume</button>
+                                          <button type="button" class="theme-btn btn-style-one ml-2" onclick="closeModal()">Cancel</button>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                
+                <script>
+                    function openModal() {
+                        document.getElementById('modal').classList.remove('hidden');
+                        document.getElementById('modal').classList.add('block');
+                    }
+                
+                    function closeModal() {
+                        document.getElementById('modal').classList.remove('block');
+                        document.getElementById('modal').classList.add('hidden');
+                    }
+                </script>
+                
+                        
+                        <script>
+                          // Add event listener to the button
+                          var nologinButton = document.getElementsByClassName("nologin")[0]; // Select the first element with class nologin
+                          let inactivej = document.querySelector("#inactivej"); // Select the first element with class nologin
+                          nologinButton.addEventListener("click", function () {
+                            console.log("I AM CLICKED")
+                            sendNotification("error", "You need to login as a candidate"); // Show notification
+                          });
+                          function inactivef(){
+                            console.log("I AM CLICKED")
+                            sendNotification("warning", "Sorry, Job is Inactive"); // Show notification
+
+                          }
+
+                          // Function to show notification
+                          function sendNotification(type, text) {
+                            let notificationBox = document.querySelector(".notification-box");
+                            const alerts = {
+                              info: {
+                                icon: `<svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>`,
+                                color: "blue-500"
+                              },
+                              error: {
+                                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>`,
+                                color: "red-500"
+                              },
+                              warning: {
+                                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>`,
+                                color: "yellow-500"
+                              },
+                              success: {
+                                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>`,
+                                color: "green-500"
+                              }
+                            };
+                            let component = document.createElement("div");
+                            component.className = `relative flex items-center bg-${alerts[type].color} text-white text-sm font-bold px-4 py-3 rounded-md opacity-0 transform transition-all duration-500 mb-1`;
+                            component.innerHTML = `${alerts[type].icon}<p class="text-white">${text}</p>`; // Set text color to white here
+                            notificationBox.appendChild(component);
+                            setTimeout(() => {
+                              component.classList.remove("opacity-0");
+                              component.classList.add("opacity-1");
+                            }, 1); //1ms For fixing opacity on new element
+                            setTimeout(() => {
+                              component.classList.remove("opacity-1");
+                              component.classList.add("opacity-0");
+                              //component.classList.add("-translate-y-80"); //it's a little bit buggy when send multiple alerts
+                              component.style.margin = 0;
+                              component.style.padding = 0;
+                            }, 1500); // Change to 3000ms for 3 seconds
+                            setTimeout(() => {
+                              component.style.setProperty("height", "0", "important");
+                            }, 1600); // Change to 3100ms
+                            setTimeout(() => {
+                              notificationBox.removeChild(component);
+                            }, 2200); // Change to 3700ms
+                            //If you can do something more elegant than timeouts, please do, but i can't
+                          }
+                        </script>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="job-detail-outer">
-        <div class="auto-container">
-          <div class="row">
-            <div class="content-column col-lg-8 col-md-12 col-sm-12">
-              <div class="job-detail">
-                <h4>Job Description</h4>
-                <p>As a Product Designer, you will work within a Product Delivery Team fused with UX, engineering, product and data talent. You will help the team design beautiful interfaces that solve business challenges for our clients. We work with a number of Tier 1 banks on building web-based applications for AML, KYC and Sanctions List management workflows. This role is ideal if you are looking to segue your career into the FinTech or Big Data arenas.</p>
-                <h4>Key Responsibilities</h4>
-                <ul class="list-style-three">
-                  <li>Be involved in every step of the product design cycle from discovery to developer handoff and user acceptance testing.</li>
-                  <li>Work with BAs, product managers and tech teams to lead the Product Design</li>
-                  <li>Maintain quality of the design process and ensure that when designs are translated into code they accurately reflect the design specifications.</li>
-                  <li>Accurately estimate design tickets during planning sessions.</li>
-                  <li>Contribute to sketching sessions involving non-designersCreate, iterate and maintain UI deliverables including sketch files, style guides, high fidelity prototypes, micro interaction specifications and pattern libraries.</li>
-                  <li>Ensure design choices are data led by identifying assumptions to test each sprint, and work with the analysts in your team to plan moderated usability test sessions.</li>
-                  <li>Design pixel perfect responsive UI’s and understand that adopting common interface patterns is better for UX than reinventing the wheel</li>
-                  <li>Present your work to the wider business at Show & Tell sessions.</li>
-                </ul>
-                <h4>Skill & Experience</h4>
-                <ul class="list-style-three">
-                  <li>You have at least 3 years’ experience working as a Product Designer.</li>
-                  <li>You have experience using Sketch and InVision or Framer X</li>
-                  <li>You have some previous experience working in an agile environment – Think two-week sprints.</li>
-                  <li>You are familiar using Jira and Confluence in your workflow</li>
-                </ul>
-              </div>
-
-              <!-- Other Options -->
-              <div class="other-options">
-                <div class="social-share">
-                  <h5>Share this job</h5>
-                  <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                  <a href="#" class="twitter"><i class="fab fa-twitter"></i> Twitter</a>
-                  <a href="#" class="google"><i class="fab fa-google"></i> Google+</a>
-                </div>
-              </div>
-
-              <!-- <hr class="opacity-100"> -->
-
-              <!-- Application Ends -->
-              <div class="application-end-widget">
-                <div class="d-sm-flex justify-content-sm-between">
-                  <div class="titles mb-3 mb-sm-0">
-                    <h4 class="fz20 fw500">Application ends</h4>
-                    <p class="text">May 18, 2026</p>
-                  </div>
-                  <div class="btn-box mb-0">
-                    <a href="#" class="theme-btn btn-style-one">Apply For Job <i class="fal fa-long-arrow-right ms-3"></i></a>
-                  </div>
-                </div>
-              </div>
-              <hr class="opacity-100">
-
-
-              <!-- Related Jobs -->
-              <div class="related-jobs">
-                <div class="title-box">
-                  <h3>Related Jobs</h3>
-                  <div class="text">2020 jobs live - 293 added today.</div>
+        <!-- Job Detail Outer -->
+        <div class="job-detail-outer">
+          <div class="auto-container">
+            <div class="row">
+              <div class="content-column col-lg-8 col-md-12 col-sm-12">
+                <div class="job-detail">
+                  <h4>Job Description</h4>
+                  <p>
+                    <%- job.jobDescription.replace(/\r?\n/g, '<br><br>' ) %>
+                  </p>
+                  <h4>Key Responsibilities</h4>
+                  <p>
+                    <%- job.keyResponsibility.replace(/\r?\n/g, '<br><br>' ) %>
+                  </p>
+                  <h4>Skill & Experience</h4>
+                  <p>
+                    <%- job.skillExperience.replace(/\r?\n/g, '<br><br>' ) %>
+                  </p>
                 </div>
 
-                <!-- Job Block -->
-                <div class="job-block">
-                  <div class="inner-box">
-                    <div class="content">
-                      <span class="company-logo"><img src="images/resource/company-logo/1-1.png" alt=""></span>
-                      <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
-                      <ul class="job-info">
-                        <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                        <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                        <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                        <li><span class="icon flaticon-money"></span> $35k - $45k</li>
+
+
+
+
+              </div>
+              <div class="sidebar-column col-lg-4 col-md-12 col-sm-12">
+                <aside class="sidebar">
+                  <div class="sidebar-widget">
+                    <h4 class="widget-title">Job Overview</h4>
+                    <div class="widget-content">
+                      <ul class="job-overview">
+                        <li>
+                          <i class="icon icon-calendar"></i>
+                          <h5>Date Posted:</h5>
+                          <span>
+                            <%= job.datePosted.toDateString() %>
+                          </span>
+                        </li>
+                        <li>
+                          <i class="icon icon-expiry"></i>
+                          <h5>Expiration date:</h5>
+                          <span>
+                            <%= job.expirationDate.toDateString() %>
+                          </span>
+                        </li>
+                        <li>
+                          <i class="icon icon-location"></i>
+                          <h5>Location:</h5>
+                          <span>
+                            <%= job.city %>, <%= job.country %>
+                          </span>
+                        </li>
+                        <li>
+                          <i class="icon icon-user-2"></i>
+                          <h5>Job Title:</h5>
+                          <span>
+                            <%= job.jobTitle %>
+                          </span>
+                        </li>
+                        <li>
+                          <i class="icon icon-clock"></i>
+                          <h5>Hours:</h5>
+                          <span>
+                            <%= job.hours %>
+                          </span>
+                        </li>
+                        <li>
+                          <i class="icon icon-rate"></i>
+                          <h5>Rate:</h5>
+                          <span>
+                            <%= job.rate %>
+                          </span>
+                        </li>
+                        <li>
+                          <i class="icon icon-salary"></i>
+                          <h5>Salary:</h5>
+                          <span>
+                            <%= job.salary %>
+                          </span>
+                        </li>
                       </ul>
-                      <ul class="job-other-info">
-                        <li class="time">Full Time</li>
-                        <li class="privacy">Private</li>
-                        <li class="required">Urgent</li>
-                      </ul>
-                      <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
                     </div>
-                  </div>
-                </div>
-
-                <!-- Job Block -->
-                <div class="job-block">
-                  <div class="inner-box">
-                    <div class="content">
-                      <span class="company-logo"><img src="images/resource/company-logo/1-2.png" alt=""></span>
-                      <h4><a href="#">Recruiting Coordinator</a></h4>
-                      <ul class="job-info">
-                        <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                        <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                        <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                        <li><span class="icon flaticon-money"></span> $35k - $45k</li>
-                      </ul>
-                      <ul class="job-other-info">
-                        <li class="time">Full Time</li>
-                        <li class="privacy">Private</li>
-                        <li class="required">Urgent</li>
-                      </ul>
-                      <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Job Block -->
-                <div class="job-block">
-                  <div class="inner-box">
-                    <div class="content">
-                      <span class="company-logo"><img src="images/resource/company-logo/1-3.png" alt=""></span>
-                      <h4><a href="#">Product Manager, Studio</a></h4>
-                      <ul class="job-info">
-                        <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                        <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                        <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                        <li><span class="icon flaticon-money"></span> $35k - $45k</li>
-                      </ul>
-                      <ul class="job-other-info">
-                        <li class="time">Full Time</li>
-                        <li class="privacy">Private</li>
-                        <li class="required">Urgent</li>
-                      </ul>
-                      <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="sidebar-column col-lg-4 col-md-12 col-sm-12">
-              <aside class="sidebar">
-                <div class="sidebar-widget">
-                  <!-- Job Overview -->
-                  <h4 class="widget-title">Job Overview</h4>
-                  <div class="widget-content">
-                    <ul class="job-overview">
-                      <li>
-                        <i class="icon icon-calendar"></i>
-                        <h5>Date Posted:</h5>
-                        <span>Posted 1 hours ago</span>
-                      </li>
-                      <li>
-                        <i class="icon icon-expiry"></i>
-                        <h5>Expiration date:</h5>
-                        <span>April 06, 2021</span>
-                      </li>
-                      <li>
-                        <i class="icon icon-location"></i>
-                        <h5>Location:</h5>
-                        <span>London, UK</span>
-                      </li>
-                      <li>
-                        <i class="icon icon-user-2"></i>
-                        <h5>Job Title:</h5>
-                        <span>Designer</span>
-                      </li>
-                      <li>
-                        <i class="icon icon-clock"></i>
-                        <h5>Hours:</h5>
-                        <span>50h / week</span>
-                      </li>
-                      <li>
-                        <i class="icon icon-rate"></i>
-                        <h5>Rate:</h5>
-                        <span>$15 - $25 / hour</span>
-                      </li>
-                      <li>
-                        <i class="icon icon-salary"></i>
-                        <h5>Salary:</h5>
-                        <span>$35k - $45k</span>
-                      </li>
-                    </ul>
                   </div>
 
                   <!-- Map Widget -->
-                  <h4 class="widget-title">Job Location</h4>
-                  <div class="widget-content">
-                    <div class="map-outer">
-                      <div class="map-canvas" data-zoom="12" data-lat="-37.817085" data-lng="144.955631" data-type="roadmap" data-hue="#ffc400" data-title="Envato" data-icon-path="images/resource/map-marker.png" data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@youremail.com'>info@youremail.com</a>">
-                      </div>
-                    </div>
-                  </div>
+
 
                   <!-- Job Skills -->
-                  <h4 class="widget-title">Job Skills</h4>
-                  <div class="widget-content">
-                    <ul class="job-skills">
-                      <li><a href="#">app</a></li>
-                      <li><a href="#">administrative</a></li>
-                      <li><a href="#">android</a></li>
-                      <li><a href="#">wordpress</a></li>
-                      <li><a href="#">design</a></li>
-                      <li><a href="#">react</a></li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div class="sidebar-widget company-widget">
-                  <div class="widget-content">
-                    <div class="company-title">
-                      <div class="company-logo"><img src="images/resource/company-7.png" alt=""></div>
-                      <h5 class="company-name">InVision</h5>
-                      <a href="#" class="profile-link">View company profile</a>
+                  <div class="sidebar-widget">
+                    <h4 class="widget-title">Job Tags</h4>
+                    <div class="widget-content">
+                      <ul class="job-skills">
+                        <% job.tags.forEach(tag=> { %>
+                          <li><a href="#">
+                              <%= tag %>
+                            </a></li>
+                          <% }); %>
+                      </ul>
                     </div>
-
-                    <ul class="company-info">
-                      <li>Primary industry: <span>Software</span></li>
-                      <li>Company size: <span>501-1,000</span></li>
-                      <li>Founded in: <span>2011</span></li>
-                      <li>Phone: <span>123 456 7890</span></li>
-                      <li>Email: <span>info@joio.com</span></li>
-                      <li>Location: <span>London, UK</span></li>
-                      <li>Social media:
-                        <div class="social-links">
-                          <a href="#"><i class="fab fa-facebook-f"></i></a>
-                          <a href="#"><i class="fab fa-twitter"></i></a>
-                          <a href="#"><i class="fab fa-instagram"></i></a>
-                          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                      </li>
-                    </ul>
-
-                    <div class="btn-box"><a href="#" class="theme-btn btn-style-three">www.invisionapp.com</a></div>
                   </div>
-                </div>
+
+                  <!-- Company Info -->
+                  <!-- Company Info -->
+                  <!-- Company Info -->
+                  <div class="sidebar-widget company-widget">
+                    <div class="widget-content">
+                      <div class="company-title">
+                        <div class="company-logo"><img src="/images/uploads/<%= job.companyProfile[0].logo %>"
+                            alt="<%= job.companyProfile[0].companyName %>"></div>
+                        <h5 class="company-name">
+                          <%= job.companyProfile[0].companyName %>
+                        </h5>
+                        <a href="#" class="profile-link">View company profile</a>
+                      </div>
+
+                      <ul class="company-info">
+                        <li>Primary industry: <span>
+                            <%= job.companyProfile[0].primaryIndustry %>
+                          </span></li>
+                        <li>Company size: <span>
+                            <%= job.companyProfile[0].companySize %>
+                          </span></li>
+                        <li>Founded in: <span>
+                            <%= job.companyProfile[0].foundedIn %>
+                          </span></li>
+                        <li>Phone: <span>
+                            <%= job.companyProfile[0].phone %>
+                          </span></li>
+                        <li>Email: <span>
+                            <%= job.companyProfile[0].email %>
+                          </span></li>
+                        <li>Location: <span>
+                            <%= job.companyProfile[0].city %>, <%= job.companyProfile[0].country %>
+                          </span></li>
+                        <!-- Add more fields as needed -->
+                        <li>Social media:
+                          <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                          </div>
+                        </li>
+                      </ul>
+
+                      <div class="btn-box"><a href="<%= job.companyProfile[0].website %>"
+                          class="theme-btn btn-style-three">Visit Website</a></div>
+                    </div>
+                  </div>
+
+
+              </div>
+
               </aside>
             </div>
           </div>
         </div>
+  </div>
+  </section>
+  <!-- End Job Detail Section -->
+
+
+  <!-- Main Footer -->
+  <footer class="main-footer alternate5">
+    <div class="auto-container">
+      <!--Widgets Section-->
+      <div class="widgets-section">
+        <div class="row">
+          <div class="big-column col-xl-4 col-lg-3 col-md-12">
+            <div class="footer-column about-widget">
+              <div class="logo"><a href="#"><img src="images/logo.svg" alt=""></a></div>
+              <p class="phone-num"><span>Call us </span><a href="thebeehost%40support.html">123 456 7890</a></p>
+              <p class="address">329 Queensberry Street, North Melbourne VIC<br> 3051, Australia. <br><a
+                  href="mailto:support@superio.com" class="email">support@superio.com</a></p>
+            </div>
+          </div>
+
+          <div class="big-column col-xl-8 col-lg-9 col-md-12">
+            <div class="row">
+              <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                <div class="footer-widget links-widget">
+                  <h4 class="widget-title">For Candidates</h4>
+                  <div class="widget-content">
+                    <ul class="list">
+                      <li><a href="#">Browse Jobs</a></li>
+                      <li><a href="#">Browse Categories</a></li>
+                      <li><a href="#">Candidate Dashboard</a></li>
+                      <li><a href="#">Job Alerts</a></li>
+                      <li><a href="#">My Bookmarks</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                <div class="footer-widget links-widget">
+                  <h4 class="widget-title">For Employers</h4>
+                  <div class="widget-content">
+                    <ul class="list">
+                      <li><a href="#">Browse Candidates</a></li>
+                      <li><a href="#">Employer Dashboard</a></li>
+                      <li><a href="#">Add Job</a></li>
+                      <li><a href="#">Job Packages</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                <div class="footer-widget links-widget">
+                  <h4 class="widget-title">About Us</h4>
+                  <div class="widget-content">
+                    <ul class="list">
+                      <li><a href="#">Job Page</a></li>
+                      <li><a href="#">Job Page Alternative</a></li>
+                      <li><a href="#">Resume Page</a></li>
+                      <li><a href="#">Blog</a></li>
+                      <li><a href="#">Contact</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                <div class="footer-widget links-widget">
+                  <h4 class="widget-title">Helpful Resources</h4>
+                  <div class="widget-content">
+                    <ul class="list">
+                      <li><a href="#">Site Map</a></li>
+                      <li><a href="#">Terms of Use</a></li>
+                      <li><a href="#">Privacy Center</a></li>
+                      <li><a href="#">Security Center</a></li>
+                      <li><a href="#">Accessibility Center</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
-    <!-- End Job Detail Section -->
+    </div>
 
 
-    <!-- Main Footer -->
-    <footer class="main-footer alternate5">
+    <!--Bottom-->
+    <div class="footer-bottom">
       <div class="auto-container">
-        <!--Widgets Section-->
-        <div class="widgets-section">
-          <div class="row">
-            <div class="big-column col-xl-4 col-lg-3 col-md-12">
-              <div class="footer-column about-widget">
-                <div class="logo"><a href="#"><img src="images/logo.svg" alt=""></a></div>
-                <p class="phone-num"><span>Call us </span><a href="thebeehost%40support.html">123 456 7890</a></p>
-                <p class="address">329 Queensberry Street, North Melbourne VIC<br> 3051, Australia. <br><a href="mailto:support@superio.com" class="email">support@superio.com</a></p>
-              </div>
-            </div>
-
-            <div class="big-column col-xl-8 col-lg-9 col-md-12">
-              <div class="row">
-                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
-                  <div class="footer-widget links-widget">
-                    <h4 class="widget-title">For Candidates</h4>
-                    <div class="widget-content">
-                      <ul class="list">
-                        <li><a href="#">Browse Jobs</a></li>
-                        <li><a href="#">Browse Categories</a></li>
-                        <li><a href="#">Candidate Dashboard</a></li>
-                        <li><a href="#">Job Alerts</a></li>
-                        <li><a href="#">My Bookmarks</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
-                  <div class="footer-widget links-widget">
-                    <h4 class="widget-title">For Employers</h4>
-                    <div class="widget-content">
-                      <ul class="list">
-                        <li><a href="#">Browse Candidates</a></li>
-                        <li><a href="#">Employer Dashboard</a></li>
-                        <li><a href="#">Add Job</a></li>
-                        <li><a href="#">Job Packages</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
-                  <div class="footer-widget links-widget">
-                    <h4 class="widget-title">About Us</h4>
-                    <div class="widget-content">
-                      <ul class="list">
-                        <li><a href="#">Job Page</a></li>
-                        <li><a href="#">Job Page Alternative</a></li>
-                        <li><a href="#">Resume Page</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="footer-column col-lg-3 col-md-6 col-sm-12">
-                  <div class="footer-widget links-widget">
-                    <h4 class="widget-title">Helpful Resources</h4>
-                    <div class="widget-content">
-                      <ul class="list">
-                        <li><a href="#">Site Map</a></li>
-                        <li><a href="#">Terms of Use</a></li>
-                        <li><a href="#">Privacy Center</a></li>
-                        <li><a href="#">Security Center</a></li>
-                        <li><a href="#">Accessibility Center</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="outer-box">
+          <div class="copyright-text">© 2021 <a href="#">Superio</a>. All Right Reserved.</div>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </div>
       </div>
+    </div>
 
-
-      <!--Bottom-->
-      <div class="footer-bottom">
-        <div class="auto-container">
-          <div class="outer-box">
-            <div class="copyright-text">© 2021 <a href="#">Superio</a>. All Right Reserved.</div>
-            <div class="social-links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scroll To Top -->
-      <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
-    </footer>
-    <!-- End Main Footer -->
+    <!-- Scroll To Top -->
+    <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
+  </footer>
+  <!-- End Main Footer -->
 
 
   </div><!-- End Page Wrapper -->
@@ -429,6 +636,7 @@
   <!--Google Map APi Key-->
   <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&amp;ver=5.2.4"></script>
   <script src="/javascripts/map-script.js"></script>
+
   <!--End Google Map APi-->
 </body>
 

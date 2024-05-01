@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ProdigyHire | Candidate Dashboard Profile</title>
+
+    <!-- Stylesheets -->
+    <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/responsive.css" rel="stylesheet">
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="javascripts/respond.js"></script><![endif]-->
+    <style>
+        /* For webkit browsers like Chrome and Safari */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper dashboard">
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+        <!-- Header Span -->
+        <span class="header-span"></span>
+
+        <!-- Main Header-->
+        <%- include("../components/DashboardHeader") -%>
+
+        <!-- End Main Header -->
+
+        <!-- Sidebar Backdrop -->
+        <div class="sidebar-backdrop"></div>
+
+        <!-- User Sidebar -->
+        <%- include("../components/candidate-DashboardSidebar") -%>
+
+        <!-- End User Sidebar -->
+
+        <!-- Dashboard -->
+        <section class="user-dashboard">
+            <div class="dashboard-outer">
+                <div class="upper-title-box">
+                    <h3>My Profile</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Ls widget -->
+                        <div class="ls-widget">
+                            <div class="tabs-box">
+                                <div class="widget-title">
+                                    <h4>My Profile</h4>
+                                </div>
+
+                                <div class="alert-container">
+                                    <% if (successMessage && successMessage.length > 0) { %>
+                                        <div class="alert alert-success">
+                                            <%= successMessage %>
+                                        </div>
+                                    <% } %>
+                                
+                                    <% if (errorMessage && errorMessage.length > 0) { %>
+                                        <div class="alert alert-danger">
+                                            <%= errorMessage %>
+                                        </div>
+                                    <% } %>
+                                </div>
+
+                                <div class="widget-content">
+                                    <form class="default-form" action="/candidate-dashboard-profile-submit" method="post" enctype="multipart/form-data">
+                                        <div class="uploading-outer">
+                                            <div class="uploadButton">
+                                                <label class="uploadButton-button ripple-effect" for="upload">Profile Picture</label>
+                                                <input class="uploadButton-input" type="file" name="profilePicture" id="upload" style="display: none;" />
+                                                <span class="uploadButton-file-name" style="color: red;"></span>
+                                            </div>
+                                            <img src="<%= existingProfile ? '/images/uploads/' + existingProfile.profilePicture : '/images/default-profile-picture.jpg' %>" alt="Profile Picture" id="uploaded-image" style="max-width: 200px; max-height: 200px;" />
+                                            <div class="text mx-4">Minimum dimension: 330x300 And Suitable files are .jpg & .png</div>
+                                            <!-- Display uploaded image here -->
+                                            <!-- Display name of existing file if available -->
+                                            <!-- <p><%= existingProfile ? 'Existing File: ' + existingProfile.profilePicture : 'No existing file' %></p> -->
+                                        </div>
+                                        
+                                        
+                                        
+                                    
+                                        <div class="row">
+                                            <!-- Input -->
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label>Full Name</label>
+                                                <input type="text" name="candidateName" value="<%= existingProfile ? existingProfile.candidateName : '' %>" placeholder="Jerome" required>
+                                            </div>
+                                            <!-- Input -->
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label>Job Title</label>
+                                                <input type="text" name="title" value="<%= existingProfile ? existingProfile.title : '' %>" placeholder="UI Designer" required>
+                                            </div>
+                                            <!-- Input -->
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label>Phone</label>
+                                                <input type="number" name="phoneNumber" value="<%= existingProfile ? existingProfile.phoneNumber : '' %>" placeholder="0 123 456 7890" required>
+                                            </div>
+                                            <!-- Input -->
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label>Email address</label>
+                                                <input type="text" name="email" value="<%= existingProfile ? existingProfile.email : '' %>" placeholder="creativelayers" required>
+                                            </div>
+                                            <!-- Select -->
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label for="gender">Gender</label>
+                                                <select id="gender" name="gender" class="chosen-select" required>
+                                                    <option value="Male" <%= existingProfile && existingProfile.gender === 'Male' ? 'selected' : '' %>>Male</option>
+                                                    <option value="Female" <%= existingProfile && existingProfile.gender === 'Female' ? 'selected' : '' %>>Female</option>
+                                                    <option value="Other" <%= existingProfile && existingProfile.gender === 'Other' ? 'selected' : '' %>>Other</option>
+                                                </select>
+                                            </div>
+                                            <!-- Select -->
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label for="offeredSalary">Expected Salary (₹)</label>
+                                                <input type="text" id="offeredSalary" name="offeredSalary" value="<%= existingProfile ? existingProfile.offeredSalary : '' %>" placeholder="10000-50000" class="form-control" required>
+                                            </div>
+                                            <!-- Select -->
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label for="experience">Experience</label>
+                                                <select id="experience" name="experienceTime" class="form-control" required>
+                                                    <option value="Fresher" <%= existingProfile && existingProfile.experienceTime === 'Fresher' ? 'selected' : '' %>>Fresher</option>
+                                                    <option value="1 Year" <%= existingProfile && existingProfile.experienceTime === '1 Year' ? 'selected' : '' %>>1 Year</option>
+                                                    <option value="2 Years" <%= existingProfile && existingProfile.experienceTime === '2 Years' ? 'selected' : '' %>>2 Years</option>
+                                                    <option value="5 Years" <%= existingProfile && existingProfile.experienceTime === '5 Years' ? 'selected' : '' %>>5 Years</option>
+                                                    <option value="10 Years" <%= existingProfile && existingProfile.experienceTime === '10 Years' ? 'selected' : '' %>>10 Years</option>
+                                                    <!-- Add other options -->
+                                                </select>
+                                            </div>
+                                            <!-- Select -->
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label for="age">Age</label>
+                                                <input type="number" id="age" name="age" value="<%= existingProfile ? existingProfile.age : '' %>" placeholder="Your age" class="form-control" required>
+                                            </div>
+                                            <!-- Input -->
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label>Education Levels</label>
+                                                <input type="text" name="qualification" value="<%= existingProfile ? existingProfile.qualification : '' %>" placeholder="Certificate" required>
+                                            </div>
+                                            <!-- Input -->
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label>Languages</label>
+                                                <input type="text" name="language" value="<%= existingProfile ? existingProfile.language : '' %>" placeholder="English, Turkish" required>
+                                            </div>
+                                            <h3 class="mt-20">Social Media</h3>
+                                            <!-- Social Network -->
+                                            <div class="form-group col-lg-6 col-md-12 mt-20">
+                                                <label>Linkedin</label>
+                                                <input type="text" name="linkedin" value="<%= existingProfile ? existingProfile.linkedin : '' %>" placeholder="www.facebook.com/Invision" required>
+                                            </div>
+                                            <br>
+                                            <!-- Contact Information -->
+                                            <h3 class="mt-20">Location</h3>
+                                    
+                                            <div class="form-group col-lg-6 col-md-12 mt-20">
+                                                <label for="city">City</label>
+                                                <input type="text" name="city" value="<%= existingProfile ? existingProfile.city : '' %>" placeholder="Melbourne" required>
+                                            </div>
+                                            <div class="form-group col-lg-6 col-md-12 mt-20">
+                                                <label for="country">Country</label>
+                                                <input type="text" name="country" value="<%= existingProfile ? existingProfile.country : '' %>" placeholder="Australia" required>
+                                            </div>
+                                            <!-- Other contact inputs -->
+                                            <div class="form-group col-lg-12 col-md-12">
+                                                <label>Complete Address</label>
+                                                <input type="text" name="address" value="<%= existingProfile ? existingProfile.address : '' %>" placeholder="329 Queensberry Street, North Melbourne VIC 3051, Australia." required>
+                                            </div>
+                                            <!-- Save button -->
+                                            <div class="form-group col-lg-12 col-md-12">
+                                                <button type="submit" class="theme-btn btn-style-one">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <!-- End Dashboard -->
+
+        <!-- Copyright -->
+        <div class="copyright-text">
+            <p>© 2024 prodigyHire. All Right Reserved.</p>
+        </div>
+
+    </div><!-- End Page Wrapper -->
+
+    <!-- Scripts -->
+    <script src="javascripts/jquery.js"></script>
+    <script src="javascripts/popper.min.js"></script>
+    <script src="javascripts/chosen.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/jquery-ui.min.js"></script>
+    <script src="javascripts/jquery.fancybox.js"></script>
+    <script src="javascripts/jquery.modal.min.js"></script>
+    <script src="javascripts/mmenu.polyfills.js"></script>
+    <script src="javascripts/mmenu.js"></script>
+    <script src="javascripts/appear.js"></script>
+    <script src="javascripts/ScrollMagic.min.js"></script>
+    <script src="javascripts/rellax.min.js"></script>
+    <script src="javascripts/owl.js"></script>
+    <script src="javascripts/wow.js"></script>
+    <script src="javascripts/knob.js"></script>
+    <script src="javascripts/script.js"></script>
+    <!--Google Map APi Key-->
+    <script src="http://maps.google.com/maps/api/js?key=YOUR_API_KEY&amp;ver=5.2.4"></script>
+    <script src="javascripts/map-script.js"></script>
+    <!--End Google Map APi-->
+    <script>
+        // Your JavaScript code to dynamically populate the values goes here
+    </script>
+</body>
+
+</html>

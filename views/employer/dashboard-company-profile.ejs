@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <title>ProdigyHire | Company Profile</title>
+
+    <!-- Stylesheets -->
+    <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/responsive.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+    <style>
+        /* For webkit browsers like Chrome and Safari */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .upload-preview {
+            margin-left: 5%;
+            margin-right: 5%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper dashboard ">
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+        <!-- Header Span -->
+        <span class="header-span"></span>
+
+        <!-- Main Header-->
+        <%- include("../components/DashboardHeader") -%>
+            <!--End Main Header -->
+
+            <!-- Sidebar Backdrop -->
+            <div class="sidebar-backdrop"></div>
+
+            <!-- User Sidebar -->
+            <%- include("../components/DashboardSidebar") -%>
+
+                <!-- End User Sidebar -->
+
+                <!-- Dashboard -->
+                <section class="user-dashboard">
+                    <div class="dashboard-outer">
+                        <div class="upper-title-box">
+                            <h3>Company Profile!</h3>
+                            <div class="text">Ready to jump back in?</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- Ls widget -->
+                                <div class="ls-widget">
+                                    <div class="tabs-box">
+                                        <div class="widget-title">
+                                            <h4>My Profile</h4>
+                                        </div>
+
+                                        <div class="widget-content">
+
+                                            <form class="default-form" action="/company-profile-submit" method="post"
+                                                enctype="multipart/form-data">
+                                                <div class="uploading-outer">
+                                                    <div class="uploadButton mx-3">
+                                                        <input class="uploadButton-input" type="file" name="logo" accept="image/*, application/pdf" id="upload" onchange="previewImage(event)" />
+                                                        <label class="uploadButton-button ripple-effect" for="upload">Browse Logo</label>
+                                                    </div>
+                                                    <div class="image-preview mx-3" style="width: 10%; height: 10%;">
+                                                        <img id="preview" src="/images/uploads/<%= companyProfile.logo %>" alt="Preview Image" style="width: 100%; height: 100%; object-fit: contain;">
+                                                    </div>
+                                                    <div class="text">Minimum dimension: 330x300 And Suitable files are .jpg & .png</div>
+                                                </div>
+                                                
+
+                                                <div class="row">
+                                                    <!-- Input -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Company name</label>
+                                                        <input type="text" name="companyName"
+                                                            value="<%= companyProfile ? companyProfile.companyName : '' %>"
+                                                            placeholder="Invision" required>
+                                                    </div>
+
+                                                    <!-- Input -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Email address</label>
+                                                        <input type="text" name="email"
+                                                            value="<%= companyProfile ? companyProfile.email : '' %>"
+                                                            placeholder="invision@gmail.com" required>
+                                                    </div>
+
+                                                    <!-- Input -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Phone</label>
+                                                        <input type="number" name="phone" minlength="10" maxlength="10"
+                                                            value="<%= companyProfile ? companyProfile.phone : '' %>"
+                                                            placeholder="0 123 456 789" required>
+                                                    </div>
+
+                                                    <!-- Input -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Website</label>
+                                                        <input type="text" name="website"
+                                                            value="<%= companyProfile ? companyProfile.website : '' %>"
+                                                            placeholder="www.invision.com" required>
+                                                    </div>
+
+                                                    <!-- Input -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Est. Since</label>
+                                                        <input type="text" name="foundedIn"
+                                                            value="<%= companyProfile ? companyProfile.foundedIn: '' %>"
+                                                            placeholder="06.04.2020" required>
+                                                    </div>
+
+                                                    <!-- Input -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Team Size</label>
+                                                        <select class="chosen-select" name="companySize">
+                                                            <option value="1-10" <%=companyProfile &&
+                                                                companyProfile.companySize==='1 - 10' ? 'selected' : ''
+                                                                %>>1-10</option>
+                                                            <option value="10 - 50" <%=companyProfile &&
+                                                                companyProfile.companySize==='10 - 50' ? 'selected' : ''
+                                                                %>>10 - 50</option>
+                                                            <option value="50 - 100" <%=companyProfile &&
+                                                                companyProfile.companySize==='50 - 100' ? 'selected'
+                                                                : '' %>>50 - 100</option>
+                                                            <option value="100 - 150" <%=companyProfile &&
+                                                                companyProfile.companySize==='100 - 150' ? 'selected'
+                                                                : '' %>>100 - 150</option>
+                                                            <option value="150+" <%=companyProfile &&
+                                                                companyProfile.companySize==='150+' ? 'selected' : '' %>
+                                                                >150+</option>
+                                                        </select>
+                                                    </div>
+
+
+                                                    <!-- Search Select -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Primary Industry</label>
+                                                        <select data-placeholder="Categories" name="primaryIndustry"
+                                                            class="chosen-select multiple" tabindex="4">
+                                                            <option value="Software" <%=companyProfile &&
+                                                                companyProfile.primaryIndustry==='Software' ? 'selected'
+                                                                : '' %>>Software</option>
+                                                            <option value="Digital&Creative" <%=companyProfile &&
+                                                                companyProfile.primaryIndustry==='Digital&Creative'
+                                                                ? 'selected' : '' %>>Digital & Creative</option>
+                                                            <option value="Human Resources" <%=companyProfile &&
+                                                                companyProfile.primaryIndustry==='Human Resources'
+                                                                ? 'selected' : '' %>>Human Resources</option>
+                                                            <option value="Banking" <%=companyProfile &&
+                                                                companyProfile.primaryIndustry==='Banking' ? 'selected'
+                                                                : '' %>>Banking</option>
+                                                            <option value="Retail" <%=companyProfile &&
+                                                                companyProfile.primaryIndustry==='Retail' ? 'selected'
+                                                                : '' %>>Retail</option>
+                                                            <option value="Management" <%=companyProfile &&
+                                                                companyProfile.primaryIndustry==='Management'
+                                                                ? 'selected' : '' %>>Management</option>
+                                                        </select>
+                                                    </div>
+
+
+                                                    <!-- Company Info -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Allow In Search & Listing</label>
+                                                        <select class="chosen-select" name="allowSearchListing">
+                                                            <option <%=companyProfile &&
+                                                                companyProfile.allowSearchListing==='Yes' ? 'selected'
+                                                                : '' %>>Yes</option>
+                                                            <option <%=companyProfile &&
+                                                                companyProfile.allowSearchListing==='No' ? 'selected'
+                                                                : '' %>>No</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- About Company -->
+                                                    <div class="form-group col-lg-12 col-md-12">
+                                                        <label>About Company</label>
+                                                        <textarea name="aboutCompany"
+                                                            placeholder="Enter about your company..."
+                                                            required><%= companyProfile ? companyProfile.aboutCompany : '' %></textarea>
+                                                    </div>
+
+
+                                                    <!-- Input -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <button type="submit"
+                                                            class="theme-btn btn-style-one">Save</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Ls widget -->
+                                <div class="ls-widget">
+                                    <div class="tabs-box">
+                                        <div class="widget-title">
+                                            <h4>Social Network</h4>
+                                        </div>
+
+                                        <div class="widget-content">
+                                            <div class="default-form">
+                                                <div class="row">
+                                                    <!-- Social Network -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Linkedin</label>
+                                                        <input type="text" name="linkedin"
+                                                            placeholder="www.Linkedin.com/Invision"
+                                                            value="<%= companyProfile ? companyProfile.linkedin : '' %>"
+                                                            required>
+                                                    </div>
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Twitter</label>
+                                                        <input type="text" name="twitter"
+                                                            placeholder="www.Twitter.com/Invision"
+                                                            value="<%= companyProfile ? companyProfile.twitter : '' %>"
+                                                            required>
+                                                    </div>
+
+
+
+                                                    <!-- Input -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <button type="submit"
+                                                            class="theme-btn btn-style-one">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Ls widget -->
+                                <div class="ls-widget">
+                                    <div class="tabs-box">
+                                        <div class="widget-title">
+                                            <h4>Contact Information</h4>
+                                        </div>
+
+                                        <div class="widget-content">
+                                            <div class="default-form">
+                                                <div class="row">
+                                                    <!-- Contact Information -->
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Country</label>
+                                                        <select class="chosen-select" name="country">
+                                                            <option value="Australia" <%=companyProfile &&
+                                                                companyProfile.country==='Australia' ? 'selected' : ''
+                                                                %>>Australia</option>
+                                                            <option value="Pakistan" <%=companyProfile &&
+                                                                companyProfile.country==='Pakistan' ? 'selected' : '' %>
+                                                                >Pakistan</option>
+                                                            <option value="China" <%=companyProfile &&
+                                                                companyProfile.country==='China' ? 'selected' : '' %>
+                                                                >China</option>
+                                                            <option value="Japan" <%=companyProfile &&
+                                                                companyProfile.country==='Japan' ? 'selected' : '' %>
+                                                                >Japan</option>
+                                                            <option value="India" <%=companyProfile &&
+                                                                companyProfile.country==='India' ? 'selected' : '' %>
+                                                                >India</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>City</label>
+                                                        <select class="chosen-select" name="city">
+                                                            <option value="Melbourne" <%=companyProfile &&
+                                                                companyProfile.city==='Melbourne' ? 'selected' : '' %>
+                                                                >Melbourne</option>
+                                                            <option value="Islamabad" <%=companyProfile &&
+                                                                companyProfile.city==='Islamabad' ? 'selected' : '' %>
+                                                                >Islamabad</option>
+                                                            <option value="Beijing" <%=companyProfile &&
+                                                                companyProfile.city==='Beijing' ? 'selected' : '' %>
+                                                                >Beijing</option>
+                                                            <option value="Tokyo" <%=companyProfile &&
+                                                                companyProfile.city==='Tokyo' ? 'selected' : '' %>>Tokyo
+                                                            </option>
+                                                            <option value="Delhi" <%=companyProfile &&
+                                                                companyProfile.city==='Delhi' ? 'selected' : '' %>>Delhi
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 col-md-12">
+                                                        <label>Complete Address</label>
+                                                        <input type="text" name="completeAddress"
+                                                            placeholder="Enter complete address..."
+                                                            value="<%= companyProfile ? companyProfile.completeAddress : '' %>"
+                                                            required>
+                                                    </div>
+
+                                                    <div class="form-group col-lg-6 col-md-12">
+                                                        <label>Find On Map</label>
+                                                        <input type="text" name="findOnMap"
+                                                            placeholder="Enter location..."
+                                                            value="<%= companyProfile ? companyProfile.findOnMap : '' %>"
+                                                            required>
+                                                    </div>
+
+                                                    <div class="form-group col-lg-3 col-md-12">
+                                                        <label>Latitude</label>
+                                                        <input type="number" name="latitude"
+                                                            placeholder="Enter latitude..."
+                                                            value="<%= companyProfile ? companyProfile.latitude : '' %>"
+                                                            required>
+                                                    </div>
+
+                                                    <div class="form-group col-lg-3 col-md-12">
+                                                        <label>Longitude</label>
+                                                        <input type="number" name="longitude"
+                                                            placeholder="Enter longitude..."
+                                                            value="<%= companyProfile ? companyProfile.longitude : '' %>"
+                                                            required>
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 col-md-12">
+                                                        <button type="submit"
+                                                            class="theme-btn btn-style-one">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="ls-widget">
+                                    <div class="tabs-box">
+                                        <div class="widget-title">
+                                            <h4>Company Images (Make sure you upload images of same dimensions)</h4>
+                                        </div>
+
+                                        <div class="widget-content">
+                                            <div class="default-form">
+                                                <div class="row">
+                                                    <% for(let i=1; i <=4; i++) { %>
+                                                        <div class="uploading-outer">
+                                                            <div class="uploadButton">
+                                                                <input class="uploadButton-input" type="file"
+                                                                    name="images<%= i %>"
+                                                                    accept="image/*, application/pdf"
+                                                                    id="upload<%= i %>"
+                                                                    onchange="updatePreview(this, '<%= i %>')" />
+                                                                <label class="uploadButton-button ripple-effect"
+                                                                    for="upload<%= i %>">Company Image <%= i %></label>
+                                                                <span hidden class="uploadButton-file-name"
+                                                                    id="fileName<%= i %>">
+                                                                    <%= companyProfile && companyProfile.images[i-1] ?
+                                                                        companyProfile.images[i-1] : '' %>
+                                                                </span>
+                                                                <img src="<%= companyProfile && companyProfile.images[i-1] ? '/images/uploads/' + companyProfile.images[i-1] : '' %>"
+                                                                    id="preview<%= i %>" alt="Preview"
+                                                                    class="upload-preview" />
+                                                            </div>
+                                                            <div class="text">Max file size is 10MB, Minimum dimension:
+                                                                330x300 And Suitable files are .jpg & .png</div>
+                                                        </div>
+                                                        <% } %>
+
+                                                            <!-- Input -->
+                                                            <div class="form-group col-lg-6 col-md-12">
+                                                                <button type="submit"
+                                                                    class="theme-btn btn-style-one">Save</button>
+                                                            </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+
+
+
+                                </div>
+                            </div>
+                </section>
+                <!-- End Dashboard -->
+
+                <!-- Copyright -->
+                <div class="copyright-text">
+                    <p>© 2021 Superio. All Right Reserved.</p>
+                </div>
+
+    </div><!-- End Page Wrapper -->
+
+
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/popper.min.js"></script>
+    <script src="/javascripts/chosen.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/jquery-ui.min.js"></script>
+    <script src="/javascripts/jquery.fancybox.js"></script>
+    <script src="/javascripts/jquery.modal.min.js"></script>
+    <script src="/javascripts/mmenu.polyfills.js"></script>
+    <script src="/javascripts/mmenu.js"></script>
+    <script src="/javascripts/appear.js"></script>
+    <script src="/javascripts/ScrollMagic.min.js"></script>
+    <script src="/javascripts/rellax.min.js"></script>
+    <script src="/javascripts/owl.js"></script>
+    <script src="/javascripts/wow.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <!--Google Map APi Key-->
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&amp;ver=5.2.4"></script>
+    <script src="/javascripts/map-script.js"></script>
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const reader = new FileReader();
+
+            reader.onload = function () {
+                const img = document.getElementById('preview');
+                img.src = reader.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function updatePreview(input, index) {
+            const preview = document.getElementById(`preview${index}`);
+            const fileName = document.getElementById(`fileName${index}`);
+            const selectedImage = document.getElementById(`selectedImage${index}`);
+
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    fileName.textContent = file.name;
+                    selectedImage.value = file.name; // Update hidden input with selected filename
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+                fileName.textContent = "";
+                selectedImage.value = "";
+            }
+        }
+    </script>
+
+    <!--End Google Map APi-->
+</body>
+
+
+
+</html>

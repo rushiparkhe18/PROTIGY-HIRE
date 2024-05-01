@@ -5,33 +5,33 @@
     <!--Nav Outer -->
     <div class="nav-outer">
       <div class="logo-box">
-        <div class="logo"><a href="index.html"><img src="images/logo.svg" alt="" title=""></a></div>
+        <div class="logo"><a href="/"><img src="images/logo.svg" alt="" title=""></a></div>
       </div>
 
       <nav class="nav main-menu">
         <ul class="navigation" id="navbar">
           <li class="">
             <a href="/">
-                <span>Home</span>
+              <span>Home</span>
             </a>
           </li>
 
           <li class="  has-mega-menu" id="has-mega-menu">
             <a href="/joblist">
-                <span>Find Jobs</span>
+              <span>Find Jobs</span>
             </a>
           </li>
 
           <li class="">
             <a href="/employers">
-                <span>Employers</span>
+              <span>Employers</span>
             </a>
           </li>
 
           <li class="">
             <a href="/candidates">
-                <span>Candidates</span>
-              </a>
+              <span>Candidates</span>
+            </a>
           </li>
 
           <li class="dropdown">
@@ -67,11 +67,20 @@
     </div>
 
     <div class="outer-box">
-      <!-- Login/Register -->
+      <!-- Login/Register or Logout/Dashboard -->
+      <!-- Login/Register or Logout/Dashboard -->
       <div class="btn-box">
-        <a href="/login" class="theme-btn btn-style-three call-modal">Login / Register</a>
-        <a href="dashboard-post-job.html" class="theme-btn btn-style-one">Job Post</a>
+        <% if (!user) { %>
+          <a href="/login" class="theme-btn btn-style-three call-modal"
+            style="background-color: #1967D2; color: #fff;">Login / Register</a>
+          <% } else { %>
+            <a href="/logout" class="theme-btn btn-style-three btn-white"
+              style="border: 1px solid #1967D2; color: #333;">Logout</a>
+            <a href="/dashboard-check" class="theme-btn btn-style-one btn-white"
+              style="border: 1px solid #1967D2; color: #333;"><span class="btn-title">Dashboard</span></a>
+            <% } %>
       </div>
+
     </div>
   </div>
 
@@ -80,17 +89,18 @@
     <div class="logo"><a href="index.html"><img src="images/logo.svg" alt="" title=""></a></div>
 
     <!--Nav Box-->
-    <div class="nav-outer clearfix">
-
+    <<div class="nav-outer clearfix">
       <div class="outer-box">
-        <!-- Login/Register -->
+        <!-- Login/Register or Logout -->
         <div class="login-box">
-          <a href="/login" class="call-modal"><span class="icon-user"></span></a>
+          <% if (!user) { %>
+            <a href="/login" class="call-modal"><span class="icon-user"></span></a>
+            <% } else { %>
+              <a href="/logout"><span class="icon-user"></span></a>
+              <% } %>
         </div>
-
-        <a href="#nav-mobile" class="mobile-nav-toggler"><span class="flaticon-menu-1"></span></a>
       </div>
-    </div>
+  </div>
   </div>
 
   <!-- Mobile Nav -->

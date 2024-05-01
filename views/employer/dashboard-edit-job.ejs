@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Superio | Just another HTML Template | Post New Job</title>
+
+    <!-- Stylesheets -->
+    <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/responsive.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+    <style>
+        /* For webkit browsers like Chrome and Safari */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper dashboard ">
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+        <!-- Header Span -->
+
+        <span class="header-span"></span>
+
+        <!-- Main Header-->
+        <%- include("../components/DashboardHeader") -%>
+
+            <!--End Main Header -->
+
+            <!-- Sidebar Backdrop -->
+            <div class="sidebar-backdrop"></div>
+
+            <!-- User Sidebar -->
+            <%- include("../components/DashboardSidebar", { path: "/dashboard-post-job" }) -%>
+
+                <!-- End User Sidebar -->
+                <!-- Dashboard -->
+                <section class="user-dashboard">
+                    <div class="dashboard-outer">
+                        <div class="upper-title-box">
+                            <h3>Edit Job</h3>
+                            <div class="text">Ready to make changes?</div>
+                        </div>
+
+                        <!-- Alert container -->
+                        <div class="alert-container">
+                            <% if (successMessage && successMessage.length > 0) { %>
+                                <div class="alert alert-success">
+                                    <%= successMessage %>
+                                </div>
+                            <% } %>
+
+                            <% if (errorMessage && errorMessage.length > 0) { %>
+                                <div class="alert alert-danger">
+                                    <%= errorMessage %>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- Ls widget -->
+                                <div class="ls-widget">
+                                    <div class="tabs-box">
+                                        <div class="widget-title">
+                                            <h4>Edit Job</h4>
+                                        </div>
+
+                                        <div class="widget-content">
+                                            <form class="default-form" action="/dashboard-edit-job/<%= job._id %>/update" method="post">
+                                                <!-- Populate form with job data -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Job Title</label>
+                                                    <input type="text" name="jobTitle" value="<%= job.jobTitle %>" required>
+                                                </div>
+
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Job Description</label>
+                                                    <textarea name="jobDescription" required><%= job.jobDescription %></textarea>
+                                                </div>
+
+                                                <!-- Key Responsibilities -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Key Responsibilities</label>
+                                                    <textarea name="keyResponsibility" required><%= job.keyResponsibility %></textarea>
+                                                </div>
+
+                                                <!-- Skill & Experience -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Skill & Experience</label>
+                                                    <textarea name="skillExperience" required><%= job.skillExperience %></textarea>
+                                                </div>
+
+                                                <!-- Expiration Date -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Expiration Date</label>
+                                                    <input type="date" name="expirationDate" value="<%= job.expirationDate ? job.expirationDate.toISOString().split('T')[0] : '' %>" required>
+                                                </div>
+
+                                                <!-- Tags -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Tags</label>
+                                                    <select data-placeholder="Tags" class="chosen-select multiple" name="tags[]" multiple tabindex="4" required>
+                                                        <% job.tags.forEach(tag => { %>
+                                                            <option value="<%= tag %>" selected><%= tag %></option>
+                                                        <% }); %>
+                                                        <option value="Private">Private</option>
+                                                        <option value="Urgent">Urgent</option>
+                                                        <option value="FullTime">Full Time</option>
+                                                        <option value="PartTime">Part Time</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <!-- Salary -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Salary</label>
+                                                    <input type="text" name="salary" value="<%= job.salary %>" required>
+                                                </div>
+
+                                                <!-- Hours -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Hours / week</label>
+                                                    <input type="text" name="hours" value="<%= job.hours %>" required>
+                                                </div>
+
+                                                <!-- Rate -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Rate / hour</label>
+                                                    <input type="text" name="rate" value="<%= job.rate %>" required>
+                                                </div>
+
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label for="allow_in_search">Status</label>
+                                                    <select id="allow_in_search" name="status" class="chosen-select">
+                                                        <option value="Active" <%= job.status === 'Active' ? 'selected' : '' %>>Active</option>
+                                                        <option value="Inactive" <%= job.status === 'Inactive' ? 'selected' : '' %>>Inactive</option>
+                                                    </select>
+                                                </div>
+                                                
+
+                                                <!-- Country -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Country</label>
+                                                    <input type="text" name="country" value="<%= job.country %>" required>
+                                                </div>
+
+                                                <!-- City -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>City</label>
+                                                    <input type="text" name="city" value="<%= job.city %>" required>
+                                                </div>
+
+                                                <!-- Complete Address -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Complete Address</label>
+                                                    <input type="text" name="completeAddress" value="<%= job.completeAddress %>" required>
+                                                </div>
+
+                                                <!-- Find On Map -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Find On Map</label>
+                                                    <input type="text" name="findOnMap" value="<%= job.findOnMap %>" required>
+                                                </div>
+
+                                                <!-- Latitude -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Latitude</label>
+                                                    <input type="number" name="latitude" value="<%= job.latitude %>" required>
+                                                </div>
+
+                                                <!-- Longitude -->
+                                                <div class="form-group col-lg-12 col-md-12">
+                                                    <label>Longitude</label>
+                                                    <input type="number" name="longitude" value="<%= job.longitude %>" required>
+                                                </div>
+
+                                                <div class="form-group col-lg-12 col-md-12 text-right">
+                                                    <button type="submit" class="theme-btn btn-style-one">Update</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End Dashboard -->
+
+
+
+    <!-- Copyright -->
+    <div class="copyright-text">
+        <p>© 2021 Superio. All Right Reserved.</p>
+    </div>
+
+    </div><!-- End Page Wrapper -->
+
+
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/popper.min.js"></script>
+    <script src="/javascripts/chosen.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/jquery-ui.min.js"></script>
+    <script src="/javascripts/jquery.fancybox.js"></script>
+    <script src="/javascripts/jquery.modal.min.js"></script>
+    <script src="/javascripts/mmenu.polyfills.js"></script>
+    <script src="/javascripts/mmenu.js"></script>
+    <script src="/javascripts/appear.js"></script>
+    <script src="/javascripts/ScrollMagic.min.js"></script>
+    <script src="/javascripts/rellax.min.js"></script>
+    <script src="/javascripts/owl.js"></script>
+    <script src="/javascripts/wow.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <!--Google Map APi Key-->
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&amp;ver=5.2.4"></script>
+    <script src="/javascripts/map-script.js"></script>
+    <!--End Google Map APi-->
+    <script>
+        function insertBullet(textareaId) {
+            const textarea = document.getElementById(textareaId);
+            const startPos = textarea.selectionStart;
+            const endPos = textarea.selectionEnd;
+
+            // Insert bullet point at cursor position
+            textarea.value = textarea.value.substring(0, startPos) +
+                '• ' +
+                textarea.value.substring(endPos, textarea.value.length);
+
+            // Set cursor position after inserted bullet point
+            textarea.selectionStart = startPos + 2; // 2 is for '• '
+            textarea.selectionEnd = startPos + 2; // 2 is for '• '
+
+            textarea.focus();
+        }
+    </script>
+</body>
+
+
+</html>

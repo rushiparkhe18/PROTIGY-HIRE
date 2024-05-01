@@ -1,0 +1,45 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                    // Optionally, you can submit the form automatically when the timer reaches 0
+                    document.getElementById('quizForm').submit();
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            var fiveMinutes = 60 * 5,
+                display = document.querySelector('#time');
+            startTimer(fiveMinutes, display);
+        };
+    </script>
+</head>
+<body>
+    <h1>Quiz</h1>
+    <p>Time remaining: <span id="time">05:00</span></p>
+    <form id="quizForm" action="/submit" method="post">
+        <!-- Embed your Google Form here -->
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSen0FC4UEs1R1Xq-ZX10Yy6N08V33N4511_1dam1O9EuHYyFQ/viewform?embedded=true" width="640" height="702" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        <input type="submit" value="Submit Quiz">
+    </form>
+</body>
+</html>

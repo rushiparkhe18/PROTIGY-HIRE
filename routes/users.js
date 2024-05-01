@@ -26,6 +26,18 @@ const userSchema = new mongoose.Schema({
         enum: ['employer', 'candidate'],
         // required: true
     },
+    postJobs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Job',
+    }],
+    companyProfile: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'CompanyProfile',
+    }],
+    candidateProfile: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'CandidateProfile',
+    }],
     createdAt: {
         type: Date,
         default: Date.now
@@ -33,6 +45,18 @@ const userSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
+    },
+    appliedJobs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Job',
+    }],
+    shortlistedJobs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Job'
+    }],    
+    resume: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Resume',
     }
 });
 
