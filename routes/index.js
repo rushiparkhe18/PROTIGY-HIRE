@@ -12,9 +12,15 @@ const localStrategy = require("passport-local");
 passport.use(new localStrategy(userModel.authenticate()));
 const { CronJob } = require('cron');
 
+const fs = require('fs');
 
 
-router.get('/', function (req, res, next) {
+
+
+router.get('/',async function (req, res, next) {
+
+  const jobs = await postJobModel.find().populate('companyProfile');
+
   // Define the isActive function
   const isActive = function (currentPath, path) {
     return currentPath === path ? 'active' : '';
@@ -30,6 +36,7 @@ router.get('/', function (req, res, next) {
 
   // Render the index view with the template variables
   res.render('index', {
+    jobs: jobs,
     isActive: isActive,
     successMessage: successMessage,
     errorMessage: errorMessage,
@@ -40,24 +47,38 @@ router.get('/', function (req, res, next) {
 
 
 
+const ITEMS_PER_PAGE = 7; // Define the number of items per page
+
 router.get('/joblist', async (req, res) => {
-  const posts = await postJobModel.find().populate({
-    path: 'userId',
-    populate: { path: 'companyProfile' }
-  });
+  const page = parseInt(req.query.page) || 1; // Get the current page number from the query parameters
+  const skip = (page - 1) * ITEMS_PER_PAGE; // Calculate the number of items to skip
 
-  const totalJobs = await postJobModel.countDocuments();
-  const user = req.user; // Get the authenticated user from Passport.js
-  const successMessage = req.session.successMessage; // Get the success message from session
-  const errorMessage = req.session.errorMessage; // Get the error message from session
+  try {
+    const totalJobs = await postJobModel.countDocuments();
+    const totalPages = Math.ceil(totalJobs / ITEMS_PER_PAGE); // Calculate the total number of pages
+    const posts = await postJobModel
+      .find()
+      .populate({
+        path: 'userId',
+        populate: { path: 'companyProfile' }
+      })
+      .skip(skip)
+      .limit(ITEMS_PER_PAGE);
 
-  // Clear the session variables after displaying them
-  req.session.successMessage = null;
-  req.session.errorMessage = null;
+    const user = req.user; // Get the authenticated user from Passport.js
+    const successMessage = req.session.successMessage; // Get the success message from session
+    const errorMessage = req.session.errorMessage; // Get the error message from session
 
-  res.render('joblist', { posts, totalJobs, user, successMessage, errorMessage }); // Pass successMessage and errorMessage to the template
+    // Clear the session variables after displaying them
+    req.session.successMessage = null;
+    req.session.errorMessage = null;
+
+    res.render('joblist', { posts, totalJobs, totalPages, user, successMessage, errorMessage, currentPage: page }); // Pass totalPages to the template
+  } catch (error) {
+    console.error('Error fetching job posts:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
-
 
 
 
@@ -70,16 +91,30 @@ router.get('/register', function (req, res, next) {
   res.render('register', { message: req.flash('error') });
 });
 
+const ITEMS_PER_PAGE2 = 20; // Define the number of items per page
+
 router.get('/employers', async function (req, res, next) {
   try {
-    // Fetch company profiles from the database
-    const companyProfiles = await companyProfileModel.find().populate('userId').exec();
+    const page = parseInt(req.query.page) || 1; // Get the current page number from the query parameters
+    const skip = (page - 1) * ITEMS_PER_PAGE2; // Calculate the number of items to skip
+
+    // Fetch company profiles from the database with pagination
+    const companyProfiles = await companyProfileModel
+      .find()
+      .populate('userId')
+      .skip(skip)
+      .limit(ITEMS_PER_PAGE2)
+      .exec();
+
+    // Calculate total number of company profiles
+    const totalCompanies = await companyProfileModel.countDocuments();
+    const totalPages = Math.ceil(totalCompanies / ITEMS_PER_PAGE2); // Calculate the total number of pages
 
     const user = req.user; // Get the authenticated user from Passport.js
     const successMessage = req.session.successMessage; // Get the success message from session
     const errorMessage = req.session.errorMessage; // Get the error message from session
 
-    res.render('employers', { companyProfiles, user, successMessage, errorMessage });
+    res.render('employers', { companyProfiles, user, successMessage, errorMessage, totalPages, currentPage: page });
   } catch (error) {
     next(error);
   }
@@ -93,16 +128,30 @@ router.get('/candidates', async function (req, res, next) {
     const successMessage = req.session.successMessage; // Get the success message from session
     const errorMessage = req.session.errorMessage; // Get the error message from session
 
-    // Fetch candidate profiles from the database
-    const candidates = await candidateProfileModel.find();
+    // Pagination variables
+    const page = req.query.page || 1; // Current page number, default is 1
+    const limit = 9; // Number of items per page
 
-    res.render('candidates', { user, successMessage, errorMessage, candidates });
+    // Count total number of candidates
+    const totalCandidates = await candidateProfileModel.countDocuments();
+
+    // Calculate total number of pages
+    const totalPages = Math.ceil(totalCandidates / limit);
+
+    // Calculate offset to skip candidates for pagination
+    const offset = (page - 1) * limit;
+
+    // Fetch candidate profiles for the current page
+    const candidates = await candidateProfileModel.find().skip(offset).limit(limit);
+
+    res.render('candidates', { user, successMessage, errorMessage, candidates, currentPage: page, totalPages });
   } catch (error) {
     console.error('Error fetching candidate profiles:', error);
     req.session.errorMessage = 'Error fetching candidate profiles';
     res.redirect('/candidates'); // Redirect to the candidates page with error message
   }
 });
+
 
 
 router.get('/job-single/:id', async (req, res) => {
@@ -202,11 +251,14 @@ router.get('/candidates-single/:id', async (req, res) => {
 
 
 router.get('/faq', function (req, res, next) {
-  res.render('faq');
+  res.render('faq',{    user: req.user // Pass the user variable to the template
+});
+
 });
 
 router.get('/contact', function (req, res, next) {
-  res.render('contact');
+  res.render('contact',{    user: req.user // Pass the user variable to the template
+});
 });
 
 /////////////////////////////////////////
@@ -354,7 +406,38 @@ router.get('/download-resume/:candidateId/:jobId', async (req, res) => {
   }
 });
 
+router.get('/preview-resume/:candidateId/:jobId', async (req, res) => {
+  try {
+    const candidateId = req.params.candidateId;
+    const jobId = req.params.jobId;
 
+    // Find the resume associated with the candidate ID and job ID
+    const resume = await resumeSchema.findOne({ user: candidateId, job: jobId });
+
+    if (!resume) {
+      // If resume is not found, send an appropriate message
+      return res.status(404).send('Resume not found');
+    }
+
+    // Get the file path of the resume
+    const filePath = path.join(__dirname, '..', resume.file);
+
+    // Check if the file exists
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).send('Resume file not found');
+    }
+
+    // Read the resume file
+    const data = fs.readFileSync(filePath);
+
+    // Send the resume file as a response with appropriate content type
+    res.setHeader('Content-Type', 'application/pdf');
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 
 router.get('/dashboard-apply', isLoggedIn, async function (req, res, next) {
@@ -457,6 +540,13 @@ router.get('/dashboard-manage-job', isLoggedIn, async function (req, res, next) 
 router.get('/dashboard-change-password', isLoggedIn, function (req, res) {
   res.render('employer/dashboard-change-password', {
     path: '/dashboard-change-password',
+    successMessage: req.session.successMessage,
+    errorMessage: req.session.errorMessage
+  });
+});
+router.get('/candidate-dashboard-change-password', isLoggedIn, function (req, res) {
+  res.render('candidate/candidate-dashboard-change-password', {
+    path: '/candidate-dashboard-change-password',
     successMessage: req.session.successMessage,
     errorMessage: req.session.errorMessage
   });
@@ -580,10 +670,6 @@ router.post('/shortlist-candidate/:jobId/:candidateId', isLoggedIn, async (req, 
     return res.redirect(`/dashboard-applicants/${jobId}`);
   }
 });
-
-
-
-
 
 
 
@@ -938,8 +1024,85 @@ router.get('/candidate-dashboard-resume', isLoggedIn, async function (req, res, 
   }
 });
 
-router.get('/candidate-dashboard-applied-job', isLoggedIn, function (req, res, next) {
-  res.render('candidate/candidate-dashboard-applied-job', { path: '/candidate-dashboard-applied-job' });
+router.get('/candidate-dashboard-applied-job', async (req, res) => {
+  try {
+    // Fetch the user's applied jobs from the database
+    const userId = req.user._id; // Assuming you're using Passport and the user is authenticated
+    const user = await userModel.findById(userId).populate('appliedJobs');
+
+    // Extract job ids from the user's applied jobs
+    const jobIds = user.appliedJobs.map(job => job._id);
+
+    // Fetch jobs with populated company profiles
+    const jobs = await postJobModel.find({ _id: { $in: jobIds } }).populate('companyProfile');
+
+    // Get success and error messages from session and clear them
+    const successMessage = req.session.successMessage;
+    const errorMessage = req.session.errorMessage;
+    delete req.session.successMessage;
+    delete req.session.errorMessage;
+
+
+    // Render the EJS template with the fetched data, success message, and error message
+    res.render('candidate/candidate-dashboard-applied-job', { jobs, candidateId: userId, successMessage, errorMessage });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+router.get('/delete-application/:jobId', async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const jobId = req.params.jobId;
+
+    // Remove the job ID from the user's appliedJobs array
+    await userModel.findByIdAndUpdate(userId, { $pull: { appliedJobs: jobId } });
+
+    // Remove the user ID from the job's applicants array
+    await postJobModel.findByIdAndUpdate(jobId, { $pull: { applicants: userId } });
+
+    // Find the resume associated with the user ID and job ID
+    const resume = await resumeSchema.findOne({ user: userId, job: jobId });
+
+    if (resume) {
+      // Delete the resume from the database
+      await resumeSchema.findByIdAndDelete(resume._id);
+    }
+
+    // Set success message
+    req.session.successMessage = 'Application deleted successfully';
+
+    // Redirect back to the same page
+    res.redirect('/candidate-dashboard-applied-job');
+  } catch (error) {
+    console.error(error);
+    // Set error message
+    req.session.errorMessage = 'Failed to delete application';
+    res.redirect('/candidate-dashboard-applied-job');
+  }
+});
+
+
+
+router.get('/candidate-dashboard-shortlisted-resume', isLoggedIn, async (req, res) => {
+  try {
+    // Fetch the user's shortlisted jobs from the database
+    const userId = req.user._id; // Assuming you're using Passport and the user is authenticated
+    const user = await userModel.findById(userId).populate('shortlistedJobs');
+
+    // Extract job ids from the user's shortlisted jobs
+    const jobIds = user.shortlistedJobs.map(job => job._id);
+
+    // Fetch jobs with populated company profiles
+    const jobs = await postJobModel.find({ _id: { $in: jobIds } }).populate('companyProfile');
+
+    // Render the EJS template with the fetched data
+    res.render('candidate/candidate-dashboard-shortlisted-resume', { jobs, candidateId: userId, path: '/candidate-dashboard-shortlisted-resume' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 
@@ -1164,6 +1327,166 @@ router.post('/apply/:jobId', isLoggedIn, upload.single('resume'), async (req, re
     // Redirect the user back to the job-single page
     return res.redirect(`/job-single/${jobId}`);
   }
+});
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+const bodyP = require("body-parser");
+const compiler = require("compilex");
+const options = { stats: true };
+
+compiler.init(options);
+
+router.use(bodyP.json());
+
+router.use(
+  "/codemirror-5.65.16",
+  express.static("C:/Users/hp/Desktop/js/codemirror")
+);
+
+
+router.get("/room", function (req, res, next) {
+  res.render("room", {path: "/dashboard-video-call"});
+});
+router.get("/room2", function (req, res, next) {
+  res.render("room2", {path: "/dashboard-video-call"});
+});
+
+router.get("/join-room", function (req, res) {
+  const roomID = req.params.roomId;
+
+  res.render("join-room", { roomID: roomID, path: "/dashboard-video-call" });
+});
+router.get("/join-room2", function (req, res) {
+  const roomID = req.params.roomId;
+
+  res.render("join-room2", { roomID: roomID, path: "/dashboard-video-call" });
+});
+router.get("/chat", function (req, res, next) {
+  res.render("chat");
+});
+router.get("/ide", function (req, res, next) {
+  res.render("ide",{path: "/dashboard-coding-env"});
+});
+router.get('/quiz-session-form', (req, res) => {
+  res.render('quizSessionForm');
+});
+
+router.get('/apptitude', async (req, res) => {
+  try {
+      // Perform a findOne query to check if a document with the specified email exists
+      const quizData = await QuizSession.findOne({ emails:'dio@gmail.com' }); // Assuming the email is stored in req.user.email
+
+      if (quizData) {
+          // If quizData exists (i.e., a document with the specified email is found), render the quiz page
+          res.render('apptitude', { quizData });
+      } else {
+          // If quizData does not exist, set a message in the session and redirect to the home page
+          res.redirect('no-apptitude');
+      }
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+
+router.post('/quiz-session', async (req, res) => {
+  const { quizLink, emails } = req.body;
+
+  // Split the comma-separated emails into an array
+  const emailArray = emails.split(',').map(email => email.trim());
+
+  const quizSession = new QuizSession({
+    quizLink,
+  
+    emails: emailArray // Store the array of emails
+  });
+
+  try {
+    await quizSession.save();
+    res.status(201).send('Quiz session saved successfully');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error saving quiz session to database');
+  }
+});
+
+router.post("/compilecode", function (req, res) {
+  var code = req.body.code;
+  var input = req.body.input;
+  var inputRadio = req.body.inputRadio;
+  var lang = req.body.lang;
+  if (lang === "C" || lang === "C++") {
+    if (inputRadio === "true") {
+      var envData = { OS: "windows", cmd: "g++", options: { timeout: 10000 } };
+      compiler.compileCPPWithInput(envData, code, input, function (data) {
+        if (data.error) {
+          res.send(data.error);
+        } else {
+          res.send(data.output);
+        }
+      });
+    } else {
+      var envData = { OS: "windows", cmd: "g++", options: { timeout: 10000 } };
+      compiler.compileCPP(envData, code, function (data) {
+        res.send(data);
+        //data.error = error message
+        //data.output = output value
+      });
+    }
+  }
+  if (lang === "Python") {
+    if (inputRadio === "true") {
+      var envData = { OS: "windows" };
+      compiler.compilePythonWithInput(envData, code, input, function (data) {
+        res.send(data);
+      });
+    } else {
+      var envData = { OS: "windows" };
+      compiler.compilePython(envData, code, function (data) {
+        res.send(data);
+      });
+    }
+  }
+  if (lang === "Java") {
+    if (inputRadio === "true") {
+      var envData = { OS: "windows" };
+      compiler.compileJavaWithInput( envData , code , input ,  function(data){
+        res.send(data);
+    });
+    } else {
+      var envData = { OS: "windows" };
+      compiler.compileJava( envData , code , function(data){
+        res.send(data);
+    }); 
+    }
+  }
+    
+   if (lang === "JavaScript") {
+      var envData = { OS: "windows" };
+      if (inputRadio === "true") {
+        compiler.compileJavaScriptWithInput(envData, code, input, function (data) {
+          res.send(data);
+        });
+      } else {
+        compiler.compileJavaScript(envData, code, function (data) {
+          res.send(data);
+        });
+      }
+  }
+  router.get("/fullStat", function (req, res) {
+    compiler.fullStat(function (data) {
+    res.send(data);
+    });
+    });
+
+  compiler.flush(function () {
+    console.log("All temporary files flushed !");
+  });
 });
 
 

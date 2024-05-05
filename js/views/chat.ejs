@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zego Cloud In-App Chat</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Your HTML content here -->
+    </div>
+
+    <script src="https://cdn.zego.im/zim-sdk/1.0.0/zim.min.js"></script>
+    <script>
+        window.onload = function () {
+            // Initialize ZIM SDK
+            var appID = xxxx; // Replace xxxx with your Zego App ID
+            ZIM.create({ appID });
+            var zim = ZIM.getInstance();
+
+            // Listen for error events
+            zim.on('error', function (zim, errorInfo) {
+                console.log('Error:', errorInfo.code, errorInfo.message);
+            });
+
+            // Listen for connection state changes
+            zim.on('connectionStateChanged', function (zim, { state, event, extendedData }) {
+                console.log('Connection state changed:', state, event, extendedData);
+                if (state == 0 && event == 3) {
+                    // Re-login if SDK logout occurred due to long-time network disconnection
+                    zim.login(userInfo, token);
+                }
+            });
+
+            // Listen for token expiration
+            zim.on('tokenWillExpire', function (zim, { second }) {
+                console.log('Token will expire in', second, 'seconds');
+                // Renew token
+                zim.renewToken(token)
+                    .then(function ({ token }) {
+                        console.log('Token renewed successfully');
+                    })
+                    .catch(function (err) {
+                        console.error('Failed to renew token:', err);
+                    });
+            });
+
+            // Define user info
+            var userInfo = { userID: 'xxxx', userName: 'xxxx' }; // Replace with actual user info
+            var token = ''; // Your authentication token
+
+            // Login user
+            zim.login(userInfo, token)
+                .then(function () {
+                    console.log('User logged in successfully');
+                })
+                .catch(function (err) {
+                    console.error('Failed to login:', err);
+                });
+
+            // Send one-to-one text messages
+            var toConversationID = ''; // Peer user's ID
+            var conversationType = 0; // 1-on-1 chat
+            var config = {
+                priority: 1 // Set priority for the message (1: Low, 2: Medium, 3: High)
+            };
+            var messageTextObj = { type: 1, message: 'Message text', extendedData: 'Optional extended info' };
+            var notification = {
+                onMessageAttached: function (message) {
+                    // Show loading indicator
+                }
+            };
+            zim.sendMessage(messageTextObj, toConversationID, conversationType, config, notification)
+                .then(function ({ message }) {
+                    console.log('Message sent successfully:', message);
+                })
+                .catch(function (err) {
+                    console.error('Failed to send message:', err);
+                });
+
+            // Listen for incoming messages
+            zim.on('receivePeerMessage', function (zim, { messageList, fromConversationID }) {
+                console.log('Received messages:', messageList, 'from conversation:', fromConversationID);
+            });
+
+            // Logout user
+            zim.logout();
+
+            // Destroy ZIM instance
+            zim.destroy();
+        }
+    </script>
+</body>
+
+</html>

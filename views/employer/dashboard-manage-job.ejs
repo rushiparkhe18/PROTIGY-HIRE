@@ -117,7 +117,7 @@
                               <h6><%= job.jobTitle %></h6>
                               <span class="info"><i class="icon flaticon-map-locator"></i> <%= job.city %>, <%= job.country %></span>
                             </td>
-                            <td class="applied"><a href="/dashboard-applicants/<%=job._id%>"><%= numApplications-1 %> Applied</a></td>
+                            <td class="applied"><a href="/dashboard-applicants/<%=job._id%>"><%= numApplications %> Applied</a></td>
                             <td><%= new Date(job.datePosted).toLocaleDateString() %><br><%= new Date(job.expirationDate).toLocaleDateString() %></td>
                             
                               <td class="status" style="color: <%= job.status === 'Active' ? 'green' : 'red' %>;"><%= job.status %></td>

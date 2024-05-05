@@ -55,7 +55,7 @@ const jobSchema = new mongoose.Schema({
     tags: [{
         type: String,
     }],
-    companyProfile: [{  // Add this field to reference the CompanyProfile model
+    companyProfile: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'CompanyProfile'
     }],

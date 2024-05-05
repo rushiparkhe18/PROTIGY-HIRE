@@ -1,0 +1,203 @@
+<!-- <html>
+<head>
+<title>Online IDE</title>
+</head>
+<body>
+<center>
+<h1>Online IDE</h1>
+
+<form id="myform" name="myform" method="post" action="compilecode">
+<h3>Code</h3>
+<textarea rows="13" cols="100" id="code" name="code"></textarea>
+<br />
+<h3>Input</h3>
+<textarea rows="10" cols="100" id="input" name="input"></textarea>
+<br />
+Language :
+<select name="lang">
+<option value="C">C</option>
+<option value="Java">Java</option>
+<option value="Python">Python</option>
+</select>
+Compile With Input :
+<input type="radio" name="inputRadio" id="inputRadio" value="true" />yes
+<input type="radio" name="inputRadio" id="inputRadio" value="false" />No
+<br />
+<input type="submit" value="submit" name="submit" />
+</form>
+</center>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <link rel="stylesheet" href="codemirror-5.65.9/lib/codemirror.css"> -->
+    <!-- <script src="codemirror-5.65.9/mode/python/python.js"></script>
+
+    <script src="codemirror-5.65.9/lib/codemirror.js"></script>
+    <script src="codemirror-5.65.9/mode/clike/clike.js"></script>
+    <link rel="stylesheet" href="codemirror-5.65.9/theme/dracula.css">
+    <script src="codemirror-5.65.9/addon/edit/closebrackets.js"></script> -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+  </head>
+
+  <body>
+    <div class="row m-3">
+      <div class="col">
+        <form id="myform" name="myform">
+
+        <div class="d-flex justify-content-between mb-2 bg-dark rounded p-2">
+          <div class="col-12 w-25">
+            <label class="visually-hidden" for="inlineFormSelectPref"
+              >Preference</label
+            >
+            <select class="form-select" name="lang" id="lang">
+              <option selected>Choose...</option>
+              <option value="C">C</option>
+              <option value="Cpp">Cpp</option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="Java">Java</option>
+              <option value="Python">Python</option>
+          </select>
+          
+          </div>
+          <div>
+            <button type="button" class="btn btn-success">Coding Sprint</button>
+            <button
+              type="button"
+              value="Submit"
+              onclick="compileCode()"
+              class="btn btn-success"
+            >
+              <i class="bi bi-play-fill"></i>
+            </button>
+          </div>
+        </div>
+        <textarea
+          type="text"
+          id="code"
+          name="code"
+          class="form-control"
+          aria-label="First name"
+          style="height: 600px"
+        ></textarea>
+      </div>
+      <div class="col d-flex flex-column rounded bg-dark px-4">
+        <label style="color: white">Compile With Input :</label>
+        <label for="inputRadioTrue" style="color: white;">
+          <input type="radio" name="inputRadio" id="inputRadioTrue" value="true" />Yes
+      </label>
+      <label for="inputRadioFalse" style="color: white;">
+          <input type="radio" name="inputRadio" id="inputRadioFalse" value="false" checked />No
+      </label>
+      <br />
+        <div class="h-50">
+          <label for="Input" class="text-light mt-2 mb-2">Input</label>
+          <textarea
+            type="text"
+            id="input"
+            name="input"
+            class="form-control h-75"
+            aria-label="Last name"
+          ></textarea>
+        </div>
+        <div class="h-50">
+          <label for="Output" class="text-light mb-2">Output</label>
+          <textarea
+            type="text"
+            id="output"
+            name="output"
+            class="form-control h-75"
+            aria-label="Last name"
+          ></textarea>
+        </div>
+      </form>
+      </div>
+    </div>
+
+    <script>
+      function compileCode() {
+        var code = document.getElementById("code").value;
+        var input = document.getElementById("input").value;
+        var lang = document.getElementById("lang").value;
+        var compileWithInput = document.querySelector(
+          'input[name="inputRadio"]:checked'
+        ).value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            document.getElementById("output").value = xhr.responseText;
+          }
+        };
+        xhr.open("POST", "compilecode", true);
+        xhr.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        xhr.send(
+          "code=" +
+            encodeURIComponent(code) +
+            "&input=" +
+            encodeURIComponent(input) +
+            "&lang=" +
+            lang +
+            "&inputRadio=" +
+            compileWithInput
+        );
+      }
+    </script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online IDE</title>
+</head>
+<body>
+    <center>
+        <h1>Online IDE</h1>
+        <form id="myform" name="myform">
+            <h3>Code</h3>
+            <textarea rows="13" cols="100" id="code" name="code"></textarea>
+            <br />
+            <h3>Input</h3>
+            <textarea rows="10" cols="100" id="input" name="input"></textarea>
+            <br />
+            Language :
+            <select name="lang" id="lang">
+                <option value="C">C</option>
+                <option value="Java">Java</option>
+                <option value="Python">Python</option>
+            </select>
+            Compile With Input :
+            <input type="radio" name="inputRadio" id="inputRadioTrue" value="true" />Yes
+            <input type="radio" name="inputRadio" id="inputRadioFalse" value="false" checked />No
+            <br />
+            <input type="button" value="Submit" onclick="compileCode()" />
+        </form>
+        <h3>Output</h3>
+        <textarea rows="10" cols="100" id="output" name="output"></textarea>
+    </center> -->

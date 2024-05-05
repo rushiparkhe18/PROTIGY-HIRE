@@ -31,19 +31,19 @@
             <!--End Main Header -->
 
 
-    <!--Page Title-->
-    <section class="page-title">
-        <div class="auto-container">
-          <div class="title-outer">
-            <h1>Find Jobs</h1>
-            <ul class="page-breadcrumb">
-              <li><a href="index.html">Home</a></li>
-              <li>Jobs</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <!--End Page Title-->
+            <!--Page Title-->
+            <section class="page-title">
+                <div class="auto-container">
+                    <div class="title-outer">
+                        <h1>Find Jobs</h1>
+                        <ul class="page-breadcrumb">
+                            <li><a href="index.html">Home</a></li>
+                            <li>Jobs</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!--End Page Title-->
 
             <!-- Listing Section -->
             <section class="ls-section">
@@ -226,54 +226,82 @@
 
                                 <div class="row">
                                     <!-- Loop through jobs -->
-                                    <% posts.reverse().forEach(job => { %>
-                                        <% if (job.userId && job.userId.companyProfile && job.userId.companyProfile.length > 0) { %>
+                                    <% posts.reverse().forEach(job=> { %>
+                                        <% if (job.userId && job.userId.companyProfile &&
+                                            job.userId.companyProfile.length> 0) { %>
 
-                                        <% const company = job.userId.companyProfile[0]; %>
+                                            <% const company=job.userId.companyProfile[0]; %>
 
-                                        <!-- Job Block -->
-                                        <div class="job-block-four col-lg-6 col-md-6 col-sm-12">
-                                            <div class="inner-box">
-                                                <ul class="job-other-info">
-                                                    <% job.tags.forEach(tag => { %>
-                                                        <% if (!['FullTime', 'PartTime', 'Private', 'Urgent'].includes(tag)) { %>
-                                                            <li class="<%= tag.toLowerCase() %>"><%= tag %></li>
-                                                        <% } %>
+                                                <!-- Job Block -->
+                                                <div class="job-block-four col-lg-6 col-md-6 col-sm-12">
+                                                    <div class="inner-box">
+                                                        <ul class="job-other-info">
+                                                            <% job.tags.forEach(tag=> { %>
+                                                                <% if (!['FullTime', 'PartTime' , 'Private' , 'Urgent'
+                                                                    ].includes(tag)) { %>
+                                                                    <li class="<%= tag.toLowerCase() %>">
+                                                                        <%= tag %>
+                                                                    </li>
+                                                                    <% } %>
+                                                                        <% }); %>
+                                                                            <% if (job.tags.includes('FullTime') ||
+                                                                                job.tags.includes('PartTime')) { %>
+                                                                                <li class="time">
+                                                                                    <%= job.tags.includes('FullTime')
+                                                                                        ? 'Full Time' : 'Part Time' %>
+                                                                                </li>
+                                                                                <% } %>
+                                                                                    <% if (job.tags.includes('Private'))
+                                                                                        { %>
+                                                                                        <li class="privacy">Private</li>
+                                                                                        <% } %>
+                                                                                            <% if
+                                                                                                (job.tags.includes('Urgent'))
+                                                                                                { %>
+                                                                                                <li class="required">
+                                                                                                    Urgent</li>
+                                                                                                <% } %>
+                                                        </ul>
+                                                        <span class="company-logo"><img
+                                                                src="/images/uploads/<%= company.logo %>"
+                                                                alt="<%= company.companyName %> Logo"></span>
+                                                        <span class="company-name">
+                                                            <%= company.companyName %>
+                                                        </span> <!-- Displaying company name -->
+                                                        <h4><a href="/job-single/<%= job._id %>">
+                                                                <%= job.jobTitle %>
+                                                            </a></h4>
+                                                        <div class="location"><span
+                                                                class="icon flaticon-map-locator"></span>
+                                                            <%= job.city %>, <%= job.country %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+
                                                     <% }); %>
-                                                    <% if (job.tags.includes('FullTime') || job.tags.includes('PartTime')) { %>
-                                                        <li class="time"><%= job.tags.includes('FullTime') ? 'Full Time' : 'Part Time' %></li>
-                                                    <% } %>
-                                                    <% if (job.tags.includes('Private')) { %>
-                                                        <li class="privacy">Private</li>
-                                                    <% } %>
-                                                    <% if (job.tags.includes('Urgent')) { %>
-                                                        <li class="required">Urgent</li>
-                                                    <% } %>
-                                                </ul>
-                                                <span class="company-logo"><img src="/images/uploads/<%= company.logo %>" alt="<%= company.companyName %> Logo"></span>
-                                                <span class="company-name"><%= company.companyName %></span> <!-- Displaying company name -->
-                                                <h4><a href="/job-single/<%= job._id %>"><%= job.jobTitle %></a></h4>
-                                                <div class="location"><span class="icon flaticon-map-locator"></span> <%= job.city %>, <%= job.country %></div>
-                                            </div>
-                                        </div>
-                                        <% } %>
-
-                                    <% }); %>
-                                    <!-- End Loop -->
+                                                        <!-- End Loop -->
 
 
                                 </div>
 
                                 <!-- Pagination -->
+                                <!-- Pagination -->
                                 <nav class="ls-pagination">
                                     <ul>
-                                        <li class="prev"><a href="#"><i class="fa fa-arrow-left"></i></a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#" class="current-page">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li class="next"><a href="#"><i class="fa fa-arrow-right"></i></a></li>
+                                        <li class="prev"><a href="?page=<%= currentPage - 1 %>"><i
+                                                    class="fa fa-arrow-left"></i></a></li>
+                                        <% for (let i=1; i <=totalPages; i++) { %>
+                                            <li><a href="?page=<%= i %>"
+                                                    class="<%= i === currentPage ? 'current-page' : '' %>">
+                                                    <%= i %>
+                                                </a></li>
+                                            <% } %>
+                                                <li class="next"><a href="?page=<%= currentPage + 1 %>"><i
+                                                            class="fa fa-arrow-right"></i></a></li>
                                     </ul>
                                 </nav>
+
                             </div>
                         </div>
                     </div>

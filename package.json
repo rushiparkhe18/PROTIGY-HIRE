@@ -9,6 +9,8 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
     "clsx": "^2.1.0",
+    "codemirror": "^6.0.1",
+    "compilex": "^0.7.4",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
     "cron": "^3.1.7",
@@ -24,8 +26,12 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",
+    "pdf2text": "^1.1.0",
+    "request": "^2.88.2",
     "tailwind-merge": "^2.2.2",
-    "uuid": "^9.0.1"
+    "underscore": "^1.13.6",
+    "uuid": "^9.0.1",
+    "xmldom": "^0.6.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",

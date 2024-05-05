@@ -38,62 +38,62 @@
   
   -->
 
-    <% if (successMessage) { %>
-      <script>
-            sendNotification("success", "<%= successMessage %>");
-        function sendNotification(type, text) {
-          let notificationBox = document.querySelector(".notification-box");
-          const alerts = {
-            info: {
-              icon: `<svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <% if (successMessage) { %>
+    <script>
+      sendNotification("success", "<%= successMessage %>");
+      function sendNotification(type, text) {
+        let notificationBox = document.querySelector(".notification-box");
+        const alerts = {
+          info: {
+            icon: `<svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>`,
-              color: "blue-500"
-            },
-            error: {
-              icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            color: "blue-500"
+          },
+          error: {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>`,
-              color: "red-500"
-            },
-            warning: {
-              icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            color: "red-500"
+          },
+          warning: {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
       </svg>`,
-              color: "yellow-500"
-            },
-            success: {
-              icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            color: "yellow-500"
+          },
+          success: {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>`,
-              color: "green-500"
-            }
-          };
-          let component = document.createElement("div");
-          component.className = `relative flex items-center bg-${alerts[type].color} text-white text-sm font-bold px-4 py-3 rounded-md opacity-0 transform transition-all duration-500 mb-1`;
-          component.innerHTML = `${alerts[type].icon}<p class="text-white">${text}</p>`; // Set text color to white here
-          notificationBox.appendChild(component);
-          setTimeout(() => {
-            component.classList.remove("opacity-0");
-            component.classList.add("opacity-1");
-          }, 1); //1ms For fixing opacity on new element
-          setTimeout(() => {
-            component.classList.remove("opacity-1");
-            component.classList.add("opacity-0");
-            //component.classList.add("-translate-y-80"); //it's a little bit buggy when send multiple alerts
-            component.style.margin = 0;
-            component.style.padding = 0;
-          }, 1500); // Change to 3000ms for 3 seconds
-          setTimeout(() => {
-            component.style.setProperty("height", "0", "important");
-          }, 1600); // Change to 3100ms
-          setTimeout(() => {
-            notificationBox.removeChild(component);
-          }, 2200); // Change to 3700ms
-          //If you can do something more elegant than timeouts, please do, but i can't
-        }
-      </script> 
-      <% } %>
+            color: "green-500"
+          }
+        };
+        let component = document.createElement("div");
+        component.className = `relative flex items-center bg-${alerts[type].color} text-white text-sm font-bold px-4 py-3 rounded-md opacity-0 transform transition-all duration-500 mb-1`;
+        component.innerHTML = `${alerts[type].icon}<p class="text-white">${text}</p>`; // Set text color to white here
+        notificationBox.appendChild(component);
+        setTimeout(() => {
+          component.classList.remove("opacity-0");
+          component.classList.add("opacity-1");
+        }, 1); //1ms For fixing opacity on new element
+        setTimeout(() => {
+          component.classList.remove("opacity-1");
+          component.classList.add("opacity-0");
+          //component.classList.add("-translate-y-80"); //it's a little bit buggy when send multiple alerts
+          component.style.margin = 0;
+          component.style.padding = 0;
+        }, 1500); // Change to 3000ms for 3 seconds
+        setTimeout(() => {
+          component.style.setProperty("height", "0", "important");
+        }, 1600); // Change to 3100ms
+        setTimeout(() => {
+          notificationBox.removeChild(component);
+        }, 2200); // Change to 3700ms
+        //If you can do something more elegant than timeouts, please do, but i can't
+      }
+    </script>
+    <% } %>
       <% if (errorMessage) { %>
         <script>
           sendNotification("error", "<%= errorMessage %>");
@@ -149,7 +149,7 @@
             //If you can do something more elegant than timeouts, please do, but i can't
           }
         </script>
-        
+
         <% } %>
 
           <div class="page-wrapper">
@@ -236,7 +236,7 @@
                           <% } %>
                     </div>
 
-                    
+
 
 
                   </div>
@@ -370,9 +370,640 @@
               </section>
               <!-- End Banner Section-->
 
+              <!-- Job Categories -->
+              <section class="layout-pt-120 layout-pb-60 border-bottom-none">
+                <div class="bg-shape -bottom -right js-rellax" data-rellax-speed="0" data-rellax-desktop-speed="-2"
+                  data-rellax-percentage="0.5">
+                  <img src="images/index-11/shapes/1.png" alt="image">
+                </div>
 
+                <div class="auto-container">
+                  <div class="sec-title text-center">
+                    <h2>Popular Job Categories</h2>
+                    <div class="text">2020 jobs live - 293 added today.</div>
+                  </div>
+
+                  <div class="row wow fadeInUp">
+                    <!-- Category Block -->
+                    <div class="category-block-three -type-2 col-lg-3 col-md-6 col-sm-12">
+                      <div class="inner-box">
+                        <div class="content">
+                          <span class="icon flaticon-money-1"></span>
+                          <h4><a href="#">Accounting / Finance</a></h4>
+                          <p>(2 open positions)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Category Block -->
+                    <div class="category-block-three -type-2 col-lg-3 col-md-6 col-sm-12">
+                      <div class="inner-box">
+                        <div class="content">
+                          <span class="icon flaticon-promotion"></span>
+                          <h4><a href="#">Marketing</a></h4>
+                          <p>86 open positions)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Category Block -->
+                    <div class="category-block-three -type-2 col-lg-3 col-md-6 col-sm-12">
+                      <div class="inner-box">
+                        <div class="content">
+                          <span class="icon flaticon-vector"></span>
+                          <h4><a href="#">Design</a></h4>
+                          <p>43 open positions)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Category Block -->
+                    <div class="category-block-three -type-2 col-lg-3 col-md-6 col-sm-12">
+                      <div class="inner-box">
+                        <div class="content">
+                          <span class="icon flaticon-web-programming"></span>
+                          <h4><a href="#">Development</a></h4>
+                          <p>(12 open positions)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Category Block -->
+                    <div class="category-block-three -type-2 col-lg-3 col-md-6 col-sm-12">
+                      <div class="inner-box">
+                        <div class="content">
+                          <span class="icon flaticon-headhunting"></span>
+                          <h4><a href="#">Human Resource</a></h4>
+                          <p>55 open positions)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Category Block -->
+                    <div class="category-block-three -type-2 col-lg-3 col-md-6 col-sm-12">
+                      <div class="inner-box">
+                        <div class="content">
+                          <span class="icon flaticon-rocket-ship"></span>
+                          <h4><a href="#">Project Management</a></h4>
+                          <p>(2 open positions)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Category Block -->
+                    <div class="category-block-three -type-2 col-lg-3 col-md-6 col-sm-12">
+                      <div class="inner-box">
+                        <div class="content">
+                          <span class="icon flaticon-support-1"></span>
+                          <h4><a href="#">Customer Service</a></h4>
+                          <p>(2 open positions)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Category Block -->
+                    <div class="category-block-three -type-2 col-lg-3 col-md-6 col-sm-12">
+                      <div class="inner-box">
+                        <div class="content">
+                          <span class="icon flaticon-first-aid-kit-1"></span>
+                          <h4><a href="#">Health and Care</a></h4>
+                          <p>(25 open positions)</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <!-- End Job Categories -->
+
+              <!-- steps Section -->
+              <section class="steps-section layout-pt-60 layout-pb-60">
+                <div class="auto-container">
+                  <div class="row">
+                    <div class="image-column col-lg-6 col-md-12 col-sm-12">
+                      <div class="inner-column">
+                        <figure class="image"><img src="images/index-11/text/image-1.png" alt="Find Jobs"></figure>
+                      </div>
+                    </div>
+              
+                    <div class="content-column col-lg-6 col-md-12 col-sm-12">
+                      <div class="inner-column wow fadeInUp">
+                        <div class="sec-title -type-2">
+                          <h2>Find Jobs with 3 easy<br> steps</h2>
+                          <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                          <ul class="steps-list">
+                            <li><span class="count">01</span> Explore available job listings</li>
+                            <li><span class="count">02</span> Apply for your preferred positions</li>
+                            <li><span class="count">03</span> Get hired and start your new career</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              
+              <!-- End Steps Section -->
+
+              <!-- About Section -->
+              <section class="about-section-two style-two layout-pt-60 layout-pb-120">
+                <div class="auto-container">
+                  <div class="row grid-base">
+                    <!-- Content Column -->
+                    <div class="content-column mb-0 col-lg-6 col-md-12 col-sm-12">
+                      <div class="inner-column wow fadeInLeft">
+                        <div class="sec-title">
+                          <h2>Find Top Talent for Your Open Positions</h2>
+                          <div class="text">Are you looking for skilled professionals to fill your company's vacant positions? Look no further! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                          <div class="text">Our job portal connects you with expert talent across various industries. Whether you need software developers, designers, marketers, or healthcare professionals, we've got you covered.</div>
+                        </div>
+                        <a href="#" class="theme-btn btn-style-seven bg-orange">Search Candidates</a>
+                      </div>
+                    </div>
+              
+                    <!-- Image Column -->
+                    <div class="image-column mb-30 md:mt-0 col-lg-6 col-md-12 col-sm-12 wow fadeInRight">
+                      <figure class="image-box"><img src="images/index-11/text/image-2.png" alt="Featured Candidates"></figure>
+              
+                      <!-- Featured Candidates List -->
+                      <div class="applicants-list -pos-2">
+                        <div class="title-box bg-purple">
+                          <h4>Featured Candidates</h4>
+                        </div>
+                        <ul class="applicants">
+                          <li class="applicant">
+                            <figure class="image"><img src="images/resource/applicant-1.png" alt="John Doe"></figure>
+                            <h4 class="name">John Doe</h4>
+                            <span class="designation">Web Developer</span>
+                          </li>
+              
+                          <li class="applicant">
+                            <figure class="image"><img src="images/resource/applicant-2.png" alt="Jane Smith"></figure>
+                            <h4 class="name">Jane Smith</h4>
+                            <span class="designation">Graphic Designer</span>
+                          </li>
+              
+                          <li class="applicant">
+                            <figure class="image"><img src="images/resource/applicant-3.png" alt="Alex Johnson"></figure>
+                            <h4 class="name">Alex Johnson</h4>
+                            <span class="designation">Digital Marketer</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              
+              <!-- End About Section -->
 
               
+
+              <!-- Job Section -->
+              <section class="job-section bg-light-blue layout-pt-120 layout-pb-120">
+                <div class="bg-shape -top -left js-rellax" data-rellax-speed="0" data-rellax-desktop-speed="-2"
+                  data-rellax-percentage="0.5">
+                  <img src="images/index-11/shapes/2.png" alt="image">
+                </div>
+
+                <div class="auto-container">
+                  <div class="sec-title -type-2 text-center">
+                    <h2>Featured Jobs</h2>
+                    <div class="text">Know your worth and find the job that qualifies your life</div>
+                  </div>
+
+                  <div class="default-tabs tabs-box">
+                    <!--Tabs Box-->
+                    <ul class="tab-buttons -pills">
+                      <li class="tab-btn active-btn" data-tab="#tab1">All</li>
+                      <li class="tab-btn" data-tab="#tab2">Trending</li>
+                      <li class="tab-btn" data-tab="#tab3">Design</li>
+                      <li class="tab-btn" data-tab="#tab4">Marketing</li>
+                      <li class="tab-btn" data-tab="#tab5">Health</li>
+                    </ul>
+
+                    <script>
+                      // JavaScript to handle tab activation
+                      // JavaScript to handle tab activation
+                      const tabs = document.querySelectorAll('.tab-btn');
+
+                      tabs.forEach(tab => {
+                        tab.addEventListener('click', () => {
+                          // Remove active class from all tabs
+                          tabs.forEach(t => t.classList.remove('active-btn'));
+                          // Add active class to the clicked tab
+                          tab.classList.add('active-btn');
+                        });
+                      });
+
+
+                    </script>
+
+
+                    <div class="tabs-content wow fadeInUp">
+                      <!--Tab-->
+                      <div class="tab active-tab" id="tab2">
+                        <div class="row">
+                          <!-- Loop through jobs -->
+                          <% jobs.slice(0, 9).forEach(job=> { %>
+                            <% if (job.companyProfile && job.companyProfile.length> 0) { %>
+                              <% const company=job.companyProfile[0]; %>
+                                <!-- Job Block -->
+                                <div class="job-block col-lg-4 col-md-6 col-sm-12">
+                                  <div class="inner-box">
+                                    <div class="content">
+                                      <span class="company-logo"><img class="rounded-full"
+                                          src="/images/uploads/<%= company.logo %>"
+                                          alt="<%= company.companyName %> Logo"></span>
+                                      <h4><a href="#">
+                                          <%= job.jobTitle %>
+                                        </a></h4>
+                                      <ul class="job-info">
+                                        <li><span class="icon flaticon-briefcase"></span>
+                                          <%= company.companyName %>
+                                        </li>
+                                        <li><span class="icon flaticon-map-locator"></span>
+                                          <%= job.city %>, <%= job.country %>
+                                        </li>
+                                      </ul>
+                                      <ul class="job-other-info">
+                                        <li class="required">Urgent</li>
+                                        <!-- Example, you can modify based on your tags -->
+                                        <li class="time">Full Time</li>
+                                        <!-- Example, you can modify based on your tags -->
+                                      </ul>
+                                      <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <% } %>
+                                  <% }) %>
+                                    <!-- End Loop -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <!-- End Job Section -->
+
+
+              <!-- App Section -->
+              <section class="app-section layout-pt-120">
+                <div class="bg-shape -top -right js-rellax" data-rellax-speed="0" data-rellax-desktop-speed="-2"
+                  data-rellax-percentage="0.5">
+                  <img src="images/index-11/shapes/3.png" alt="Background Shape">
+                </div>
+              
+                <div class="auto-container">
+                  <div class="row justify-content-between align-items-center">
+                    <!-- Image Column -->
+                    <div class="image-column col-lg-6 col-md-12 col-sm-12 order-1">
+                      <div class="bg-shape"></div>
+                      <figure class="image wow fadeInLeft"><img src="images/index-11/download/1.png" alt="Mobile App"></figure>
+                    </div>
+              
+                    <div class="content-column col-lg-5 col-md-12 col-sm-12 order-2">
+                      <div class="text-left inner-column pt-0 pb-0 wow fadeInRight">
+                        <div class="sec-title">
+                          <span class="sub-title">DOWNLOAD & ENJOY</span>
+                          <h2>Get the ProdigyHire Job Search App</h2>
+                        </div>
+              
+                        <div class="content-icons">
+                          <div class="item">
+                            <div class="icon-wrap">
+                              <span class="icon icon-case"></span>
+                            </div>
+                            <div class="content">
+                              <h4>Job Search</h4>
+                              <p>Browse millions of job listings and find your perfect match. Swipe right to apply and start your career journey today.</p>
+                            </div>
+                          </div>
+              
+                          <div class="item">
+                            <div class="icon-wrap">
+                              <span class="icon icon-contact"></span>
+                            </div>
+                            <div class="content">
+                              <h4>Search on the Go</h4>
+                              <p>Access job opportunities anytime, anywhere. Whether you're commuting or relaxing at home, our app ensures you never miss out on a great opportunity.</p>
+                            </div>
+                          </div>
+              
+                          <div class="item">
+                            <div class="icon-wrap">
+                              <span class="icon icon-doc"></span>
+                            </div>
+                            <div class="content">
+                              <h4>Instant Notifications</h4>
+                              <p>Receive instant notifications for new job openings, interview requests, and application updates. Stay informed and stay ahead in your job search.</p>
+                            </div>
+                          </div>
+                        </div>
+              
+                        <div class="download-btn content-icons-btn">
+                          <a href="#"><img src="images/icons/apple.png" alt="Download on the App Store"></a>
+                          <a href="#"><img src="images/icons/google.png" alt="Get it on Google Play"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              
+              <!-- End App Section -->
+
+              <style>
+                .row.grid-base {
+                  display: flex;
+                  flex-wrap: wrap;
+                  justify-content: space-between;
+                }
+                .pricingCard {
+                  display: flex;
+                  flex-direction: column;
+                  height: 100%;
+                }
+                .pricingCard__inner {
+                  flex: 1;
+                  display: flex;
+                  flex-direction: column;
+                }
+              </style>
+
+              <!-- Pricing Section -->
+              <section class="pricing-section pb-0">
+                <div class="auto-container">
+                  <div class="sec-title -type-2 text-center">
+                    <h2>Our Exclusive Features</h2>
+                    <div class="text">Discover what sets ProdigyHire apart from the rest.</div>
+                  </div>
+              
+                  <div class="row grid-base wow fadeInUp">
+                    <div class="col-lg-3 col-md-6">
+                      <div class="pricingCard">
+                        <div class="pricingCard__inner">
+                          <div class="pricingCard__img">
+                            <img src="images/index-11/pricing/1.png" alt="images">
+                          </div>
+                          <h4 class="pricingCard__title">Custom Coding Environment</h4>
+                          <div class="pricingCard__price">Included</div>
+              
+                          <ul class="pricingCard__list">
+                            <li>Access a tailored coding environment for technical evaluations.</li>
+                            <li>Create and customize coding challenges to match your hiring criteria.</li>
+                            <li>Receive real-time insights and performance feedback during assessments.</li>
+                          </ul>
+              
+                          <div class="pricingCard__btn">
+                            <a href="#" class="theme-btn btn-style-modern">Explore</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              
+                    <div class="col-lg-3 col-md-6">
+                      <div class="pricingCard">
+                        <div class="pricingCard__inner">
+                          <div class="pricingCard__img">
+                            <img src="images/index-11/pricing/2.png" alt="images">
+                          </div>
+                          <h4 class="pricingCard__title">Integrated Video Interviews</h4>
+                          <div class="pricingCard__price">Included</div>
+              
+                          <ul class="pricingCard__list">
+                            <li>Conduct seamless interviews through our built-in video call feature.</li>
+                            <li>Eliminate the hassle of using third-party software for interviews.</li>
+                            <li>Effortlessly record and review interviews for better candidate evaluation.</li>
+                          </ul>
+              
+                          <div class="pricingCard__btn">
+                            <a href="#" class="theme-btn btn-style-modern">Explore</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              
+                    <div class="col-lg-3 col-md-6">
+                      <div class="pricingCard">
+                        <div class="pricingCard__inner">
+                          <div class="pricingCard__img">
+                            <img src="images/index-11/pricing/3.png" alt="images">
+                          </div>
+                          <h4 class="pricingCard__title">AI-Powered Resume Screening</h4>
+                          <div class="pricingCard__price">Included</div>
+              
+                          <ul class="pricingCard__list">
+                            <li>Utilize advanced AI technology to automatically filter and rank resumes.</li>
+                            <li>Efficiently manage large volumes of applications and identify top candidates.</li>
+                            <li>Save valuable time by focusing on the most qualified applicants.</li>
+                          </ul>
+              
+                          <div class="pricingCard__btn">
+                            <a href="#" class="theme-btn btn-style-modern">Explore</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              
+                    <div class="col-lg-3 col-md-6">
+                      <div class="pricingCard">
+                        <div class="pricingCard__inner">
+                          <div class="pricingCard__img">
+                            <img src="images/index-11/pricing/4.png" alt="images">
+                          </div>
+                          <h4 class="pricingCard__title">In-Platform Aptitude Tests</h4>
+                          <div class="pricingCard__price">Included</div>
+              
+                          <ul class="pricingCard__list">
+                            <li>Offer aptitude tests directly through our platform to assess candidate skills.</li>
+                            <li>Choose from a variety of pre-built tests or create custom assessments.</li>
+                            <li>Analyze candidate performance to make informed hiring decisions.</li>
+                          </ul>
+              
+                          <div class="pricingCard__btn">
+                            <a href="#" class="theme-btn btn-style-modern">Explore</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              
+              
+              <!-- End Pricing Section -->
+
+              <!-- Clients Section -->
+              <section class="clients-section-two alternate layout-pt-40">
+                <div class="auto-container">
+                  <div class="sponsors-outer wow fadeInUp">
+                    <!--Sponsors Carousel-->
+                    <ul class="sponsors-carousel owl-carousel owl-theme">
+                      <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/index-11/clients/1.svg" alt=""></a>
+                        </figure>
+                      </li>
+                      <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/index-11/clients/2.svg" alt=""></a>
+                        </figure>
+                      </li>
+                      <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/index-11/clients/3.svg" alt=""></a>
+                        </figure>
+                      </li>
+                      <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/index-11/clients/4.svg" alt=""></a>
+                        </figure>
+                      </li>
+                      <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/index-11/clients/5.svg" alt=""></a>
+                        </figure>
+                      </li>
+                      <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/index-11/clients/6.svg" alt=""></a>
+                        </figure>
+                      </li>
+                      <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/index-11/clients/7.svg" alt=""></a>
+                        </figure>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+              <!-- End Clients Section -->
+
+              <!-- Main Footer -->
+              <footer class="main-footer style-six alternate -type-11">
+                <div class="footer-bg-image">
+                  <img src="images/index-11/footer/1.png" alt="image">
+                </div>
+
+                <div class="auto-container">
+                  <div class="row justify-content-center">
+                    <div class="col-auto">
+                      <div class="footer-title text-center">
+                        <h3>Got a question?</h3>
+                        <div>We're here to help. Check out our FAQs, send us an email or call us at 2 600 7777 9999
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="auto-container">
+                  <!--Widgets Section-->
+                  <div class="widgets-section">
+                    <div class="row">
+                      <div class="big-column col-xl-3 col-lg-3 col-md-12">
+                        <div class="footer-column about-widget">
+                          <div class="logo"><a href="#"><img src="images/logo-2.svg" alt=""></a></div>
+                          <p class="phone-num"><span>Call us </span><a href="thebeehost%40support.html">123 456 7890</a>
+                          </p>
+                          <p class="address">329 Queensberry Street, North Melbourne VIC<br> 3051, Australia. <br><a
+                              href="mailto:support@superio.com" class="email">support@superio.com</a></p>
+                        </div>
+                      </div>
+
+                      <div class="big-column col-xl-9 col-lg-9 col-md-12">
+                        <div class="row">
+                          <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                            <div class="footer-widget links-widget">
+                              <h4 class="widget-title">For Candidates</h4>
+                              <div class="widget-content">
+                                <ul class="list">
+                                  <li><a href="#">Browse Jobs</a></li>
+                                  <li><a href="#">Browse Categories</a></li>
+                                  <li><a href="#">Candidate Dashboard</a></li>
+                                  <li><a href="#">Job Alerts</a></li>
+                                  <li><a href="#">My Bookmarks</a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                            <div class="footer-widget links-widget">
+                              <h4 class="widget-title">For Employers</h4>
+                              <div class="widget-content">
+                                <ul class="list">
+                                  <li><a href="#">Browse Candidates</a></li>
+                                  <li><a href="#">Employer Dashboard</a></li>
+                                  <li><a href="#">Add Job</a></li>
+                                  <li><a href="#">Job Packages</a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="footer-column col-lg-2 col-md-6 col-sm-12">
+                            <div class="footer-widget links-widget">
+                              <h4 class="widget-title">About Us</h4>
+                              <div class="widget-content">
+                                <ul class="list">
+                                  <li><a href="#">Job Page</a></li>
+                                  <li><a href="#">Job Page Alternative</a></li>
+                                  <li><a href="#">Resume Page</a></li>
+                                  <li><a href="#">Blog</a></li>
+                                  <li><a href="#">Contact</a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="footer-column col-lg-4 col-md-12 col-sm-12">
+                            <div class="footer-widget">
+                              <h4 class="widget-title">Join Us On</h4>
+                              <div class="widget-content">
+                                <div class="newsletter-form">
+                                  <div class="text text-white">We don’t send spam so don’t worry.</div>
+                                  <form method="post" action="#" id="subscribe-form">
+                                    <div class="form-group">
+                                      <div class="response"></div>
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="email" name="email" class="email" value="" placeholder="Email"
+                                        required>
+                                      <button type="button" id="subscribe-newslatters" class="theme-btn bg-orange"><i
+                                          class="flaticon-envelope"></i></button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--Bottom-->
+                <div class="footer-bottom">
+                  <div class="auto-container">
+                    <div class="outer-box">
+                      <div class="copyright-text">© 2021 <a href="#">Superio</a>. All Right Reserved.</div>
+                      <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span>
+                </div>
+              </footer>
+              <!-- End Main Footer -->
+
+
+
+
           </div><!-- End Page Wrapper -->
 
 
