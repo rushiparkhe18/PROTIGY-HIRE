@@ -76,89 +76,61 @@
                                         <div class="widget-title">
                                             <h4>My Profile</h4>
                                         </div>
-
                                         <div class="alert-container">
                                             <% if (successMessage && successMessage.length> 0) { %>
                                                 <div class="alert alert-success">
                                                     <%= successMessage %>
                                                 </div>
-                                                <% } %>
-
-                                                    <% if (errorMessage && errorMessage.length> 0) { %>
-                                                        <div class="alert alert-danger">
-                                                            <%= errorMessage %>
-                                                        </div>
-                                                        <% } %>
+                                            <% } %>
+                                            <% if (errorMessage && errorMessage.length> 0) { %>
+                                                <div class="alert alert-danger">
+                                                    <%= errorMessage %>
+                                                </div>
+                                            <% } %>
                                         </div>
-
-
-
                                         <div class="widget-content">
                                             <!-- candidate-dashboard-resume.ejs -->
-
-                                            <form class="default-form" action="/candidate-dashboard-resume-submit"
-                                                method="post" enctype="multipart/form-data">
+                                            <form class="default-form" action="/candidate-dashboard-resume-submit" method="post" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <!-- About Me -->
                                                     <div class="form-group col-lg-12 col-md-12">
                                                         <label>About me</label>
-                                                        <textarea name="aboutMe"
-                                                            placeholder="Hello my name is Nicole Wells and web developer from Portland. In pharetra orci dignissim, blandit mi semper, ultricies diam. Suspendisse malesuada suscipit nunc non volutpat. Sed porta nulla id orci laoreet tempor non consequat enim. Sed vitae aliquam velit. Aliquam ante erat, blandit at pretium et, accumsan ac est. Integer vehicula rhoncus molestie. Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam.
-Mauris nec erat ut libero vulputate pulvinar. Aliquam ante erat, blandit at pretium et, accumsan ac est. Integer vehicula rhoncus molestie. Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam. Mauris nec erat ut libero vulputate pulvinar." required><%= existingProfile.aboutMe %></textarea>
+                                                        <textarea name="aboutMe" placeholder="Hello my name is Nicole Wells and web developer from Portland. In pharetra orci dignissim, blandit mi semper, ultricies diam. Suspendisse malesuada suscipit nunc non volutpat. Sed porta nulla id orci laoreet tempor non consequat enim. Sed vitae aliquam velit. Aliquam ante erat, blandit at pretium et, accumsan ac est. Integer vehicula rhoncus molestie. Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam.
+Mauris nec erat ut libero vulputate pulvinar. Aliquam ante erat, blandit at pretium et, accumsan ac est. Integer vehicula rhoncus molestie. Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam. Mauris nec erat ut libero vulputate pulvinar." required><%= existingProfile ? existingProfile.aboutMe : '' %></textarea>
                                                     </div>
-
                                                     <!-- Education -->
                                                     <div class="form-group col-lg-12 col-md-12">
                                                         <div class="resume-outer">
                                                             <div class="upper-title">
                                                                 <h4>Education</h4>
                                                             </div>
-
                                                             <!-- Education Blocks -->
                                                             <% for(let i=0; i < 2; i++) { %>
                                                                 <div class="resume-block">
                                                                     <div class="inner">
-                                                                        <% let etitle=existingProfile['etitle' + (i +
-                                                                            1)] || '' ; %>
-                                                                            <% let
-                                                                                ecollegeUniversity=existingProfile['ecollegeUniversity'
-                                                                                + (i + 1)] || '' ; %>
-                                                                                <% let
-                                                                                    firstLetterE=ecollegeUniversity.trim().charAt(0).toUpperCase();
-                                                                                    %>
-                                                                                    <span class="name">
-                                                                                        <%= firstLetterE %>
-                                                                                    </span>
-                                                                                    <div class="title-box">
-                                                                                        <div class="info-box">
-                                                                                            <input type="text"
-                                                                                                name="etitle<%= i + 1 %>"
-                                                                                                placeholder="Degree Title"
-                                                                                                value="<%= etitle %>" required>
-                                                                                            <input type="text" class="mt-2"
-                                                                                                name="ecollegeUniversity<%= i + 1 %>"
-                                                                                                placeholder="College/University"
-                                                                                                value="<%= ecollegeUniversity %>" required>
-                                                                                        </div>
-                                                                                        <div class="edit-box">
-                                                                                            <span class="year"><input
-                                                                                                    type="text"
-                                                                                                    name="eyear<%= i + 1 %>"
-                                                                                                    placeholder="2012 - 2014"
-                                                                                                    value="<%= existingProfile['eyear' + (i + 1)] %>"></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="text">
-                                                                                        <textarea
-                                                                                            name="edescription<%= i + 1 %>"
-                                                                                            placeholder="Description" required><%= existingProfile['edescription' + (i + 1)] %></textarea>
-                                                                                    </div>
+                                                                        <% let etitle=existingProfile['etitle' + (i + 1)] || '' ; %>
+                                                                        <% let ecollegeUniversity=existingProfile['ecollegeUniversity' + (i + 1)] || '' ; %>
+                                                                        <% let firstLetterE=ecollegeUniversity.trim().charAt(0).toUpperCase(); %>
+                                                                        <span class="name">
+                                                                            <%= firstLetterE %>
+                                                                        </span>
+                                                                        <div class="title-box">
+                                                                            <div class="info-box">
+                                                                                <input type="text" name="etitle<%= i + 1 %>" placeholder="Degree Title" value="<%= etitle %>" required>
+                                                                                <input type="text" class="mt-2" name="ecollegeUniversity<%= i + 1 %>" placeholder="College/University" value="<%= ecollegeUniversity %>" required>
+                                                                            </div>
+                                                                            <div class="edit-box">
+                                                                                <span class="year"><input type="text" name="eyear<%= i + 1 %>" placeholder="2012 - 2014" value="<%= existingProfile['eyear' + (i + 1)] %>"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text">
+                                                                            <textarea name="edescription<%= i + 1 %>" placeholder="Description" required><%= existingProfile['edescription' + (i + 1)] %></textarea>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <% } %>
+                                                            <% } %>
                                                         </div>
                                                     </div>
-
                                                     <!-- Work & Experience -->
                                                     <div class="form-group col-lg-12 col-md-12">
                                                         <div class="resume-outer theme-blue">
@@ -169,50 +141,29 @@ Mauris nec erat ut libero vulputate pulvinar. Aliquam ante erat, blandit at pret
                                                             <% for(let i=0; i < 2; i++) { %>
                                                                 <div class="resume-block">
                                                                     <div class="inner">
-                                                                        <% let wtitle=existingProfile['wtitle' + (i +
-                                                                            1)] || '' ; %>
-                                                                            <% let
-                                                                                wcompanyName=existingProfile['wcompanyName'
-                                                                                + (i + 1)] || '' ; %>
-                                                                                <% let
-                                                                                    firstLetterW=wcompanyName.trim().charAt(0).toUpperCase();
-                                                                                    %>
-                                                                                    <span class="name">
-                                                                                        <%= firstLetterW %>
-                                                                                    </span>
-                                                                                    <div class="title-box">
-                                                                                        <div class="info-box">
-                                                                                            <input type="text"
-                                                                                                name="wtitle<%= i + 1 %>"
-                                                                                                placeholder="Job Title"
-                                                                                                value="<%= wtitle %>" required>
-                                                                                            <input type="text"class="mt-2"
-                                                                                                name="wcompanyName<%= i + 1 %>"
-                                                                                                placeholder="Company"
-                                                                                                value="<%= wcompanyName %>" required>
-                                                                                        </div>
-                                                                                        <div class="edit-box">
-                                                                                            <span class="year"><input
-                                                                                                    type="text"
-                                                                                                    name="wyear<%= i + 1 %>"
-                                                                                                    placeholder="2012-2014"
-                                                                                                    value="<%= existingProfile['wyear' + (i + 1)] %>"></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="text">
-                                                                                        <textarea
-                                                                                            name="wdescription<%= i + 1 %>"
-                                                                                            placeholder="Description" required><%= existingProfile['wdescription' + (i + 1)] %></textarea>
-                                                                                    </div>
+                                                                        <% let wtitle=existingProfile['wtitle' + (i + 1)] || '' ; %>
+                                                                        <% let wcompanyName=existingProfile['wcompanyName' + (i + 1)] || '' ; %>
+                                                                        <% let firstLetterW=wcompanyName.trim().charAt(0).toUpperCase(); %>
+                                                                        <span class="name">
+                                                                            <%= firstLetterW %>
+                                                                        </span>
+                                                                        <div class="title-box">
+                                                                            <div class="info-box">
+                                                                                <input type="text" name="wtitle<%= i + 1 %>" placeholder="Job Title" value="<%= wtitle %>" required>
+                                                                                <input type="text" class="mt-2" name="wcompanyName<%= i + 1 %>" placeholder="Company" value="<%= wcompanyName %>" required>
+                                                                            </div>
+                                                                            <div class="edit-box">
+                                                                                <span class="year"><input type="text" name="wyear<%= i + 1 %>" placeholder="2012-2014" value="<%= existingProfile['wyear' + (i + 1)] %>"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text">
+                                                                            <textarea name="wdescription<%= i + 1 %>" placeholder="Description" required><%= existingProfile['wdescription' + (i + 1)] %></textarea>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <% } %>
+                                                            <% } %>
                                                         </div>
                                                     </div>
-
-
-
-
                                                     <!-- Upload Portfolio -->
                                                     <div class="form-group col-lg-12 col-md-12">
                                                         <div class="upper-title">
@@ -222,40 +173,22 @@ Mauris nec erat ut libero vulputate pulvinar. Aliquam ante erat, blandit at pret
                                                         <div class="uploading-outer flex flex-wrap">
                                                             <% for(let i=0; i < 4; i++) { %>
                                                                 <div class="uploadButton mt-2 mx-3">
-                                                                    <input class="uploadButton-input" type="file"
-                                                                        name="project<%= i + 1 %>"
-                                                                        accept="image/*, application/pdf"
-                                                                        id="project<%= i + 1 %>"
-                                                                        onchange="loadFile(event, 'preview<%= i + 1 %>')"
-                                                                        multiple />
-                                                                    <label class="uploadButton-button ripple-effect"
-                                                                        for="project<%= i + 1 %>">Add Portfolio</label>
+                                                                    <input class="uploadButton-input" type="file" name="project<%= i + 1 %>" accept="image/*, application/pdf" id="project<%= i + 1 %>" onchange="loadFile(event, 'preview<%= i + 1 %>')" multiple />
+                                                                    <label class="uploadButton-button ripple-effect" for="project<%= i + 1 %>">Add Portfolio</label>
                                                                 </div>
                                                                 <!-- Preview Image Container -->
-                                                                <% if (existingProfile && existingProfile.projects[i]) {
-                                                                    %>
-                                                                    <% if
-                                                                        (existingProfile.projects[i].startsWith('/images/uploads'))
-                                                                        { %>
-                                                                        <img id="preview<%= i + 1 %>"
-                                                                            src="<%= existingProfile.projects[i] %>"
-                                                                            alt="Preview" class="preview-image" />
-                                                                        <% } else { %>
-                                                                            <img id="preview<%= i + 1 %>"
-                                                                                src="/images/uploads/<%= existingProfile.projects[i] %>"
-                                                                                alt="Preview" class="preview-image" />
-                                                                            <% } %>
-                                                                                <% } else { %>
-                                                                                    <img id="preview<%= i + 1 %>" src=""
-                                                                                        alt="Preview"
-                                                                                        class="preview-image" />
-                                                                                    <% } %>
-                                                                                        <% } %>
+                                                                <% if (existingProfile && existingProfile.projects && existingProfile.projects[i]) { %>
+                                                                    <% if (existingProfile.projects[i].startsWith('/images/uploads')) { %>
+                                                                        <img id="preview<%= i + 1 %>" src="<%= existingProfile.projects[i] %>" alt="Preview" class="preview-image" />
+                                                                    <% } else { %>
+                                                                        <img id="preview<%= i + 1 %>" src="/images/uploads/<%= existingProfile.projects[i] %>" alt="Preview" class="preview-image" />
+                                                                    <% } %>
+                                                                <% } else { %>
+                                                                    <img id="preview<%= i + 1 %>" src="" alt="Preview" class="preview-image" />
+                                                                <% } %>
+                                                            <% } %>
                                                         </div>
                                                     </div>
-
-
-
                                                     <!-- Awards -->
                                                     <div class="form-group col-lg-12 col-md-12">
                                                         <div class="resume-outer theme-yellow">
@@ -269,67 +202,42 @@ Mauris nec erat ut libero vulputate pulvinar. Aliquam ante erat, blandit at pret
                                                                         <span class="name"></span>
                                                                         <div class="title-box">
                                                                             <div class="info-box">
-                                                                                <input type="text"
-                                                                                    name="htitle<%= i + 1 %>"
-                                                                                    placeholder="Award Title"
-                                                                                    value="<%= existingProfile['htitle' + (i + 1)] %>" required>
+                                                                                <input type="text" name="htitle<%= i + 1 %>" placeholder="Award Title" value="<%= existingProfile['htitle' + (i + 1)] %>" required>
                                                                             </div>
                                                                             <div class="edit-box">
-                                                                                <span class="year"><input type="text"
-                                                                                        name="hyear<%= i + 1 %>" id=""
-                                                                                        placeholder="29 April 2023"
-                                                                                        value="<%= existingProfile['hyear' + (i + 1)] %>"></span>
+                                                                                <span class="year"><input type="text" name="hyear<%= i + 1 %>" id="" placeholder="29 April 2023" value="<%= existingProfile['hyear' + (i + 1)] %>"></span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="text">
-                                                                            <textarea name="hdescription<%= i + 1 %>"
-                                                                                placeholder="Description" required><%= existingProfile['hdescription' + (i + 1)] %></textarea>
+                                                                            <textarea name="hdescription<%= i + 1 %>" placeholder="Description" required><%= existingProfile['hdescription' + (i + 1)] %></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <% } %>
+                                                            <% } %>
                                                         </div>
                                                     </div>
-
                                                     <!-- Skills -->
                                                     <div class="form-group col-lg-12 col-md-12">
                                                         <label>Professional Skills</label>
-                                                        <select data-placeholder="Professional Skills" required
-                                                            class="chosen-select multiple" name="professionalSkills[]"
-                                                            multiple tabindex="4" required>
-                                                            <option value="App" <%=existingProfile &&
-                                                                existingProfile.professionalSkills.includes('App')
-                                                                ? 'selected' : '' %>>App</option>
-                                                            <option value="Design" <%=existingProfile &&
-                                                                existingProfile.professionalSkills.includes('Design')
-                                                                ? 'selected' : '' %>>Design</option>
-                                                            <option value="Digital" <%=existingProfile &&
-                                                                existingProfile.professionalSkills.includes('Digital')
-                                                                ? 'selected' : '' %>>Digital</option>
-                                                            <option value="Website" <%=existingProfile &&
-                                                                existingProfile.professionalSkills.includes('Website')
-                                                                ? 'selected' : '' %>>Website</option>
+                                                        <select data-placeholder="Professional Skills" required class="chosen-select multiple" name="professionalSkills[]" multiple tabindex="4" required>
+                                                            <option value="App" <%=existingProfile && existingProfile.professionalSkills && existingProfile.professionalSkills.includes('App') ? 'selected' : '' %>>App</option>
+                                                            <option value="Design" <%=existingProfile && existingProfile.professionalSkills && existingProfile.professionalSkills.includes('Design') ? 'selected' : '' %>>Design</option>
+                                                            <option value="Digital" <%=existingProfile && existingProfile.professionalSkills && existingProfile.professionalSkills.includes('Digital') ? 'selected' : '' %>>Digital</option>
+                                                            <option value="Website" <%=existingProfile && existingProfile.professionalSkills && existingProfile.professionalSkills.includes('Website') ? 'selected' : '' %>>Website</option>
                                                         </select>
                                                     </div>
-
                                                     <!-- Submit Button -->
                                                     <div class="form-group col-lg-12 col-md-12">
-                                                        <button type="submit"
-                                                            class="theme-btn btn-style-one">Save</button>
+                                                        <button type="submit" class="theme-btn btn-style-one">Save</button>
                                                     </div>
                                                 </div>
                                             </form>
-
-
-
-
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
 
 
                     </div>

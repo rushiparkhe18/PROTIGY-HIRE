@@ -285,24 +285,25 @@
 
                         <!-- Job Search Form -->
                         <div class="job-search-form wow fadeInUp" data-wow-delay="600ms">
-                          <form method="post" action="https://creativelayers.net/themes/superio/job-list-v10.html">
+                          <form action="/joblist">
                             <div class="row">
                               <div class="form-group col-lg-5">
                                 <span class="icon flaticon-search-1"></span>
-                                <input type="text" name="field_name" placeholder="Job title, keywords, or company">
+                                <input type="text" placeholder="Job title, keywords, or company" required>
                               </div>
                               <!-- Form Group -->
                               <div class="form-group col-lg-4 location">
                                 <span class="icon flaticon-map-locator"></span>
-                                <input type="text" name="field_name" placeholder="City or postcode">
+                                <input type="text" placeholder="City or postcode" required>
                               </div>
                               <!-- Form Group -->
-                              <div class="form-group col-lg-3 btn-box">
-                                <button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Find
-                                    Jobs</span></button>
+                            </form>
+                              <div class=" col-lg-3 btn-box">
+                                <a href="/joblist">
+                                  <button class="theme-btn btn-style-one">Find Jobs </button>
+                                </a>
                               </div>
                             </div>
-                          </form>
                         </div>
                         <!-- Job Search Form -->
 

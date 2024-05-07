@@ -1,0 +1,199 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
+    <style>
+      body, html {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          overflow: hidden;
+      }
+
+      #quizIframe {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100vw;
+          height: 80vh;
+          border: none;
+      }
+  </style>
+  </head>
+  <body>
+    
+
+    
+  </body>
+</html> -->
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>ProdigyHire | Shortlisted Resumes</title>
+
+  <!-- Stylesheets -->
+  <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+  <link href="/stylesheets/style.css" rel="stylesheet">
+  <link href="/stylesheets/responsive.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="images/favicon.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+
+  <!-- Responsive -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+  <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+  <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+  <style>
+     * {
+            font-family: 'Jost', sans-serif;
+        }
+      #quizIframe {
+          /* position: fixed;
+          left: 50%;
+          width: 100vw;
+          height: 80vh;
+          border: none; */
+          /* transform: translateY(-50%, -50%); */
+          /* top: 50%; */
+          height: 60vh;
+      }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="page-wrapper dashboard ">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header-->
+    <%- include("./components/DashboardHeader") %>
+    <!--End Main Header -->
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <%- include("./components/candidate-DashboardSidebar",{path: "/appti"}) %>
+    <!-- End User Sidebar -->
+
+    <!-- Dashboard -->
+    <section class="user-dashboard">
+      <div class="dashboard-outer">
+        <div class="upper-title-box">
+          <h3>Appear for your Apptitude Test!</h3>
+          <div class="text">Ready to jump back in?</div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+              <!-- Ls widget -->
+              <div class="ls-widget">
+                <div class="tabs-box">
+                  <div class="widget-title">
+                    <h4>My Favorite Jobs</h4>
+  
+                    <div class="chosen-outer">
+                    </div>
+                  </div>
+  
+                  <div class="widget-content">
+                    <div class="table-outer">
+                      <table class="default-table manage-job-table">
+                        <thead>
+                          <tr>
+                            <th>Job Title</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+  
+                        <tbody>
+                            <% quizSessions.reverse().forEach(session => { %>
+
+                          <tr>
+                            <td>
+                              <!-- Job Block -->
+                              <div class="job-block">
+                                <div class="inner-box">
+                                  <div class="content">
+                                    <span class="company-logo"><img src="https://images.unsplash.com/photo-1606326608690-4e0281b1e588?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""></span>
+                                    <h4><a href="#"><%= session.quizLink %></a></h4>
+                                </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="option-box">
+                                <ul class="option-list">
+                                  <a href="/apptitude/<%= encodeURIComponent(session.quizLink) %>">
+                                    <button class="theme-btn btn-style-three">Start Test</button>
+                                </a>
+                                
+                                
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
+                          <% }) %>
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+  
+          </div>
+        
+        
+      </div>
+    </section>
+    <!-- End Dashboard -->
+
+
+  </div><!-- End Page Wrapper -->
+
+  <script src="/javascripts/jquery.js"></script>
+  <script src="/javascripts/popper.min.js"></script>
+  <script src="/javascripts/chosen.min.js"></script>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <script src="/javascripts/jquery-ui.min.js"></script>
+  <script src="/javascripts/jquery.fancybox.js"></script>
+  <script src="/javascripts/jquery.modal.min.js"></script>
+  <script src="/javascripts/mmenu.polyfills.js"></script>
+  <script src="/javascripts/mmenu.js"></script>
+  <script src="/javascripts/appear.js"></script>
+  <script src="/javascripts/ScrollMagic.min.js"></script>
+  <script src="/javascripts/rellax.min.js"></script>
+  <script src="/javascripts/owl.js"></script>
+  <script src="/javascripts/wow.js"></script>
+  <script src="/javascripts/script.js"></script>
+</body>
+
+</html>
+

@@ -109,30 +109,41 @@
                       </thead>
 
                       <tbody>
-                        <% jobs.reverse().forEach((job) => { %>
-                          <% const numApplications = job.applicants.length; %>
-
+                        <% if (jobs.length === 0) { %>
                           <tr>
-                            <td>
-                              <h6><%= job.jobTitle %></h6>
-                              <span class="info"><i class="icon flaticon-map-locator"></i> <%= job.city %>, <%= job.country %></span>
-                            </td>
-                            <td class="applied"><a href="/dashboard-applicants/<%=job._id%>"><%= numApplications %> Applied</a></td>
-                            <td><%= new Date(job.datePosted).toLocaleDateString() %><br><%= new Date(job.expirationDate).toLocaleDateString() %></td>
-                            
-                              <td class="status" style="color: <%= job.status === 'Active' ? 'green' : 'red' %>;"><%= job.status %></td>
-                            <td>
-                              <div class="option-box">
-                                <ul class="option-list">
-                                  <li><a href="/job-single/<%= job._id %>" data-text="View Job"><span class="la la-eye"></span></a></li>
-                                  <li><a href="/dashboard-edit-job/<%= job._id %>" data-text="Modify Job Details"><span class="la la-pencil"></span></a></li>
-                                  <li><a href="/dashboard-delete-job/<%= job._id %>" data-text="Delete Job"><span class="la la-trash"></span></a></li>
-                                </ul>
-                              </div>
-                            </td>
+                            <td colspan="5">No jobs available</td>
                           </tr>
-                        <% }); %>
+                        <% } else { %>
+                          <% jobs.reverse().forEach((job) => { %>
+                            <% const numApplications = job.applicants.length; %>
+                        
+                            <tr>
+                              <td>
+                                <h6><%= job.jobTitle %></h6>
+                                <span class="info"><i class="icon flaticon-map-locator"></i> <%= job.city %>, <%= job.country %></span>
+                              </td>
+                              <td class="applied"><a href="/dashboard-applicants/<%= job._id %>"><%= numApplications %> Applied</a></td>
+                              <td><%= new Date(job.datePosted).toLocaleDateString() %><br><%= new Date(job.expirationDate).toLocaleDateString() %></td>
+                              <% if (job.status === 'Active') { %>
+                                <td class="status" style="color: green;"><%= job.status %></td>
+                              <% } else { %>
+                                <td class="status" style="color: red;"><%= job.status %></td>
+                              <% } %>
+                              <td>
+                                <div class="option-box">
+                                  <ul class="option-list">
+                                    <li><a href="/job-single/<%= job._id %>" data-text="View Job"><span class="la la-eye"></span></a></li>
+                                    <li><a href="/dashboard-edit-job/<%= job._id %>" data-text="Modify Job Details"><span class="la la-pencil"></span></a></li>
+                                    <li><a href="/dashboard-delete-job/<%= job._id %>" data-text="Delete Job"><span class="la la-trash"></span></a></li>
+                                  </ul>
+                                </div>
+                              </td>
+                            </tr>
+                          <% }); %>
+                        <% } %>
                       </tbody>
+                      
+                      
                       
                     </table>
                   </div>

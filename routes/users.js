@@ -57,7 +57,11 @@ const userSchema = new mongoose.Schema({
     resume: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Resume',
-    }
+    },
+    quizSessions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'QuizSession',
+    }],
 });
 
 

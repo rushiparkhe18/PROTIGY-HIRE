@@ -511,23 +511,34 @@ router.get('/dashboard-post-job', isLoggedIn, async function (req, res, next) {
 router.get('/dashboard-manage-job', isLoggedIn, async function (req, res, next) {
   try {
     const user = await userModel.findOne({ username: req.session.passport.user });
+    if (!user) {
+      req.session.errorMessage = 'User not found';
+      return res.redirect('/dashboard-manage-job');
+    }
+    
     const companyProfile = await companyProfileModel.findOne({ userId: user._id });
+    if (!companyProfile) {
+      req.session.errorMessage = 'Company profile not found';
+      return res.redirect('/dashboard-manage-job');
+    }
 
     // Fetch jobs related to the companyProfile
     const jobs = await postJobModel.find({ 'companyProfile': companyProfile._id })
       .populate('companyProfile'); // Populate the companyProfile field
 
+    // Clear session messages after displaying them
+    const successMessage = req.session.successMessage;
+    const errorMessage = req.session.errorMessage;
+    req.session.successMessage = null;
+    req.session.errorMessage = null;
+
     res.render('employer/dashboard-manage-job', {
       path: '/dashboard-manage-job',
       companyProfile,
       jobs,
-      successMessage: req.session.successMessage,
-      errorMessage: req.session.errorMessage,
+      successMessage,
+      errorMessage,
     });
-
-    // Clear session messages after displaying them
-    req.session.successMessage = null;
-    req.session.errorMessage = null;
 
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -661,6 +672,14 @@ router.post('/shortlist-candidate/:jobId/:candidateId', isLoggedIn, async (req, 
     // Update the shortlistedJobs array in the candidate user's schema
     candidateUser.shortlistedJobs.push(jobId);
     await candidateUser.save();
+
+    // Check if the current user is an employer
+    if (req.user.role === 'employer') {
+      // Update the employer user's shortlistedJobsMe array
+      const currentUser = req.user;
+      currentUser.shortlistedJobsMe.push(jobId);
+      await currentUser.save();
+    }
 
     req.session.successMessage = 'Candidate shortlisted successfully';
     return res.redirect(`/dashboard-applicants/${jobId}`);
@@ -998,31 +1017,48 @@ router.get('/candidate-dashboard-profile', isLoggedIn, async function (req, res,
 
 router.get('/candidate-dashboard-resume', isLoggedIn, async function (req, res, next) {
   try {
-    // Fetch candidate profile data from the database
-    const candidateProfile = await candidateProfileModel.findOne({ userId: req.user._id });
+      // Find the current logged-in user
+      const currentUser = await userModel.findOne({ username: req.user.username }).populate({
+          path: 'shortlistedJobs',
+          populate: {
+              path: 'candidateProfile',
+              model: 'CandidateProfile',
+              options: { strictPopulate: false } // Set strictPopulate to false
 
-    // Pass successMessage and errorMessage to the template
-    const successMessage = req.session.successMessage;
-    const errorMessage = req.session.errorMessage;
+          }
+      });
 
-    // Clear successMessage and errorMessage from the session
-    delete req.session.successMessage;
-    delete req.session.errorMessage;
+      if (!currentUser) {
+          req.session.errorMessage = 'User not found';
+          return res.redirect('/candidate-dashboard-resume');
+      }
 
-    // Render the template with the candidate profile data and messages
-    res.render('candidate/candidate-dashboard-resume', {
-      path: '/candidate-dashboard-resume',
-      existingProfile: candidateProfile,  // Pass candidate profile data to the template
-      successMessage: successMessage,    // Pass successMessage to the template
-      errorMessage: errorMessage         // Pass errorMessage to the template
-    });
+      // Extract existingProfile from the current user if available
+      const existingProfile = currentUser.candidateProfile || {};
+
+      // Pass successMessage and errorMessage to the template
+      const successMessage = req.session.successMessage;
+      const errorMessage = req.session.errorMessage;
+
+      // Clear successMessage and errorMessage from the session
+      delete req.session.successMessage;
+      delete req.session.errorMessage;
+
+      // Render the template with the existingProfile and messages
+      res.render('candidate/candidate-dashboard-resume', {
+          path: '/candidate-dashboard-resume',
+          existingProfile: existingProfile, // Pass existingProfile to the template
+          successMessage: successMessage,    // Pass successMessage to the template
+          errorMessage: errorMessage         // Pass errorMessage to the template
+      });
   } catch (error) {
-    // Handle error if fetching data fails
-    console.error(error);
-    req.session.errorMessage = 'Failed to fetch candidate profile data.';
-    res.redirect('/candidate-dashboard-resume');
+      // Handle error if fetching data fails
+      console.error(error);
+      req.session.errorMessage = 'Failed to fetch shortlisted candidates.';
+      res.redirect('/candidate-dashboard-resume');
   }
 });
+
 
 router.get('/candidate-dashboard-applied-job', async (req, res) => {
   try {
@@ -1338,6 +1374,7 @@ const bodyP = require("body-parser");
 const compiler = require("compilex");
 const options = { stats: true };
 
+
 compiler.init(options);
 
 router.use(bodyP.json());
@@ -1346,6 +1383,192 @@ router.use(
   "/codemirror-5.65.16",
   express.static("C:/Users/hp/Desktop/js/codemirror")
 );
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const mongoose = require('mongoose');
+
+
+
+const MONGODB_URI = 'mongodb://localhost:27017/quizDB';
+
+mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(error => console.error('MongoDB connection error:', error));
+
+
+const quizSessionSchema = new mongoose.Schema({
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+  },
+  quizLink: String,
+  emails: [String], // Array of email addresses
+});
+
+const QuizSession = mongoose.model('QuizSession', quizSessionSchema);
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+    console.log('Connected to MongoDB');
+});
+
+router.get('/quiz-session-form', isLoggedIn, async (req, res) => {
+  try {
+      // Fetch quiz sessions associated with the current user
+      const quizSessions = await QuizSession.find({ user: req.user._id });
+
+      // Session messages for success and error
+      const successMessage = req.session.successMessage;
+      const errorMessage = req.session.errorMessage;
+
+      // Clear session variables to prevent them from appearing after a reload
+      req.session.successMessage = null;
+      req.session.errorMessage = null;
+
+      // Render the form page and pass quiz sessions and session variables
+      res.render('quizSessionForm', { path: "/quiz-session-form", quizSessions, successMessage, errorMessage });
+  } catch (err) {
+      console.error('Error fetching quiz sessions:', err);
+      // Handle the error appropriately, maybe render an error page or redirect to another route
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+router.get('/appti', isLoggedIn, async (req, res, next) => {
+  try {
+    // Retrieve the current user's email from the candidateProfileModel
+    const candidateProfile = await candidateProfileModel.findOne({ userId: req.user.id });
+
+    // Check if the candidate profile exists and has an email
+    if (candidateProfile && candidateProfile.email) {
+      // Fetch quiz sessions associated with the current user's email
+      const quizSessions = await QuizSession.find({ emails: candidateProfile.email });
+
+      // Render the 'appti' view and pass the filtered quiz sessions data
+      res.render('appti', { path: "/appti", quizSessions });
+    } else {
+      // If the candidate profile does not exist or does not have an email, handle the error
+      throw new Error("Candidate profile not found or does not have an email.");
+    }
+  } catch (error) {
+    next(error); // Pass any errors to the error handler middleware
+  }
+});
+
+
+// Define the route handler
+router.get('/apptitude/:quizLink', isLoggedIn, async (req, res) => {
+  try {
+    console.log("Quiz Link:", req.params.quizLink); // Check if quizLink parameter is correct
+
+    // Retrieve the current user's candidate profile
+    const candidateProfile = await candidateProfileModel.findOne({ userId: req.user.id });
+    console.log("Candidate Profile:", candidateProfile); // Check if candidateProfile is retrieved
+
+    // Check if the candidate profile exists and has an email
+    if (candidateProfile && candidateProfile.email) {
+      // Perform a findOne query to check if a document with the candidate's email exists in quiz sessions
+      const quizData = await QuizSession.findOne({ emails: candidateProfile.email, quizLink: req.params.quizLink });
+      console.log("Quiz Data:", quizData); // Check if quizData is retrieved
+
+      if (quizData) {
+        // If quizData exists, render the quiz page
+        res.render('apptitude', { quizData });
+      } else {
+        // If quizData does not exist, set a message in the session and redirect to the home page
+        res.redirect('no-apptitude');
+      }
+    } else {
+      // If the candidate profile does not exist or does not have an email, redirect to the home page
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+
+router.post('/quiz-session',isLoggedIn, async (req, res) => {
+  try {
+      // Find the user document based on the username stored in the session
+      const user = await userModel.findOne({ username: req.session.passport.user });
+
+      if (!user) {
+          return res.status(404).send('User not found');
+      }
+
+      const { quizLink, emails } = req.body;
+
+      console.log('Received data:', { quizLink, emails, userId: user._id });
+
+      // Create a new QuizSession instance
+      const quizSession = new QuizSession({
+          user: user._id, // Associate with the user's ID
+          quizLink,
+          emails: emails.split(',').map(email => email.trim())
+      });
+
+      // Save the QuizSession
+      await quizSession.save();
+
+      // Update the User to include the QuizSession
+      user.quizSessions.push(quizSession._id);
+      await user.save();
+
+       // Set success message in session variable
+       req.session.successMessage = 'Apptitute test saved successfully';
+
+       // Redirect back to the quiz session form page
+       res.redirect('/quiz-session-form');
+   } catch (error) {
+       console.error('Error saving apptitute test:', error);
+       
+       // Set error message in session variable
+       req.session.errorMessage = 'Error saving apptitute test to database';
+       
+       // Redirect back to the quiz session form page
+       res.redirect('/quiz-session-form');
+   }
+});
+
+router.post('/delete-quiz-session/:id', isLoggedIn, async (req, res) => {
+  try {
+      // Extract the quiz session ID from the request parameters
+      const { id } = req.params;
+
+      // Find and delete the quiz session by ID and user
+      const result = await QuizSession.findOneAndDelete({ _id: id, user: req.user._id });
+
+      // If quiz session is found and deleted
+      if (result) {
+          req.session.successMessage = 'Quiz session deleted successfully';
+      } else {
+          req.session.errorMessage = 'Quiz session not found or you do not have permission to delete it';
+      }
+
+      // Redirect back to the quiz session form page
+      res.redirect('/quiz-session-form');
+  } catch (err) {
+      console.error('Error deleting quiz session:', err);
+      // Handle the error appropriately, maybe render an error page or redirect to another route
+      req.session.errorMessage = 'An error occurred while deleting the quiz session';
+      res.redirect('/quiz-session-form');
+  }
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 router.get("/room", function (req, res, next) {
@@ -1371,49 +1594,7 @@ router.get("/chat", function (req, res, next) {
 router.get("/ide", function (req, res, next) {
   res.render("ide",{path: "/dashboard-coding-env"});
 });
-router.get('/quiz-session-form', (req, res) => {
-  res.render('quizSessionForm');
-});
 
-router.get('/apptitude', async (req, res) => {
-  try {
-      // Perform a findOne query to check if a document with the specified email exists
-      const quizData = await QuizSession.findOne({ emails:'dio@gmail.com' }); // Assuming the email is stored in req.user.email
-
-      if (quizData) {
-          // If quizData exists (i.e., a document with the specified email is found), render the quiz page
-          res.render('apptitude', { quizData });
-      } else {
-          // If quizData does not exist, set a message in the session and redirect to the home page
-          res.redirect('no-apptitude');
-      }
-  } catch (err) {
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-  }
-});
-
-
-router.post('/quiz-session', async (req, res) => {
-  const { quizLink, emails } = req.body;
-
-  // Split the comma-separated emails into an array
-  const emailArray = emails.split(',').map(email => email.trim());
-
-  const quizSession = new QuizSession({
-    quizLink,
-  
-    emails: emailArray // Store the array of emails
-  });
-
-  try {
-    await quizSession.save();
-    res.status(201).send('Quiz session saved successfully');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error saving quiz session to database');
-  }
-});
 
 router.post("/compilecode", function (req, res) {
   var code = req.body.code;
