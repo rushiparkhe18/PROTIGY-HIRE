@@ -18,7 +18,6 @@ ProdigyHire is a full-stack web application designed to revolutionize campus rec
 - **TailwindCSS** + **Bootstrap** for styling
 - **JWT**, **Passport.js** for secure authentication
 - **CodeMirror** + **CompileX** for code editor & compiler
-- **PDF2Text**, **xmldom** for resume parsing
 - **Multer** for file uploads
 
 ### 🗃️ Database
@@ -38,7 +37,6 @@ ProdigyHire is a full-stack web application designed to revolutionize campus rec
 - 👨‍🎓 Student & recruiter login system
 - 📝 Resume upload & parser integration
 - 💬 Real-time communication & scheduling
-- 📬 Automated email reminders (via `cron`)
 - 🎨 Interactive UI with TailwindCSS
 - 📦 Code compiler for candidate tests
 - 🧪 Skill-based assessments
